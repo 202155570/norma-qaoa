@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "norma-qaoa"
+version = "0.1.0"
+description = "NORMA QAOA asset-selection engine prototype (simulator only)"
+requires-python = ">=3.11"
+dependencies = [
+    "qiskit>=2.0,<3",
+    "qiskit-aer>=0.17",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "pydantic>=2",
+    # rustworkx 0.18.1's DLL is blocked by Windows Smart App Control on the dev machine.
+    "rustworkx<0.18",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+# Local Quantinuum emulator (H2-1LE). pytket-qiskit is intentionally not used:
+# it depends on qiskit-ibm-runtime.
+quantinuum = ["pytket>=2.17", "pytket-quantinuum[pecos]>=0.59"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: runs full QAOA jobs"]

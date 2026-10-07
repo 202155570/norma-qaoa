@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "request_id": "fixture-001",
+  "data": {
+    "snapshot_id": "fixture-20261001",
+    "as_of_utc": "2026-10-01T00:00:00Z",
+    "base_currency": "USD",
+    "source_kind": "synthetic_fixture",
+    "asset_ids": ["ETF_A", "ETF_B", "ETF_C", "ETF_D"],
+    "utility": [0.70, 0.62, 0.45, 0.50],
+    "covariance_annual": [
+      [0.040, 0.026, 0.003, 0.002],
+      [0.026, 0.050, 0.004, 0.003],
+      [0.003, 0.004, 0.010, 0.001],
+      [0.002, 0.003, 0.001, 0.008]
+    ],
+    "overlap": [[0,0.65,0,0], [0.65,0,0,0],
+                [0,0,0,0.15], [0,0,0.15,0]]
+  },
+  "constraints": {
+    "select_k": 2,
+    "must_include": ["ETF_D"], "must_exclude": []
+  },
+  "model": {
+    "version": "selection-v1-draft", "risk_scale": 0.05,
+    "weights": {"risk": 1.0, "overlap": 0.25, "utility": 0.4},
+    "penalties": {"cardinality": 4.0, "fixed": 4.0}
+  },
+  "execution": {
+    "mode": "quantum_circuit_simulator", "algorithm": "QAOA",
+    "depth": 1, "max_wall_seconds": 300,
+    "max_objective_evaluations": 60, "max_starts": 1,
+    "shots_per_circuit": 1024, "seed": 7,
+    "allow_qpu": false, "top_k": 5
+  }
+}
