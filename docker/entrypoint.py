@@ -22,9 +22,11 @@ Exit codes - a result file was produced iff the code is 0 or 1:
      12  input/output problem: request missing or unreadable, output not writable
      13  unexpected failure
 
-On any code >= 10 an error.json is written to the output directory instead of a
-result, carrying the same issue list the engine raises. Nothing is ever written
-to the output directory on code 12 when the directory itself is the problem.
+The output directory is cleared of result.json, manifest.json and error.json before
+the run starts, so whatever it holds afterwards belongs to this run and never to an
+earlier one. On any code >= 10 an error.json is written there instead of a result,
+carrying the same issue list the engine raises - except when the directory itself is
+what failed (code 12), where nothing can be written.
 """
 
 from __future__ import annotations
@@ -66,32 +68,41 @@ def _error_doc(code: str, message: str, issues: list[dict[str, Any]] | None = No
     }
 
 
-def run_one(in_dir: Path, out_dir: Path, *, attempt_id: str | None = None) -> int:
-    """Run the request in `in_dir` and write the artifacts to `out_dir`. Returns an exit code."""
-    accepted_at = time.time()  # the request is accepted the moment we can read it
+def run_one(in_dir: Path, out_dir: Path, *, attempt_id: str | None = None,
+            accepted_at: float | None = None) -> int:
+    """Run the request in `in_dir` and write the artifacts to `out_dir`. Returns an exit code.
 
-    request_path = in_dir / REQUEST_NAME
-    try:
-        raw = json.loads(request_path.read_text(encoding="utf-8"))
-    except FileNotFoundError:
-        print(f"no request at {request_path}", file=sys.stderr)
-        return EXIT_IO
-    except (OSError, json.JSONDecodeError) as exc:
-        try:
-            out_dir.mkdir(parents=True, exist_ok=True)
-            _write_json(out_dir / ERROR_NAME, _error_doc("UNREADABLE_REQUEST", f"{type(exc).__name__}: {exc}"))
-        except OSError:
-            pass
-        print(f"request at {request_path} is not readable JSON: {exc}", file=sys.stderr)
-        return EXIT_IO
-
+    `accepted_at` is the epoch second at which the caller accepted the request. Only the
+    caller knows it; left out, the queue wait measured here is this process's own startup,
+    which is not what the field means, so the caller should pass the real value.
+    """
+    # The output directory is prepared and cleared before anything else, so whatever it
+    # holds when this returns belongs to this run. Without the clearing step a rejected
+    # re-run into a directory that already held a result would leave that older
+    # result.json beside the new error.json, and a reader would take it for the current one.
     try:
         out_dir.mkdir(parents=True, exist_ok=True)
         probe = out_dir / ".write-probe"
         probe.write_text("", encoding="utf-8")
         probe.unlink()
+        for stale in (RESULT_NAME, MANIFEST_NAME, ERROR_NAME):
+            (out_dir / stale).unlink(missing_ok=True)
     except OSError as exc:
-        print(f"output directory {out_dir} is not writable: {exc}", file=sys.stderr)
+        print(f"output directory {out_dir} is not usable: {exc}", file=sys.stderr)
+        return EXIT_IO
+
+    accepted_at = accepted_at if accepted_at is not None else time.time()
+
+    request_path = in_dir / REQUEST_NAME
+    try:
+        raw = json.loads(request_path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        _write_json(out_dir / ERROR_NAME, _error_doc("REQUEST_NOT_FOUND", f"no request at {request_path}"))
+        print(f"no request at {request_path}", file=sys.stderr)
+        return EXIT_IO
+    except (OSError, json.JSONDecodeError) as exc:
+        _write_json(out_dir / ERROR_NAME, _error_doc("UNREADABLE_REQUEST", f"{type(exc).__name__}: {exc}"))
+        print(f"request at {request_path} is not readable JSON: {exc}", file=sys.stderr)
         return EXIT_IO
 
     # Imported here so that --help and an I/O failure do not pay for loading qiskit.
@@ -128,7 +139,6 @@ def run_one(in_dir: Path, out_dir: Path, *, attempt_id: str | None = None) -> in
 
     _write_json(out_dir / RESULT_NAME, out.result)
     _write_json(out_dir / MANIFEST_NAME, out.manifest)
-    (out_dir / ERROR_NAME).unlink(missing_ok=True)
 
     status = out.result["status"]
     print(
@@ -204,14 +214,27 @@ def main(argv: list[str] | None = None) -> int:
                         help="directory for result.json and manifest.json (default: /out, or NORMA_OUT_DIR)")
     parser.add_argument("--attempt-id", default=os.environ.get("NORMA_ATTEMPT_ID") or None,
                         help="identifier for this attempt; a retry of the same request uses a new one")
+    parser.add_argument("--accepted-at", default=os.environ.get("NORMA_ACCEPTED_AT") or None,
+                        help="epoch seconds at which the caller accepted the request; the manifest's "
+                             "queue wait is measured from it. Omitted, it is this process's own start, "
+                             "which measures container startup rather than queueing")
     parser.add_argument("--selftest", action="store_true",
                         help="run the bundled fixture end to end and verify the artifacts")
     args = parser.parse_args(argv)
 
     if args.selftest:
         return selftest()
+
+    accepted_at: float | None = None
+    if args.accepted_at:
+        try:
+            accepted_at = float(args.accepted_at)
+        except ValueError:
+            print(f"--accepted-at must be epoch seconds, got {args.accepted_at!r}", file=sys.stderr)
+            return EXIT_IO
+
     attempt_id = args.attempt_id or f"attempt-{uuid.uuid4()}"
-    return run_one(Path(args.in_dir), Path(args.out_dir), attempt_id=attempt_id)
+    return run_one(Path(args.in_dir), Path(args.out_dir), attempt_id=attempt_id, accepted_at=accepted_at)
 
 
 if __name__ == "__main__":

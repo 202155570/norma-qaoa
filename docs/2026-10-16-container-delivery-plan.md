@@ -33,4 +33,8 @@ U2·U3·U5의 오라클 스크립트(`docker/entrypoint.py --selftest`, `scripts
 - 2026-10-16 13:51 승인: "어 이렇게 진행해줘."
 - 2026-10-16 13:5x 포인터 생성 실패 — Amber 플러그인의 Windows 경로 비교 버그(`lib/contract.cjs:26`). `git rev-parse --show-toplevel`이 슬래시 경로를, `path.resolve`가 역슬래시 경로를 돌려주어 `startsWith(root + path.sep)`가 항상 거짓. 어떤 boundary 값으로도 통과 불가. 포인터를 제거해 Bash 차단을 해제하고 운영자 판단 대기.
 - 2026-10-16 운영자 결정: Amber 기계적 강제 없이 진행. 이 계약과 계획을 지침으로 삼고 완료 조건·금지 항목·단위 순서는 수동으로 지킨다. 단위 전환은 이 로그에 기록한다.
-- 2026-10-16 U1 시작.
+- 2026-10-16 U1 완료 — manifest에 `attempt_id`, `container`, `resources`, `queue_wait_ms` 추가. 오라클: `pytest tests/test_manifest.py -q` 10 passed (신규 5개 포함). 전체 158 passed (기존 153 + 5).
+- 2026-10-16 U2 완료 — `docker/entrypoint.py`, `Dockerfile`, `.dockerignore`, `scripts/build_image.sh`. 오라클: `entrypoint.py --selftest` 9개 검사 전부 ok. 추가 확인: 잘못된 요청 → exit 10 + error.json, 요청 파일 없음 → exit 12, 예산 부족 → exit 11. Dockerfile의 sed가 pyproject 핀을 치환하는 것과 원본이 바뀌지 않는 것 확인.
+- 2026-10-16 U3 완료 — `docs/schema/{request,result}.schema.json`을 pydantic 모델에서 생성, `scripts/check_schema.py`가 재생성 대조 + fixture/result 검증. 오라클 통과. `docs/io-contract.md` 작성.
+- 2026-10-16 U4 완료 — `docs/container-operations.md` 작성. 문서의 수치는 전부 소스 대조: 한도 상수는 `schema.py`, 예산 산술은 `Budget.plan`, 상태 규칙은 `decide_status`, 오류 코드는 `errors.py`/엔트리포인트 실측. 오라클: 전체 158 passed.
+- 2026-10-16 U1–U4를 6610fb0으로 커밋. U5 독립 검토 시작 (신선한 서브에이전트, read-only).

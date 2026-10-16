@@ -35,7 +35,18 @@
 남은 10회를 COBYLA가 쓴다 (60 − 49 − 1 = 10). manifest의 `budget`에 실제 배분이 기록된다.
 
 > `max_objective_evaluations`를 그리드 + 1보다 작게 주면 실행 전에 `ConfigError`로 거부된다
-> (종료 코드 11). 작은 예산으로 돌리려면 엔진 설정의 `grid_size`를 함께 낮춰야 한다.
+> (종료 코드 11). 기본 설정에서 **실질 하한은 50**이다.
+>
+> 더 작은 예산으로 돌리려면 엔진 설정의 `grid_size`를 함께 낮춰야 하고, 그러려면 설정 파일을
+> 컨테이너 안에 넣고 `NORMA_CONFIG`로 가리켜야 한다:
+>
+> ```bash
+> echo '{"grid_size": 4}' > conf/engine.json     # 그리드 16 + 최종 1 → 하한 17
+> docker run --rm \
+>   -v "$PWD/job:/in:ro" -v "$PWD/out:/out" -v "$PWD/conf:/conf:ro" \
+>   -e NORMA_CONFIG=/conf/engine.json \
+>   norma-qaoa:0.1.0
+> ```
 
 ### 시간 한도가 작동하는 방식
 
@@ -66,8 +77,14 @@ docker stop <container>     # SIGTERM 후 유예시간이 지나면 SIGKILL
 docker kill <container>     # 즉시 SIGKILL
 ```
 
-**알아 두어야 할 동작**: 엔트리포인트는 작업이 **끝난 뒤에** `result.json`과 `manifest.json`을 쓴다.
-중간에 죽이면 **출력 디렉터리는 비어 있다.** 부분 결과는 남지 않는다.
+**알아 두어야 할 동작 두 가지.**
+
+1. 엔트리포인트는 작업이 **끝난 뒤에** `result.json`과 `manifest.json`을 쓴다.
+   중간에 죽이면 이번 실행의 산출물은 **하나도 생기지 않는다.** 부분 결과는 남지 않는다.
+2. 엔트리포인트는 시작할 때 출력 디렉터리의 `result.json`·`manifest.json`·`error.json`을 **먼저 지운다.**
+   따라서 실행이 끝났을 때 그 디렉터리에 있는 것은 이번 실행의 것이다.
+   **다만 중간에 죽이면 지우기까지만 끝난 상태로 남을 수 있다** — 즉 디렉터리가 빈 채로 남는다.
+   이전 결과를 보존해야 한다면 실행마다 **출력 디렉터리를 따로 주어야 한다.**
 
 그래서 취소에는 두 가지 선택지가 있다.
 
@@ -119,6 +136,7 @@ docker run --rm -e NORMA_ATTEMPT_ID="req-001-attempt-2" ...
 | `stop_reason` | 재시도 | 설명 |
 |---|---|---|
 | `NO_FEASIBLE_SAMPLE` | **조건부** | 표본에서 가해 조합이 안 나왔다. `shots_per_circuit`이나 `seed`를 바꿔 한 번 더 해볼 수 있다. 단 `proven_infeasible = true`면 제약 자체가 불가능하다는 뜻이므로 **재시도 금지**, 제약을 고쳐야 한다 |
+| `TIME_LIMIT` | **조건부** | 시간 한도 안에 가해 후보를 하나도 못 찾았다(후보가 1개 이상이면 PARTIAL이다). `max_wall_seconds`를 올려 **새 요청**으로 보낸다. 같은 한도로 재시도하면 같은 결과다 |
 | `SIMULATOR_ERROR` | 1회 | 회로 준비·실행 실패. `manifest.error`에 사유가 있다. 같은 사유로 두 번 실패하면 노르마에 전달한다 |
 
 **자동 재시도는 최대 1회로 제한하기를 권한다** (스펙 17쪽). 같은 실패가 반복되면 그건 재시도로
@@ -136,10 +154,13 @@ docker run --rm -e NORMA_ATTEMPT_ID="req-001-attempt-2" ...
 | 1 | 결과 생성. `status = FAILED` (쓸 수 있는 후보 없음) | `result.json`, `manifest.json` |
 | 10 | 요청 거부 — 스키마·차원·버전·제약 충돌 | `error.json` |
 | 11 | 설정 또는 정책이 거부 | `error.json` |
-| 12 | 입출력 문제 — 요청 없음/읽기 실패, 출력 쓰기 실패 | 가능하면 `error.json`, 출력 자체가 막혔으면 없음 |
+| 12 | 입출력 문제 — 요청 없음/읽기 실패, 출력 디렉터리 사용 불가 | `error.json`. **단 출력 디렉터리 자체가 막혔으면 아무것도 없고 stderr만 남는다** |
 | 13 | 예상치 못한 실패 | `error.json` (traceback 포함) |
 
 **0과 1에서만 결과 파일이 생긴다.** 나머지는 `error.json`만 본다.
+`error.json`은 요청 거부뿐 아니라 **12·13에서도 쓰인다** — 즉 "`error.json`이 있다"는 것은
+"요청이 잘못됐다"가 아니라 "결과가 없다"는 뜻이다. 원인은 `error` 필드로 구분한다:
+`INVALID_REQUEST` / `REFUSED` / `REQUEST_NOT_FOUND` / `UNREADABLE_REQUEST` / `UNEXPECTED`.
 
 ### 스펙 8쪽 HTTP 코드와의 대응
 
@@ -188,6 +209,10 @@ docker run --rm -e NORMA_ATTEMPT_ID="req-001-attempt-2" ...
 ---
 
 ## 5. 점검 절차
+
+> ⚠️ **이 이미지는 납품 시점까지 한 번도 빌드된 적이 없다.** 작성 환경에 Docker가 없었다.
+> 아래 1번(자체 점검)이 **처음으로 이미지를 실제로 돌려 보는 지점**이며, 그 전에 `docker build`가
+> 실패할 가능성이 남아 있다. 빌드 오류가 나면 노르마에 전달한다.
 
 이미지를 처음 받았을 때와 업데이트할 때마다 아래를 돌린다.
 

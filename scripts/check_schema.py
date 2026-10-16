@@ -92,10 +92,13 @@ def main(argv: list[str] | None = None) -> int:
                 "model_version", "asset_order", "candidates", "execution", "artifact_manifest_id",
                 "proven_infeasible"}
     missing = spec_top - set(out.result)
+    extra = set(out.result) - spec_top
     if missing:
         failures.append(f"result is missing spec p.12 fields: {sorted(missing)}")
-    else:
-        print("  [ok] every field of the spec's result example is present")
+    if extra:
+        failures.append(f"result carries fields the spec's example does not: {sorted(extra)}")
+    if not missing and not extra:
+        print("  [ok] result top level matches the spec's example exactly (no missing, no extra)")
 
     for f in failures:
         print(f"  [FAIL] {f}", file=sys.stderr)

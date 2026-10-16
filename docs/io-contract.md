@@ -13,6 +13,10 @@
 스키마 파일은 엔진이 실제로 검증에 쓰는 pydantic 모델에서 생성된다. `scripts/check_schema.py`가
 모델에서 재생성해 커밋본과 바이트 단위로 대조하므로, 명세가 구현과 어긋난 채로 남을 수 없다.
 
+> ⚠️ **이미지는 아직 한 번도 빌드되지 않았다.** 작성 환경에 Docker가 없어 `docker build`를 돌릴 수 없었다.
+> 검증된 것은 엔트리포인트 로직(로컬 실행), Dockerfile의 정적 점검(COPY 대상 존재, `sed` 치환 동작),
+> 그리고 스키마·테스트다. **첫 빌드는 받는 쪽에서 돌려 보아야 하며, 빌드 오류가 남아 있을 수 있다.**
+
 > **OpenAPI를 포함하지 않는 이유.** 스펙 8쪽의 4개 HTTP 엔드포인트는 구현되지 않았다.
 > 컨테이너 납품에는 서버가 없으므로, 존재하지 않는 엔드포인트의 OpenAPI 문서를 내면 있는 것처럼 읽힌다.
 > 입출력 JSON 자체는 스펙 8쪽 계약과 동일하므로, 나중에 API로 전환하면 이 스키마를 그대로 감싸면 된다.
@@ -42,8 +46,23 @@ docker run --rm \
 | `/out/manifest.json` | 실행 manifest |
 | `/out/error.json` | 요청이 거부됐을 때만 생성. 결과가 나오면 삭제된다 |
 
-마운트 경로는 `NORMA_IN_DIR` / `NORMA_OUT_DIR`로 바꿀 수 있다.
+출력 디렉터리는 실행 시작 시 `result.json`·`manifest.json`·`error.json`이 **지워진다.**
+끝났을 때 거기 있는 것은 이번 실행의 산출물이다. 이전 실행 결과를 보존하려면 실행마다 다른 디렉터리를 준다.
+
 이미지 자체 점검은 `docker run --rm norma-qaoa:0.1.0 --selftest`.
+
+### 환경변수
+
+| 변수 | 기본값 | 쓰임 |
+|---|---|---|
+| `NORMA_IN_DIR` | `/in` | 요청 디렉터리 |
+| `NORMA_OUT_DIR` | `/out` | 출력 디렉터리 |
+| `NORMA_CONFIG` | 없음 | 엔진 설정 JSON 경로. **설정 파일을 쓰려면 그 파일도 컨테이너에 마운트해야 한다** |
+| `NORMA_ATTEMPT_ID` | 자동 생성 | 이 시도의 식별자 |
+| `NORMA_ACCEPTED_AT` | 없음 | 호출자가 요청을 수락한 epoch 초. manifest의 `queue_wait_ms`를 여기서부터 잰다 |
+| `NORMA_IMAGE_REF` / `NORMA_IMAGE_DIGEST` / `NORMA_IMAGE_BUILT_UTC` | 없음 | manifest의 `container.*` |
+
+`--in`, `--out`, `--attempt-id`, `--accepted-at`는 같은 값을 명령행으로도 받는다.
 
 **`NORMA_IMAGE_DIGEST`를 넘겨야 하는 이유**: 프로세스는 자기 이미지의 digest를 읽을 수 없다.
 넘기지 않으면 manifest의 `container.image_digest`가 `null`이 되고, 스펙 19쪽이 요구하는
@@ -88,10 +107,17 @@ G(x) = a·risk(x) + b·overlap(x) − d·utility(x)          (a,b,d = weights.ri
 P(x) = Lk·(Σx − K)² + Lf·Σ_include(1−x_i) + Lf·Σ_exclude x_i
 F(x) = G(x) + P(x)                                       (엔진이 최소화하는 값)
 
+C          = covariance_annual / risk_scale              ← 재검산 시 빠뜨리기 쉬운 항
 risk(x)    = xᵀ C x / K²
 overlap(x) = 2·Σ_{i<j} O_ij x_i x_j / (K(K−1))           (K=1이면 0)
 utility(x) = Σ u_i x_i / K
 ```
+
+> **`risk_scale`은 단순한 범위 제약이 아니라 공분산의 나눗수다.** 공분산 행렬은 `risk_scale`로
+> 나눈 뒤에 쓰인다 (`src/norma_qaoa/problem.py:15,43`). 이 나눗셈을 빼고 재검산하면 모든 후보에서
+> `objective_base`가 어긋난다. `synthetic_12_6`의 최적 후보
+> (`SYN_01·03·05·07·08·10`, `risk_scale = 0.05`) 기준으로 올바른 값은 **−0.135053**이고,
+> 나눗셈을 빠뜨리면 **−0.196594**가 나온다.
 
 `weights`와 `penalties`의 모든 값은 유한하고 0 이상이어야 한다. `risk_scale`은 유한하고 0보다 커야 한다.
 
@@ -108,7 +134,7 @@ utility(x) = Σ u_i x_i / K
 | `algorithm` | `"QAOA"` | 다른 값은 거부 |
 | `depth` | ≥ 1 | **2 이상은 엔진 설정 `allow_depth_gt_1`이 켜져야 한다** (기본 꺼짐) |
 | `max_wall_seconds` | 0 < s ≤ **300** | |
-| `max_objective_evaluations` | 1 ~ **60** | 그리드 + COBYLA + 최종 샘플링 합계 |
+| `max_objective_evaluations` | 1 ~ **60** | 그리드 + COBYLA + 최종 샘플링 합계. **실질 하한이 따로 있다**: 기본 설정(`grid_size=7`)에서 그리드 49 + 최종 1을 먼저 예약하므로 **50 미만이면 `ConfigError`로 거부**된다(종료 코드 11). 더 낮추려면 엔진 설정의 `grid_size`를 함께 낮춘다 |
 | `max_starts` | **정확히 1** | 1이 아니면 거부 |
 | `shots_per_circuit` | 1 ~ **1024** | |
 | `seed` | ≥ 0 | |
@@ -142,6 +168,7 @@ utility(x) = Σ u_i x_i / K
 | `PARTIAL` | `TOP_K_NOT_REACHED` | 유효 후보는 있으나 `top_k` 미달 |
 | `PARTIAL` | `TIME_LIMIT` | 시간 한도로 종료. 후보가 `top_k`개 있어도 PARTIAL이다 (스펙 5쪽) |
 | `FAILED` | `NO_FEASIBLE_SAMPLE` | 유효 후보 0개 |
+| `FAILED` | `TIME_LIMIT` | 시간 한도로 종료했고 유효 후보도 0개 |
 | `FAILED` | `SIMULATOR_ERROR` | 회로 준비·실행 실패. `manifest.error`에 사유 |
 
 ### candidate
@@ -185,8 +212,11 @@ utility(x) = Σ u_i x_i / K
 - `max_rss_bytes` — **프로세스 전체의 최고점**이지 이 작업만의 값이 아니다. OS가 구간값을 주지 않는다.
   POSIX 전용이라 Windows에서는 `null`
 - `gpu` — **항상 `null`**. 시뮬레이터는 CPU로 돌며 표준 라이브러리로는 GPU를 관측할 수 없다
-- `queue_wait_ms` — 요청 수락 시각부터 계산 시작까지. 호출자가 알려주지 않으면 `null`이며,
-  **추측해서 0을 넣지 않는다**
+- `queue_wait_ms` — 요청 수락 시각부터 계산 시작까지. **호출자가 `NORMA_ACCEPTED_AT`으로 넘겨야
+  의미 있는 값이 된다.** 넘기지 않으면 컨테이너가 요청 파일을 연 시각을 기준으로 재므로
+  사실상 **컨테이너 기동 시간**이지 큐 대기 시간이 아니다. 대기 시간을 집계할 거면 반드시 넘긴다
+- `resources`의 **키 구성은 플랫폼에 따라 다르다.** POSIX에서는 `cpu_user_seconds`·`cpu_system_seconds`·
+  `max_rss_bytes`가 채워지고, Windows에서는 그 값들이 `null`이며 `max_rss_note`가 추가로 붙는다
 
 ### 재현성의 의미
 
@@ -207,6 +237,7 @@ JSON Schema는 **모양**만 규정한다. 아래는 스키마를 통과해도 �
 | 코드 | 조건 |
 |---|---|
 | `UNSUPPORTED_SCHEMA_VERSION` | `schema_version`이 `1.0`이 아님 |
+| `EMPTY` | `asset_ids`가 빈 배열. 스키마는 길이를 보지 않으므로 여기서 걸린다 |
 | `TOO_MANY_ASSETS` | N > 16 |
 | `DUPLICATE_ID` / `EMPTY_ID` | `asset_ids` 중복 또는 빈 문자열 |
 | `DIMENSION_MISMATCH` | 벡터·행렬 크기가 N과 다름 |
