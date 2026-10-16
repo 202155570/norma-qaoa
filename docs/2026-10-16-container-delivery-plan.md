@@ -12,12 +12,12 @@ U1이 먼저인 이유: 엔트리포인트가 컨테이너 digest를 manifest에
 
 ## Work units
 
-- [ ] U1 manifest 보강 — attempt_id·digest·자원사용량·대기시간 [unit: U1 scope=src/norma_qaoa/**,tests/** oracle=.venv/Scripts/python.exe -m pytest tests/test_manifest.py -q]
-- [ ] U2 컨테이너 패키징 — Dockerfile·엔트리포인트·빌드 스크립트 [unit: U2 scope=Dockerfile,.dockerignore,docker/**,scripts/** after=U1 oracle=.venv/Scripts/python.exe docker/entrypoint.py --selftest]
-- [ ] U3 입출력 명세 — JSON Schema + 계약 문서 [unit: U3 scope=docs/**,scripts/** after=U1 oracle=.venv/Scripts/python.exe scripts/check_schema.py]
-- [ ] U4 운영 가이드 — 한도·취소·재시도·오류 처리 [unit: U4 scope=docs/** after=U2,U3 oracle=.venv/Scripts/python.exe -m pytest tests/ -q]
-- [ ] U5 독립 검토 — 신선한 서브에이전트, read-only [unit: U5 scope=docs/** after=U1,U2,U3,U4 oracle=.venv/Scripts/python.exe scripts/check_review.py docs/2026-10-16-container-delivery-review.md]
-- [ ] U6 통합 점검 — main checkout 전체 테스트 + fixture 왕복 [unit: U6 scope=docs/** after=U5 oracle=.venv/Scripts/python.exe -m pytest -q]
+- [x] U1 manifest 보강 — attempt_id·digest·자원사용량·대기시간 [unit: U1 scope=src/norma_qaoa/**,tests/** oracle=.venv/Scripts/python.exe -m pytest tests/test_manifest.py -q]
+- [x] U2 컨테이너 패키징 — Dockerfile·엔트리포인트·빌드 스크립트 [unit: U2 scope=Dockerfile,.dockerignore,docker/**,scripts/** after=U1 oracle=.venv/Scripts/python.exe docker/entrypoint.py --selftest]
+- [x] U3 입출력 명세 — JSON Schema + 계약 문서 [unit: U3 scope=docs/**,scripts/** after=U1 oracle=.venv/Scripts/python.exe scripts/check_schema.py]
+- [x] U4 운영 가이드 — 한도·취소·재시도·오류 처리 [unit: U4 scope=docs/** after=U2,U3 oracle=.venv/Scripts/python.exe -m pytest tests/ -q]
+- [x] U5 독립 검토 — 신선한 서브에이전트, read-only [unit: U5 scope=docs/** after=U1,U2,U3,U4 oracle=.venv/Scripts/python.exe scripts/check_review.py docs/2026-10-16-container-delivery-review.md]
+- [x] U6 통합 점검 — main checkout 전체 테스트 + fixture 왕복 [unit: U6 scope=docs/** after=U5 oracle=.venv/Scripts/python.exe -m pytest -q]
 
 U2·U3·U5의 오라클 스크립트(`docker/entrypoint.py --selftest`, `scripts/check_schema.py`, `scripts/check_review.py`)는 해당 단위에서 함께 만든다. 각 스크립트는 실패 시 0이 아닌 종료 코드를 낸다.
 
@@ -38,3 +38,7 @@ U2·U3·U5의 오라클 스크립트(`docker/entrypoint.py --selftest`, `scripts
 - 2026-10-16 U3 완료 — `docs/schema/{request,result}.schema.json`을 pydantic 모델에서 생성, `scripts/check_schema.py`가 재생성 대조 + fixture/result 검증. 오라클 통과. `docs/io-contract.md` 작성.
 - 2026-10-16 U4 완료 — `docs/container-operations.md` 작성. 문서의 수치는 전부 소스 대조: 한도 상수는 `schema.py`, 예산 산술은 `Budget.plan`, 상태 규칙은 `decide_status`, 오류 코드는 `errors.py`/엔트리포인트 실측. 오라클: 전체 158 passed.
 - 2026-10-16 U1–U4를 6610fb0으로 커밋. U5 독립 검토 시작 (신선한 서브에이전트, read-only).
+- 2026-10-16 U5 1차 검토: **FAIL** — 11건(MUST-FIX 2, SHOULD-FIX 5, NOTE 4). MUST-FIX 둘 다 실재: F1 `risk_scale` 나눗수 누락으로 재검산 불가, F2 출력 디렉터리 미삭제로 낡은 결과 잔존. 전부 수정 후 16a7eba 커밋.
+- 2026-10-16 U5 재검토: **PASS WITH FIXES** — MUST-FIX 2건 닫힘. 신규 SHOULD-FIX 2건(F12 문서 자기모순, F13 F8 수정이 F2 실패모드를 좁은 경로로 재개방). 둘 다 수정, 회귀 테스트 추가. 13건 전원 처분 기록.
+- 2026-10-16 U6 통합 점검 통과 — 테스트 167 passed, selftest OK, check_schema OK, check_review OK, F13 재현 시 낡은 산출물 제거 확인, fixture 왕복에서 신규 manifest 4필드 실값 확인.
+- 2026-10-16 런 종료. 이미지 빌드는 끝까지 미검증(이 머신에 docker 없음).

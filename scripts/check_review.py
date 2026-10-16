@@ -31,7 +31,12 @@ def main(argv: list[str]) -> int:
 
     failures: list[str] = []
 
-    verdict_line = next((l for l in text.splitlines() if l.strip().startswith("Verdict:")), None)
+    # A re-review appends a new verdict rather than editing the old one, so the verdict in
+    # force is the last one in the file, not the first.
+    verdict_lines = [l for l in text.splitlines() if l.strip().startswith("Verdict:")]
+    verdict_line = verdict_lines[-1] if verdict_lines else None
+    if len(verdict_lines) > 1:
+        print(f"  [ok] {len(verdict_lines)} verdicts; the last one is in force")
     if verdict_line is None:
         failures.append("no 'Verdict:' line")
         verdict = None

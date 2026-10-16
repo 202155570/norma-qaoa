@@ -34,6 +34,22 @@ Verdict: FAIL
 
 ## Dispositions
 
+작성자가 채운다. MUST-FIX는 검토자가 재확인한 수정으로만 처분된다.
+
+- F1: applied in 16a7eba - re-checked PASS by aaa4b476 on 2026-10-16. 문서의 수치는 검토자 값이 아니라 작성자가 재계산한 값(최적 후보 기준 −0.135053 / −0.196594)을 쓴다. 재검토에서 두 값 모두 재현되며 후보가 달랐을 뿐임이 확인됐고, 최적 후보 쪽이 예시로 더 낫다는 데 합의
+- F2: applied in 16a7eba - re-checked PASS by aaa4b476 on 2026-10-16. 출력 디렉터리를 실행 시작 시 비운다. `tests/test_container_entrypoint.py::test_rejected_rerun_does_not_leave_the_previous_result`가 회귀를 막는다
+- F3: applied in 16a7eba - 요청 파일 없음도 `error.json`(`REQUEST_NOT_FOUND`)을 쓴다. 재검토에서 재현 확인
+- F4: applied in 16a7eba - `(FAILED, TIME_LIMIT)`를 두 상태표에 추가하고 재시도 지침을 달았다
+- F5: applied in 16a7eba - `EMPTY`를 검증 코드 목록에 추가
+- F6: applied in 16a7eba - `NORMA_CONFIG`와 설정 파일 마운트를 환경변수 표와 실행 예시로 문서화. 재검토에서 `grid_size=4` → 하한 17 산술 확인
+- F7: applied in 16a7eba - `scripts/check_schema.py`가 누락뿐 아니라 초과 필드도 검사한다
+- F8: applied in 16a7eba - `NORMA_ACCEPTED_AT` / `--accepted-at` 추가. 넘기지 않으면 무엇을 재는지 문서에 명시
+- F9: applied in 16a7eba and 당 커밋 - 전반부(종료 코드 12·13에서도 `error.json`)는 16a7eba에서, 후반부(`io-contract.md`의 모순된 행)는 F12로 재지적되어 당 커밋에서 처리
+- F10: applied in 16a7eba - `max_objective_evaluations`의 실질 하한 50을 문서화
+- F11: applied in 16a7eba - 두 납품 문서 상단에 "이미지가 한 번도 빌드되지 않았다"를 경고로 명시. `manifest.resources`의 플랫폼별 키 차이도 문서화
+- F12: applied in 당 커밋 - `io-contract.md`의 `error.json` 행을 "결과가 나오지 않았을 때 생성"으로 고쳐 같은 페이지의 설명과 일치시켰다
+- F13: applied in 당 커밋 - `accepted_at` 파싱을 `run_one` 안쪽, 출력 디렉터리를 비운 뒤로 옮겼다. 잘못된 값도 이제 비우기를 거치고 `error.json`(`BAD_ACCEPTED_AT`)을 남긴다. 검토자가 지적한 argparse 경로 미커버도 해소 — `test_bad_accepted_at_still_clears_and_reports`가 `main()`을 직접 호출한다
+
 ## What this review did not check
 
 - **이미지 빌드·실행**: 이 머신에 docker가 없다. 계약이 명시적으로 범위 밖에 둔 항목이므로 발견으로 올리지 않았다. `.dockerignore`의 재포함 동작과 `sed` 일치 여부는 정적으로(그리고 `sed`는 복사본에 실제로 적용해) 확인했을 뿐, `docker build`가 통과한다는 보장은 아니다. 베이스 이미지 digest 핀, `pip install .`이 리눅스에서 `rustworkx>=0.18`을 실제로 해결하는지, 비루트 UID 10001로 `/out`에 쓸 수 있는지는 전부 미검증이다.
@@ -43,3 +59,35 @@ Verdict: FAIL
 - **알고리즘 정확성**: QAOA·QUBO·Ising 변환·후보 생성 로직 자체는 검토 대상이 아니다. `objective.py`는 F1을 확인하기 위해서만 읽었다.
 - **실제 취소 실험**: 실행 중인 엔트리포인트에 신호를 보내 죽여 보지는 않았다. F2는 "결과 기록 지점이 `:129-131` 하나뿐"이라는 코드 사실과, 출력 디렉터리를 재사용했을 때 이전 회차 산출물이 남는다는 실측 재현으로 뒷받침했다.
 - **금지 항목**: `pyproject.toml`의 `[project] dependencies`가 늘지 않았고 `rustworkx<0.18` 핀이 그대로임은 확인했으나, 금지 행 전체(측정 수치 불변 등)를 체계적으로 감사하지는 않았다. 계약의 완료 조건만 판단했다.
+
+## Re-review 2026-10-16
+
+Reviewed commit: 16a7ebaccd4f233ee8651a333d037f21dc333899
+Verdict: PASS WITH FIXES
+
+Reviewer: Claude Code on win32, model claude-opus-5, read-only (this file is the only write), started 2026-10-16 14:30. Re-ran every oracle myself at this commit: `.venv/Scripts/python.exe -m pytest -q` → **165 passed in 45.28s** (158 + the 7 new `tests/test_container_entrypoint.py`), `docker/entrypoint.py --selftest` → `selftest: OK`, EXIT=0, `scripts/check_schema.py` → EXIT=0 with the new line `[ok] result top level matches the spec's example exactly (no missing, no extra)`. Re-ran the F1 recomputation on two bit vectors, the F2 stale-output scenario, the F3 missing-request scenario, and the new `--accepted-at` path. Working tree is clean at 16a7eba.
+
+두 MUST-FIX는 모두 닫혔다. 새 발견 2건은 SHOULD-FIX이고 둘 다 작은 표면이지만 하나(F13)는 F2의 실패 양상을 좁은 경로로 되살린다.
+
+| Finding | Re-check | Evidence |
+| --- | --- | --- |
+| F1 | fixed | `docs/io-contract.md:110`에 `C = covariance_annual / risk_scale`이 공식 블록 안에 들어갔고, `:116-120`의 콜아웃이 나눗수임을 명시하며 `src/norma_qaoa/problem.py:15,43`을 인용한다. **수치 분쟁은 둘 다 맞다 — 서로 다른 후보다.** 내 원래 수치는 `x = [1]*6+[0]*6`(`SYN_01…SYN_06`, 원 발견에 "앞의 6개 자산"으로 명시)에 대한 것이고 지금도 그대로 재현된다: 엔진 `0.12379071111111106`, 나눗셈 누락 `-0.16113713111111114`. 작성자 수치는 알려진 최적 후보 `[1,0,1,0,1,0,1,1,0,1,0,0]`(`SYN_01·03·05·07·08·10`)에 대한 것이고 역시 재현된다: 엔진 `-0.1350530888888889` → **−0.135053**, 나눗셈 누락 `-0.1965943211111111` → **−0.196594**. 문서에 실린 수치는 작성자 것이며 정확하다. 새 MUST-FIX 없음 — 오히려 임의의 후보보다 최적 후보를 예로 든 것이 낫다 |
+| F2 | fixed | `docker/entrypoint.py:83-92`가 실행 맨 앞에서 `result.json`·`manifest.json`·`error.json`을 지우고, 결과 기록 뒤의 `unlink`는 제거됐다. 재현(원래 시나리오 그대로): 1회차 정상 실행 → `manifest.json result.json`, 같은 `--out`으로 거부되는 2회차 → `EXIT=10`, 디렉터리에 `error.json` **하나만**. 이전 회차 산출물은 사라졌다. `tests/test_container_entrypoint.py:52-63`이 이 보장을 테스트로 고정했다 |
+| F3 | fixed | 요청 파일이 없을 때 `docker/entrypoint.py:99-100`이 `error.json`을 쓴다. 실측: `EXIT=12`, `{"error": "REQUEST_NOT_FOUND", "message": "no request at …\\in\\request.json", "issues": [], "engine": "norma-qaoa", …}`. 모듈 docstring(`:25-29`)도 실제 동작에 맞게 다시 쓰였다. `tests/…:74-78`이 고정 |
+| F4 | fixed | `docs/io-contract.md:171`에 `FAILED` + `TIME_LIMIT` 행 추가, `docs/container-operations.md:139`에 같은 조합의 재시도 지침 추가("`max_wall_seconds`를 올려 새 요청으로"). `src/norma_qaoa/candidates.py:117-119`와 일치 |
+| F5 | fixed | `docs/io-contract.md:240`에 `EMPTY` 행 추가, 스키마가 길이를 보지 않는다는 사유까지 적혔다 |
+| F6 | fixed | `docs/io-contract.md:54-65`에 환경변수 표가 생겨 `NORMA_CONFIG`가 "설정 파일도 마운트해야 한다"와 함께 실리고, `docs/container-operations.md:38-49`에 `-v "$PWD/conf:/conf:ro" -e NORMA_CONFIG=/conf/engine.json` 워크드 예제가 들어갔다. 예제의 산술도 확인했다: `grid_size=4`면 `Budget.plan(17)` → `{grid_points: 16, cobyla_max_evaluations: 0}`로 통과하고 `Budget.plan(16)` → `ConfigError: … smaller than grid 16 + final sampling 1`. 문서가 말한 "하한 17"이 맞다 |
+| F7 | fixed | `scripts/check_schema.py:94-101`이 `extra = set(out.result) - spec_top`를 계산해 실패로 올린다. 실행 출력이 바뀐 것을 확인: `[ok] result top level matches the spec's example exactly (no missing, no extra)` |
+| F8 | fixed | `--accepted-at` / `NORMA_ACCEPTED_AT` 추가(`docker/entrypoint.py:217-220`, `:228-234`). 실측: `--accepted-at $(now-120)`으로 실행하니 `queue_wait_ms = 123453`(수락 시각부터 계산 시작까지, 기동 3.4초 포함)이고, 넘기지 않으면 기동 시간을 잰다는 한계가 `docs/io-contract.md:215-217`과 `entrypoint.py:75-77`에 명시됐다. `tests/…:95-101`이 고정. 다만 이 수정이 F13을 만들었다 |
+| F9 | partly fixed | 운영 가이드 쪽은 고쳐졌다 — `docs/container-operations.md:161-163`이 `error.json`은 12·13에서도 쓰이며 원인은 `error` 필드(`INVALID_REQUEST`/`REFUSED`/`REQUEST_NOT_FOUND`/`UNREADABLE_REQUEST`/`UNEXPECTED`)로 구분한다고 적는다. `max_objective_evaluations`의 실질 하한 50도 `docs/io-contract.md:137`과 `container-operations.md:37-38` 양쪽에 들어갔다. 남은 절반은 `docs/io-contract.md:47` — 아래 F12 |
+| F10 | fixed | `docs/io-contract.md:218-219`가 `resources`의 키 구성이 플랫폼마다 다르다고 적고 Windows에서 `max_rss_note`가 추가된다는 것까지 밝힌다. 실측 manifest의 키 집합과 일치: `cpu_seconds, cpu_system_seconds, cpu_user_seconds, gpu, gpu_note, max_rss_bytes, max_rss_note, max_rss_scope, source` |
+| F11 | fixed | `docs/io-contract.md:16-18`과 `docs/container-operations.md:213-215`가 각각 "이미지는 아직 한 번도 빌드되지 않았다", "이 이미지는 납품 시점까지 한 번도 빌드된 적이 없다"고 명시하고, 점검 절차 1번이 처음 이미지를 돌려 보는 지점이라는 것까지 적는다. 받는 쪽이 읽는 문서에 공개가 들어갔다 |
+
+- [SHOULD-FIX] F12 `docs/io-contract.md:47`의 `/out/error.json` 표 행이 손대지 않은 채 남아 두 가지를 틀리게 말하며, 이제 같은 페이지 두 줄 아래와 정면으로 어긋난다. 행은 여전히 "요청이 거부됐을 때만 생성. 결과가 나오면 삭제된다"이다. (a) `error.json`은 종료 코드 12·13에서도 쓰인다 — 실측으로 `REQUEST_NOT_FOUND`를 받았고, `docs/container-operations.md:161-163`이 이번 커밋에서 바로 그 점을 명시했다. 같은 납품 묶음의 두 문서가 서로 반대로 말한다. (b) "결과가 나오면 삭제된다"는 메커니즘은 사라졌다: 결과 기록 뒤의 `unlink`가 제거되고(`git diff 6610fb0 16a7eba -- docker/entrypoint.py`에서 `-(out_dir / ERROR_NAME).unlink(missing_ok=True)`) 삭제는 실행 **시작** 시점으로 옮겨졌다(`docker/entrypoint.py:88-89`). 순효과는 같지만, 바로 아래 `:49-50`에 새로 추가된 "출력 디렉터리는 실행 시작 시 … 지워진다"와 한 화면 안에서 충돌한다. F9의 남은 절반이다. 위반 조건: 3
+- [SHOULD-FIX] F13 F8 수정이 F2의 실패 양상을 좁은 문으로 되살렸다. `NORMA_ACCEPTED_AT`/`--accepted-at`이 숫자로 파싱되지 않으면 `main()`이 `run_one`을 **부르기 전에** 종료 코드 12로 빠진다(`docker/entrypoint.py:228-234`). 그 경로에서는 (a) `error.json`이 쓰이지 않는데 `docs/container-operations.md:157`은 코드 12에 대해 "출력 디렉터리 자체가 막혔으면"을 유일한 예외로 들어 `error.json`을 약속하고, (b) 출력 디렉터리 정리가 아예 실행되지 않아 이전 실행의 산출물이 그대로 남는다 — `docs/io-contract.md:49-50`의 "끝났을 때 거기 있는 것은 이번 실행의 산출물이다"가 깨진다. 재현: 정상 실행으로 `job_id 750bc8db-785a-4bdd-8263-6a02668ec1d7`의 `result.json`을 만든 뒤 `NORMA_ACCEPTED_AT="2026-10-16T05:00:00Z"`로 재실행 → stderr `--accepted-at must be epoch seconds, got '2026-10-16T05:00:00Z'`, `EXIT=12`, 출력 디렉터리에는 여전히 그 `result.json`(`status SUCCEEDED`)과 `manifest.json`. epoch 초만 받는 필드에 ISO-8601을 넣는 것은, 바로 옆 표에 있는 `NORMA_IMAGE_BUILT_UTC`가 ISO-8601이라 충분히 있을 법한 실수다. `tests/test_container_entrypoint.py`의 7개 테스트는 전부 `run_one`을 직접 부르므로 이 인자 파싱 분기를 지나지 않는다. F2보다 영향이 작아(운영자 실수가 필요하고, 명확한 stderr와 0 아닌 종료 코드가 남는다) SHOULD-FIX로 둔다. 고치는 방법은 둘 중 하나다 — 파싱을 `run_one` 안(정리 직후)으로 옮기거나, 잘못된 값을 치명적 오류로 보지 않고 경고와 함께 `null` 대기시간으로 떨어뜨리는 것. 위반 조건: 4 (및 2)
+
+### Re-review 범위의 한계
+
+- 이미지 빌드·실행은 여전히 미검증이다(이 머신에 docker 없음). 계약이 범위 밖에 둔 항목이고, 이제 두 납품 문서가 그 사실을 스스로 밝힌다(F11).
+- `docker stop`/`docker kill`로 실제 중단해 보지는 않았다. F2의 "중간에 죽으면 이번 실행 산출물이 하나도 없다"는 여전히 코드 사실(결과 기록 지점이 `:140-141` 하나뿐)로만 뒷받침된다. 새로 추가된 "지우기까지만 끝난 상태로 남을 수 있다"(`container-operations.md:84-86`)는 서술은 코드와 일관된다.
+- 이 재검토 시점에도 원본 `## Dispositions` 절은 비어 있다. `scripts/check_review.py`는 모든 `F<n>`(이제 F13까지)에 처리 기록이 있어야 통과한다.

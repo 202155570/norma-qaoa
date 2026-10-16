@@ -44,7 +44,7 @@ docker run --rm \
 | `/in/request.json` | 요청 문서 (읽기 전용 마운트로 충분) |
 | `/out/result.json` | 결과 문서 |
 | `/out/manifest.json` | 실행 manifest |
-| `/out/error.json` | 요청이 거부됐을 때만 생성. 결과가 나오면 삭제된다 |
+| `/out/error.json` | 결과가 나오지 않았을 때 생성. 요청 거부뿐 아니라 입출력 문제·예상치 못한 실패에서도 쓰인다. 원인은 `error` 필드로 구분한다 |
 
 출력 디렉터리는 실행 시작 시 `result.json`·`manifest.json`·`error.json`이 **지워진다.**
 끝났을 때 거기 있는 것은 이번 실행의 산출물이다. 이전 실행 결과를 보존하려면 실행마다 다른 디렉터리를 준다.

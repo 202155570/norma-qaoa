@@ -99,3 +99,28 @@ def test_accepted_at_sets_the_queue_wait(tmp_path, toy_text):
     assert entrypoint.run_one(in_dir, out_dir, accepted_at=time.time() - 3.0) == entrypoint.EXIT_OK
     manifest = json.loads((out_dir / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["queue_wait_ms"] >= 3000
+
+
+def test_bad_accepted_at_still_clears_and_reports(tmp_path, toy_text):
+    """A bad value must not take a shortcut past the clearing step (review F13)."""
+    in_dir, out_dir = _job(tmp_path, toy_text)
+    assert entrypoint.run_one(in_dir, out_dir) == entrypoint.EXIT_OK
+    assert (out_dir / "result.json").exists()
+
+    # main() is what argparse feeds, so drive the real path end to end.
+    code = entrypoint.main(["--in", str(in_dir), "--out", str(out_dir),
+                            "--accepted-at", "2026-10-16T05:00:00Z"])
+    assert code == entrypoint.EXIT_IO
+    assert not (out_dir / "result.json").exists(), "stale result survived a bad --accepted-at"
+    assert not (out_dir / "manifest.json").exists()
+    assert json.loads((out_dir / "error.json").read_text(encoding="utf-8"))["error"] == "BAD_ACCEPTED_AT"
+
+
+def test_accepted_at_accepts_a_numeric_string(tmp_path, toy_text):
+    import time
+
+    in_dir, out_dir = _job(tmp_path, toy_text)
+    assert entrypoint.main(["--in", str(in_dir), "--out", str(out_dir),
+                            "--accepted-at", str(time.time() - 4.0)]) == entrypoint.EXIT_OK
+    manifest = json.loads((out_dir / "manifest.json").read_text(encoding="utf-8"))
+    assert manifest["queue_wait_ms"] >= 4000

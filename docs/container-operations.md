@@ -160,7 +160,10 @@ docker run --rm -e NORMA_ATTEMPT_ID="req-001-attempt-2" ...
 **0과 1에서만 결과 파일이 생긴다.** 나머지는 `error.json`만 본다.
 `error.json`은 요청 거부뿐 아니라 **12·13에서도 쓰인다** — 즉 "`error.json`이 있다"는 것은
 "요청이 잘못됐다"가 아니라 "결과가 없다"는 뜻이다. 원인은 `error` 필드로 구분한다:
-`INVALID_REQUEST` / `REFUSED` / `REQUEST_NOT_FOUND` / `UNREADABLE_REQUEST` / `UNEXPECTED`.
+`INVALID_REQUEST` / `REFUSED` / `REQUEST_NOT_FOUND` / `UNREADABLE_REQUEST` / `BAD_ACCEPTED_AT` / `UNEXPECTED`.
+
+`BAD_ACCEPTED_AT`은 `NORMA_ACCEPTED_AT`에 epoch 초가 아닌 값(예: ISO-8601 문자열)을 넘겼을 때다.
+같은 표의 `NORMA_IMAGE_BUILT_UTC`는 ISO-8601이므로 헷갈리기 쉽다.
 
 ### 스펙 8쪽 HTTP 코드와의 대응
 

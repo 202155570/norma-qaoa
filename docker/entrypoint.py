@@ -69,12 +69,17 @@ def _error_doc(code: str, message: str, issues: list[dict[str, Any]] | None = No
 
 
 def run_one(in_dir: Path, out_dir: Path, *, attempt_id: str | None = None,
-            accepted_at: float | None = None) -> int:
+            accepted_at: float | str | None = None) -> int:
     """Run the request in `in_dir` and write the artifacts to `out_dir`. Returns an exit code.
 
-    `accepted_at` is the epoch second at which the caller accepted the request. Only the
-    caller knows it; left out, the queue wait measured here is this process's own startup,
-    which is not what the field means, so the caller should pass the real value.
+    `accepted_at` is the epoch second at which the caller accepted the request, as a number
+    or as a string to parse. Only the caller knows it; left out, the queue wait measured here
+    is this process's own startup, which is not what the field means, so the caller should
+    pass the real value.
+
+    Every way out of this function runs after the output directory has been cleared, so a
+    rejected run never leaves an earlier run's artifacts behind. That is why the parsing of
+    `accepted_at` happens here and not in the argument parser.
     """
     # The output directory is prepared and cleared before anything else, so whatever it
     # holds when this returns belongs to this run. Without the clearing step a rejected
@@ -91,6 +96,15 @@ def run_one(in_dir: Path, out_dir: Path, *, attempt_id: str | None = None,
         print(f"output directory {out_dir} is not usable: {exc}", file=sys.stderr)
         return EXIT_IO
 
+    if isinstance(accepted_at, str):
+        try:
+            accepted_at = float(accepted_at)
+        except ValueError:
+            _write_json(out_dir / ERROR_NAME, _error_doc(
+                "BAD_ACCEPTED_AT",
+                f"accepted-at must be epoch seconds, got {accepted_at!r}"))
+            print(f"accepted-at must be epoch seconds, got {accepted_at!r}", file=sys.stderr)
+            return EXIT_IO
     accepted_at = accepted_at if accepted_at is not None else time.time()
 
     request_path = in_dir / REQUEST_NAME
@@ -225,16 +239,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.selftest:
         return selftest()
 
-    accepted_at: float | None = None
-    if args.accepted_at:
-        try:
-            accepted_at = float(args.accepted_at)
-        except ValueError:
-            print(f"--accepted-at must be epoch seconds, got {args.accepted_at!r}", file=sys.stderr)
-            return EXIT_IO
-
+    # The value is passed through unparsed: run_one validates it after clearing the output
+    # directory, so a bad value cannot leave an earlier run's artifacts in place.
     attempt_id = args.attempt_id or f"attempt-{uuid.uuid4()}"
-    return run_one(Path(args.in_dir), Path(args.out_dir), attempt_id=attempt_id, accepted_at=accepted_at)
+    return run_one(Path(args.in_dir), Path(args.out_dir), attempt_id=attempt_id,
+                   accepted_at=args.accepted_at)
 
 
 if __name__ == "__main__":
