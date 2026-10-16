@@ -1,0 +1,278 @@
+{
+  "$defs": {
+    "Constraints": {
+      "additionalProperties": false,
+      "properties": {
+        "must_exclude": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Must Exclude",
+          "type": "array"
+        },
+        "must_include": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Must Include",
+          "type": "array"
+        },
+        "select_k": {
+          "title": "Select K",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "select_k",
+        "must_include",
+        "must_exclude"
+      ],
+      "title": "Constraints",
+      "type": "object"
+    },
+    "Data": {
+      "additionalProperties": true,
+      "properties": {
+        "as_of_utc": {
+          "title": "As Of Utc",
+          "type": "string"
+        },
+        "asset_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Asset Ids",
+          "type": "array"
+        },
+        "base_currency": {
+          "title": "Base Currency",
+          "type": "string"
+        },
+        "covariance_annual": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "title": "Covariance Annual",
+          "type": "array"
+        },
+        "overlap": {
+          "anyOf": [
+            {
+              "items": {
+                "items": {
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Overlap"
+        },
+        "snapshot_id": {
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "source_kind": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Kind"
+        },
+        "utility": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Utility",
+          "type": "array"
+        }
+      },
+      "required": [
+        "snapshot_id",
+        "as_of_utc",
+        "base_currency",
+        "asset_ids",
+        "utility",
+        "covariance_annual",
+        "overlap"
+      ],
+      "title": "Data",
+      "type": "object"
+    },
+    "Execution": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "title": "Algorithm",
+          "type": "string"
+        },
+        "allow_qpu": {
+          "title": "Allow Qpu",
+          "type": "boolean"
+        },
+        "depth": {
+          "title": "Depth",
+          "type": "integer"
+        },
+        "max_objective_evaluations": {
+          "title": "Max Objective Evaluations",
+          "type": "integer"
+        },
+        "max_starts": {
+          "title": "Max Starts",
+          "type": "integer"
+        },
+        "max_wall_seconds": {
+          "title": "Max Wall Seconds",
+          "type": "number"
+        },
+        "mode": {
+          "title": "Mode",
+          "type": "string"
+        },
+        "seed": {
+          "title": "Seed",
+          "type": "integer"
+        },
+        "shots_per_circuit": {
+          "title": "Shots Per Circuit",
+          "type": "integer"
+        },
+        "top_k": {
+          "title": "Top K",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "mode",
+        "algorithm",
+        "depth",
+        "max_wall_seconds",
+        "max_objective_evaluations",
+        "max_starts",
+        "shots_per_circuit",
+        "seed",
+        "allow_qpu",
+        "top_k"
+      ],
+      "title": "Execution",
+      "type": "object"
+    },
+    "Model": {
+      "additionalProperties": false,
+      "properties": {
+        "penalties": {
+          "$ref": "#/$defs/Penalties"
+        },
+        "risk_scale": {
+          "title": "Risk Scale",
+          "type": "number"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "weights": {
+          "$ref": "#/$defs/Weights"
+        }
+      },
+      "required": [
+        "version",
+        "risk_scale",
+        "weights",
+        "penalties"
+      ],
+      "title": "Model",
+      "type": "object"
+    },
+    "Penalties": {
+      "additionalProperties": false,
+      "properties": {
+        "cardinality": {
+          "title": "Cardinality",
+          "type": "number"
+        },
+        "fixed": {
+          "title": "Fixed",
+          "type": "number"
+        }
+      },
+      "required": [
+        "cardinality",
+        "fixed"
+      ],
+      "title": "Penalties",
+      "type": "object"
+    },
+    "Weights": {
+      "additionalProperties": false,
+      "properties": {
+        "overlap": {
+          "title": "Overlap",
+          "type": "number"
+        },
+        "risk": {
+          "title": "Risk",
+          "type": "number"
+        },
+        "utility": {
+          "title": "Utility",
+          "type": "number"
+        }
+      },
+      "required": [
+        "risk",
+        "overlap",
+        "utility"
+      ],
+      "title": "Weights",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "constraints": {
+      "$ref": "#/$defs/Constraints"
+    },
+    "data": {
+      "$ref": "#/$defs/Data"
+    },
+    "execution": {
+      "$ref": "#/$defs/Execution"
+    },
+    "model": {
+      "$ref": "#/$defs/Model"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "data",
+    "constraints",
+    "model",
+    "execution"
+  ],
+  "title": "norma-qaoa Request (schema_version 1.0)",
+  "type": "object"
+}

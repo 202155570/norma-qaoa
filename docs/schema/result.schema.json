@@ -1,0 +1,273 @@
+{
+  "$defs": {
+    "Candidate": {
+      "properties": {
+        "bit_vector": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Bit Vector",
+          "type": "array"
+        },
+        "candidate_id": {
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "components": {
+          "$ref": "#/$defs/Components"
+        },
+        "feasible": {
+          "title": "Feasible",
+          "type": "boolean"
+        },
+        "objective_base": {
+          "title": "Objective Base",
+          "type": "number"
+        },
+        "objective_penalized": {
+          "title": "Objective Penalized",
+          "type": "number"
+        },
+        "origin": {
+          "enum": [
+            "simulator_sample",
+            "classical_repair",
+            "classical_baseline",
+            "mock"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "repair": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Repair"
+        },
+        "sample_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Sample Count"
+        },
+        "selected_asset_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Selected Asset Ids",
+          "type": "array"
+        },
+        "violations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Violations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "selected_asset_ids",
+        "bit_vector",
+        "origin",
+        "objective_base",
+        "objective_penalized",
+        "components",
+        "feasible",
+        "violations",
+        "sample_count"
+      ],
+      "title": "Candidate",
+      "type": "object"
+    },
+    "Components": {
+      "properties": {
+        "overlap": {
+          "title": "Overlap",
+          "type": "number"
+        },
+        "risk": {
+          "title": "Risk",
+          "type": "number"
+        },
+        "utility": {
+          "title": "Utility",
+          "type": "number"
+        }
+      },
+      "required": [
+        "risk",
+        "overlap",
+        "utility"
+      ],
+      "title": "Components",
+      "type": "object"
+    },
+    "ExecutionSummary": {
+      "properties": {
+        "backend_name": {
+          "title": "Backend Name",
+          "type": "string"
+        },
+        "circuits_total": {
+          "title": "Circuits Total",
+          "type": "integer"
+        },
+        "depth": {
+          "title": "Depth",
+          "type": "integer"
+        },
+        "elapsed_ms": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Elapsed Ms"
+        },
+        "hardware_qpu_used": {
+          "title": "Hardware Qpu Used",
+          "type": "boolean"
+        },
+        "mode": {
+          "title": "Mode",
+          "type": "string"
+        },
+        "objective_evaluations": {
+          "title": "Objective Evaluations",
+          "type": "integer"
+        },
+        "qubits": {
+          "title": "Qubits",
+          "type": "integer"
+        },
+        "requested_algorithm": {
+          "title": "Requested Algorithm",
+          "type": "string"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Seed"
+        },
+        "shots_total": {
+          "title": "Shots Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "mode",
+        "requested_algorithm",
+        "backend_name",
+        "hardware_qpu_used",
+        "elapsed_ms",
+        "shots_total",
+        "objective_evaluations",
+        "circuits_total",
+        "seed",
+        "qubits",
+        "depth"
+      ],
+      "title": "ExecutionSummary",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "artifact_manifest_id": {
+      "title": "Artifact Manifest Id",
+      "type": "string"
+    },
+    "asset_order": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Asset Order",
+      "type": "array"
+    },
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/Candidate"
+      },
+      "title": "Candidates",
+      "type": "array"
+    },
+    "execution": {
+      "$ref": "#/$defs/ExecutionSummary"
+    },
+    "job_id": {
+      "title": "Job Id",
+      "type": "string"
+    },
+    "model_version": {
+      "title": "Model Version",
+      "type": "string"
+    },
+    "proven_infeasible": {
+      "title": "Proven Infeasible",
+      "type": "boolean"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "snapshot_id": {
+      "title": "Snapshot Id",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "SUCCEEDED",
+        "PARTIAL",
+        "FAILED"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "stop_reason": {
+      "title": "Stop Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "job_id",
+    "status",
+    "stop_reason",
+    "snapshot_id",
+    "model_version",
+    "asset_order",
+    "candidates",
+    "execution",
+    "artifact_manifest_id",
+    "proven_infeasible"
+  ],
+  "title": "norma-qaoa Result (schema_version 1.0)",
+  "type": "object"
+}

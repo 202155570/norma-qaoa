@@ -30,3 +30,7 @@ U2·U3·U5의 오라클 스크립트(`docker/entrypoint.py --selftest`, `scripts
 ## Progress log
 
 - 2026-10-16 계약과 계획 작성. 승인 대기.
+- 2026-10-16 13:51 승인: "어 이렇게 진행해줘."
+- 2026-10-16 13:5x 포인터 생성 실패 — Amber 플러그인의 Windows 경로 비교 버그(`lib/contract.cjs:26`). `git rev-parse --show-toplevel`이 슬래시 경로를, `path.resolve`가 역슬래시 경로를 돌려주어 `startsWith(root + path.sep)`가 항상 거짓. 어떤 boundary 값으로도 통과 불가. 포인터를 제거해 Bash 차단을 해제하고 운영자 판단 대기.
+- 2026-10-16 운영자 결정: Amber 기계적 강제 없이 진행. 이 계약과 계획을 지침으로 삼고 완료 조건·금지 항목·단위 순서는 수동으로 지킨다. 단위 전환은 이 로그에 기록한다.
+- 2026-10-16 U1 시작.

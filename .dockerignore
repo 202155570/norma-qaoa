@@ -1,0 +1,12 @@
+# Keep the build context to what the image needs: metadata, source, fixtures, entrypoint.
+*
+!pyproject.toml
+!README.md
+!src/
+!fixtures/
+!docker/entrypoint.py
+
+# Never ship these even if a rule above would pull them in.
+**/__pycache__/
+**/*.pyc
+**/*.egg-info/

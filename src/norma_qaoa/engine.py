@@ -18,7 +18,15 @@ from norma_qaoa.candidates import build_candidates, decide_status
 from norma_qaoa.circuits import QaoaSpec, QiskitQaoaCircuit
 from norma_qaoa.config import EngineConfig
 from norma_qaoa.ising import qubo_to_ising
-from norma_qaoa.manifest import HASH_RULE, environment_versions, sha256_of, sha256_text, to_jsonable
+from norma_qaoa.manifest import (
+    HASH_RULE,
+    container_identity,
+    environment_versions,
+    resource_usage,
+    sha256_of,
+    sha256_text,
+    to_jsonable,
+)
 from norma_qaoa.policy import assert_backend_allowed
 from norma_qaoa.problem import Problem
 from norma_qaoa.qaoa import (
@@ -54,10 +62,22 @@ def run_job(
     *,
     backend: SamplingBackend | None = None,
     clock: Callable[[], float] = time.monotonic,
+    attempt_id: str | None = None,
+    accepted_at: float | None = None,
 ) -> JobOutput:
+    """Run one job.
+
+    `attempt_id` identifies this execution attempt; a retry of the same request keeps
+    request_id and gets a new attempt_id (spec p.17). `accepted_at` is the epoch second
+    at which the request was accepted, from which the manifest's queue wait is measured;
+    the caller knows it, this function does not.
+    """
     config = config or EngineConfig()
     t0 = clock()
     started_wall = time.time()
+    cpu_t0 = time.process_time()
+    attempt_id = attempt_id or f"attempt-{uuid.uuid4()}"
+    queue_wait_ms = None if accepted_at is None else max(0, int(round((started_wall - accepted_at) * 1000)))
 
     req = validate_request(raw, config)
     ex = req.execution
@@ -153,6 +173,7 @@ def run_job(
             "schema_version": req.schema_version,
             "request_id": req.request_id,
             "job_id": job_id,
+            "attempt_id": attempt_id,
             "snapshot_id": req.data.snapshot_id,
             "model_version": req.model.version,
             "engine": {"name": ENGINE_NAME, "version": __version__},
@@ -180,6 +201,9 @@ def run_job(
             "started_utc": _utc(started_wall),
             "finished_utc": _utc(finished_wall),
             "elapsed_ms": elapsed_ms,
+            "queue_wait_ms": queue_wait_ms,
+            "container": container_identity(),
+            "resources": resource_usage(time.process_time() - cpu_t0),
             "max_wall_seconds": ex.max_wall_seconds,
             "time_limit_rule": "deadline checked before every circuit; a running circuit is not interrupted",
             "optimizer": {

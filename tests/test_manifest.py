@@ -47,8 +47,9 @@ def test_manifest_required_fields(two_runs):
     _, a, _ = two_runs
     m = a.manifest
     for key in (
-        "request_id", "job_id", "input_hash", "qubo_hash", "circuit_hash", "scale_factor", "qubits", "depth",
-        "seeds", "evaluations", "circuits", "shots", "started_utc", "finished_utc", "elapsed_ms", "trace",
+        "request_id", "job_id", "attempt_id", "input_hash", "qubo_hash", "circuit_hash", "scale_factor",
+        "qubits", "depth", "seeds", "evaluations", "circuits", "shots", "started_utc", "finished_utc",
+        "elapsed_ms", "queue_wait_ms", "container", "resources", "trace",
         "versions", "budget", "penalty_check", "backend", "counts_source", "final_counts", "hash_rule",
     ):
         assert key in m, key
@@ -82,3 +83,57 @@ def test_result_schema_and_recompute(two_runs):
         # sample_count must equal the raw counts of that vector
         bitstring = "".join(str(b) for b in reversed(c["bit_vector"]))
         assert c["sample_count"] == a.manifest["final_counts"][bitstring]
+
+
+# --------------------------------------------- spec p.19 fields added for container delivery
+def test_attempt_id_is_per_attempt_not_per_request(two_runs, toy_raw):
+    """A retry keeps request_id and gets a new attempt_id."""
+    _, a, b = two_runs
+    assert a.manifest["request_id"] == b.manifest["request_id"]
+    assert a.manifest["attempt_id"] != b.manifest["attempt_id"]
+    assert run_job(copy.deepcopy(toy_raw), attempt_id="attempt-xyz").manifest["attempt_id"] == "attempt-xyz"
+
+
+def test_container_identity_reads_the_entrypoint_env(monkeypatch):
+    from norma_qaoa.manifest import container_identity
+
+    for var in ("NORMA_IMAGE_REF", "NORMA_IMAGE_DIGEST", "NORMA_IMAGE_BUILT_UTC"):
+        monkeypatch.delenv(var, raising=False)
+    bare = container_identity()
+    assert bare["image_ref"] is None and bare["image_digest"] is None
+
+    monkeypatch.setenv("NORMA_IMAGE_REF", "norma-qaoa:0.1.0")
+    monkeypatch.setenv("NORMA_IMAGE_DIGEST", "sha256:" + "ab" * 32)
+    got = container_identity()
+    assert got["image_ref"] == "norma-qaoa:0.1.0"
+    assert got["image_digest"] == "sha256:" + "ab" * 32
+    assert got["in_container"] is True
+
+
+def test_resource_usage_shape():
+    from norma_qaoa.manifest import resource_usage
+
+    r = resource_usage(1.25)
+    assert r["cpu_seconds"] == 1.25
+    assert r["gpu"] is None  # the simulator runs on CPU; never claimed otherwise
+    for key in ("cpu_user_seconds", "cpu_system_seconds", "max_rss_bytes", "max_rss_scope", "source"):
+        assert key in r, key
+    # Off POSIX the resource module is absent and the RSS fields are null by design.
+    assert r["max_rss_bytes"] is None or (isinstance(r["max_rss_bytes"], int) and r["max_rss_bytes"] > 0)
+
+
+def test_queue_wait_is_measured_from_accepted_at(two_runs, toy_raw):
+    import time as _time
+
+    _, a, _ = two_runs
+    assert a.manifest["queue_wait_ms"] is None  # not supplied -> null, never a guessed 0
+
+    out = run_job(copy.deepcopy(toy_raw), accepted_at=_time.time() - 2.0)
+    assert out.manifest["queue_wait_ms"] >= 2000
+
+
+def test_job_resources_are_recorded(two_runs):
+    _, a, _ = two_runs
+    res = a.manifest["resources"]
+    assert isinstance(res["cpu_seconds"], float) and res["cpu_seconds"] >= 0.0
+    assert a.manifest["container"]["source"].startswith("environment: ")
