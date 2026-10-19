@@ -83,7 +83,7 @@ docker run --rm \
 | `base_currency` | string | 기준 통화 |
 | `source_kind` | string \| null | 데이터 출처 구분 |
 | `asset_ids` | string[N] | 자산 식별자. **이 순서가 모든 벡터·행렬의 축**이며 결과의 `asset_order`로 되돌아온다 |
-| `utility` | float[N] | 기대효용 지표. **0 ≤ u ≤ 1** |
+| `utility` | float[N] | 후보별 **0~1 적합도**. 스펙 7쪽 정의상 **기대수익률이나 성공확률이 아니다**. 산식·버전·근거 feature를 보존해야 하며 생성형 AI 임의 점수는 금지된다 |
 | `covariance_annual` | float[N][N] | 연율 공분산. 대칭이고 양반정부호여야 한다 |
 | `overlap` | float[N][N] \| **null** | 보유 중복도. 0 ≤ O ≤ 1, 대각은 0 |
 
@@ -110,7 +110,7 @@ F(x) = G(x) + P(x)                                       (엔진이 최소화하
 C          = covariance_annual / risk_scale              ← 재검산 시 빠뜨리기 쉬운 항
 risk(x)    = xᵀ C x / K²
 overlap(x) = 2·Σ_{i<j} O_ij x_i x_j / (K(K−1))           (K=1이면 0)
-utility(x) = Σ u_i x_i / K
+utility(x) = Σ u_i x_i / K                              ← u 는 0~1 적합도, 수익률이 아님
 ```
 
 > **`risk_scale`은 단순한 범위 제약이 아니라 공분산의 나눗수다.** 공분산 행렬은 `risk_scale`로
