@@ -1,0 +1,9 @@
+# Versions used for every number in this directory (Windows, CPU, Python 3.12.10).
+# On a GPU server install the CUDA build of torch with the same version
+# (see https://pytorch.org for the index URL matching the server's CUDA).
+numpy==2.5.3
+scipy==1.18.1
+torch==2.12.1
+psutil==7.2.2
+# padopauli==2.0.2 is NORMA's proprietary package (NORMA Binary License 1.0) and is not on
+# PyPI: install it from the internal wheel, e.g.  pip install padopauli-2.0.2-*.whl

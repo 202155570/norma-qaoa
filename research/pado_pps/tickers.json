@@ -1,0 +1,22 @@
+{
+  "_note": "Existing 50 first (groups as in the 2026-10-22 study), then 100 hand-picked liquid US-listed ETFs per asset class, none overlapping. 'spare' replaces any ticker that fails the 2-year history check, in order.",
+  "groups": {
+    "sector":   ["XLE", "XLF", "XLV", "XLI", "XLY", "XLC", "XLB", "XLP", "XLK", "XLU", "XLRE"],
+    "size":     ["SPY", "QQQ", "IWM", "DIA", "MDY", "VTV", "VUG", "MTUM"],
+    "factor":   ["USMV", "QUAL", "DVY"],
+    "intl":     ["EFA", "EEM", "VGK", "EWJ", "FXI", "INDA", "EWZ", "EWY", "EWT", "EWG"],
+    "real":     ["VNQ", "GLD", "SLV", "USO", "DBC"],
+    "bond":     ["TLT", "IEF", "SHY", "LQD", "HYG", "TIP", "EMB", "AGG"],
+    "thematic": ["SMH", "XBI", "ITA", "KRE", "ARKK"]
+  },
+  "added": {
+    "size_style":   ["IWF", "IWD", "IJR", "IJH", "VO", "VB", "RSP", "SCHD", "VIG", "VYM", "SPLV", "IWO", "IWN", "SPYG", "SPYV"],
+    "industry":     ["IBB", "IHI", "XHB", "ITB", "XRT", "KBE", "IYT", "XOP", "OIH", "XME", "GDX", "GDXJ", "PAVE", "TAN", "ICLN", "JETS", "IGV", "SOXX", "SKYY", "HACK", "CIBR", "KWEB", "XAR", "VOX"],
+    "country":      ["EWC", "EWA", "EWU", "EWQ", "EWL", "EWP", "EWI", "EWH", "EWS", "EWW", "ECH", "TUR", "EZA", "EIDO", "THD", "EPOL", "ACWX", "VEA", "VWO", "IEMG"],
+    "bond":         ["BND", "VCIT", "VCSH", "IGSB", "BIL", "SHV", "MUB", "JNK", "BNDX", "EMLC", "VGSH", "VGLT", "GOVT", "MBB", "TLH", "IEI", "SJNK", "BKLN", "FLOT"],
+    "real_commod":  ["IAU", "PPLT", "PALL", "CPER", "UNG", "DBA", "DBB", "DBE", "IYR", "VNQI", "REM", "SCHH"],
+    "currency":     ["UUP", "FXE", "FXY"],
+    "thematic":     ["BOTZ", "LIT", "URA", "FDN", "PBW", "MOAT", "IYW"]
+  },
+  "spare": ["VT", "VXUS", "ACWI", "EFV", "SCZ", "HYD", "PFF", "AMLP", "XLG", "EWN"]
+}

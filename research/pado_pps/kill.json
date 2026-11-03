@@ -1,0 +1,12 @@
+{
+ "N": 50,
+ "p": 1,
+ "errors": {
+  "4": 3.9019201284248477e-16,
+  "5": 3.9019201284248477e-16,
+  "6": 3.9019201284248477e-16
+ },
+ "criterion": "error <= 10% of gain at some w in {4,5,6}",
+ "pass": true,
+ "note": "p=1 light cones hold <= 6 qubits on a degree-3 graph, so w>=4 already reproduces the exact value; p=2 is the discriminating case"
+}

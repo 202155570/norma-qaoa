@@ -1,0 +1,26 @@
+{
+ "N": 150,
+ "method": "local search (200 restarts) + 1e6 uniform samples, seed 2026",
+ "variant_opt": [
+  "XLV",
+  "DBC",
+  "XOP",
+  "OIH",
+  "HACK",
+  "UUP"
+ ],
+ "variant_opt_G": -2.257162780610312,
+ "original_best_found": [
+  "XLP",
+  "EWT",
+  "USO",
+  "KRE",
+  "IBB",
+  "HACK"
+ ],
+ "original_best_found_G": -5.205664229260938,
+ "percentile": 0.035134,
+ "samples": 1000000,
+ "sample_corr_G_V": 0.8178786833546242,
+ "seconds": 27.0
+}

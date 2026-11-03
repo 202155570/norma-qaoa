@@ -1,0 +1,95 @@
+{
+ "N": 100,
+ "shots": 10,
+ "runs": 50,
+ "percentile_reference": "1e6 uniform samples, seed 99",
+ "q_sum": 3.6068278971813896,
+ "q_top10": [
+  [
+   "UUP",
+   0.2093
+  ],
+  [
+   "HACK",
+   0.2065
+  ],
+  [
+   "XBI",
+   0.1887
+  ],
+  [
+   "XLV",
+   0.1865
+  ],
+  [
+   "SHV",
+   0.1863
+  ],
+  [
+   "BKLN",
+   0.1666
+  ],
+  [
+   "UNG",
+   0.1619
+  ],
+  [
+   "FXY",
+   0.1591
+  ],
+  [
+   "IHI",
+   0.155
+  ],
+  [
+   "XLF",
+   0.1547
+  ]
+ ],
+ "summary": {
+  "qaoa": {
+   "median_best_G": -4.718015271235384,
+   "min_best_G": -5.074649920483548,
+   "max_best_G": -4.245936660235436,
+   "median_percentile": 0.0,
+   "worst_percentile": 2.6e-05,
+   "distinct_picks": 30,
+   "most_common_pick": "XLV,EWY,USO,KRE,HACK,EPOL"
+  },
+  "score_order": {
+   "median_best_G": -5.004038913948811,
+   "min_best_G": -5.074649920483548,
+   "max_best_G": -4.564124550486661,
+   "median_percentile": 0.0,
+   "worst_percentile": 4e-06,
+   "distinct_picks": 20,
+   "most_common_pick": "XLV,EWY,USO,KRE,HACK,EPOL"
+  },
+  "random": {
+   "median_best_G": -4.69453611746547,
+   "min_best_G": -5.035008118724886,
+   "max_best_G": -2.6503305325656443,
+   "median_percentile": 0.0,
+   "worst_percentile": 0.01526,
+   "distinct_picks": 40,
+   "most_common_pick": "XLV,EWY,USO,KRE,HACK,EPOL"
+  }
+ },
+ "qaoa_beats_score_order_runs": 5,
+ "qaoa_beats_random_runs": 26,
+ "greedy_from_empty": {
+  "pick": [
+   "XLV",
+   "EWY",
+   "USO",
+   "KRE",
+   "HACK",
+   "EPOL"
+  ],
+  "G": -5.004038913948811,
+  "percentile": 0.0
+ },
+ "original_best_G_known": -5.074649920483549,
+ "pass": false,
+ "seconds": 2.2
+}

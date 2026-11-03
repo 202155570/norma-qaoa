@@ -1,0 +1,28 @@
+{
+ "N": 50,
+ "method": "exhaustive",
+ "count": 15890700,
+ "variant_opt": [
+  "XLB",
+  "XLP",
+  "USMV",
+  "USO",
+  "XBI",
+  "KRE"
+ ],
+ "variant_opt_G": -3.7824931817111485,
+ "original_opt": [
+  "XLV",
+  "XLP",
+  "EWT",
+  "USO",
+  "XBI",
+  "KRE"
+ ],
+ "original_opt_G": -4.527290401877839,
+ "rank": 1429,
+ "percentile": 8.992681253815124e-05,
+ "corr_G_V": 0.8708621104535904,
+ "variant_opt_rank_in_V_of_original_opt": 10373,
+ "seconds": 16.6
+}

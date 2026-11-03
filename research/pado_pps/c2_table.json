@@ -1,0 +1,89 @@
+{
+ "criterion": "variant k=6 optimum within the original objective's top 1%",
+ "rows": [
+  {
+   "N": 50,
+   "method": "exhaustive",
+   "count": 15890700,
+   "variant_opt": [
+    "XLB",
+    "XLP",
+    "USMV",
+    "USO",
+    "XBI",
+    "KRE"
+   ],
+   "variant_opt_G": -3.7824931817111485,
+   "original_opt": [
+    "XLV",
+    "XLP",
+    "EWT",
+    "USO",
+    "XBI",
+    "KRE"
+   ],
+   "original_opt_G": -4.527290401877839,
+   "rank": 1429,
+   "percentile": 8.992681253815124e-05,
+   "corr_G_V": 0.8708621104535904,
+   "variant_opt_rank_in_V_of_original_opt": 10373,
+   "seconds": 16.6,
+   "pass": true
+  },
+  {
+   "N": 100,
+   "method": "local search (200 restarts) + 1e6 uniform samples, seed 2026",
+   "variant_opt": [
+    "XLP",
+    "USO",
+    "XBI",
+    "KRE",
+    "HACK",
+    "UUP"
+   ],
+   "variant_opt_G": -5.002023686074708,
+   "original_best_found": [
+    "XLP",
+    "EWT",
+    "USO",
+    "XBI",
+    "KRE",
+    "HACK"
+   ],
+   "original_best_found_G": -5.074649920483549,
+   "percentile": 0.0,
+   "samples": 1000000,
+   "sample_corr_G_V": 0.828479838220576,
+   "seconds": 13.6,
+   "pass": true
+  },
+  {
+   "N": 150,
+   "method": "local search (200 restarts) + 1e6 uniform samples, seed 2026",
+   "variant_opt": [
+    "XLV",
+    "DBC",
+    "XOP",
+    "OIH",
+    "HACK",
+    "UUP"
+   ],
+   "variant_opt_G": -2.257162780610312,
+   "original_best_found": [
+    "XLP",
+    "EWT",
+    "USO",
+    "KRE",
+    "IBB",
+    "HACK"
+   ],
+   "original_best_found_G": -5.205664229260938,
+   "percentile": 0.035134,
+   "samples": 1000000,
+   "sample_corr_G_V": 0.8178786833546242,
+   "seconds": 27.0,
+   "pass": false
+  }
+ ],
+ "pass": false
+}

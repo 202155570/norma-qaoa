@@ -1,0 +1,6 @@
+# price tables are copied to each machine separately (see README, "Data")
+prices.json
+prices10.json
+raw/
+raw10/
+__pycache__/
