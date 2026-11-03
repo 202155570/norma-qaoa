@@ -172,65 +172,121 @@ p=3·4 전이 각도의 ⟨E⟩ 이득은 직접 최적화한 p=2의 112~121%지
 
 ## 6. GPU 서버에서 이어 하기
 
-### 설치
+아래 순서대로 진행한다. 모든 명령은 리눅스 서버 기준이다.
+
+### 6.1 서버 상태 확인
 
 ```bash
-git clone -b pado-pps-study <repo-url> && cd <repo>/research/pado_pps
-python3.12 -m venv .venv && . .venv/bin/activate
-pip install -r requirements.txt              # torch는 서버 CUDA에 맞는 빌드로
-pip install /path/to/padopauli-2.0.2-*.whl   # 사내 배포 wheel
+nvidia-smi              # GPU와 CUDA 드라이버 버전 확인
+python3.12 --version    # 3.12 권장 (개발 환경 3.12.10)
 ```
 
-### 데이터
-
-가격 테이블은 저장소에 없다. 개발 머신의 `out/pado_pps_data.zip`(약 2.8 MB)을 서버로 복사해 이 디렉터리에 푼다.
+### 6.2 저장소 받기 (비공개라 인증 필요)
 
 ```bash
-unzip pado_pps_data.zip -d . && sha256sum -c SHA256SUMS
+gh auth login           # 또는 SSH 키나 개인 토큰
+git clone -b pado-pps-study https://github.com/202155570/norma-qaoa.git
+cd norma-qaoa/research/pado_pps
+```
+
+### 6.3 저장소 밖 파일 두 개를 서버로 복사
+
+가격 테이블과 padopauli는 저장소에 없다. 개발 PC(Windows PowerShell)에서 복사한다.
+
+```powershell
+scp C:\Users\norma\Desktop\finance\out\pado_pps_data.zip user@서버:~/norma-qaoa/research/pado_pps/
+scp <padopauli-2.0.2 wheel 경로> user@서버:~/
+```
+
+padopauli wheel은 사내 배포 위치의 파일을 쓴다(NORMA Binary License 1.0).
+
+### 6.4 파이썬 환경 설치
+
+```bash
+python3.12 -m venv .venv && . .venv/bin/activate
+pip install torch==2.12.1 --index-url https://download.pytorch.org/whl/cu1XX   # 서버 CUDA에 맞는 인덱스
+pip install numpy==2.5.3 scipy==1.18.1 psutil==7.2.2
+pip install ~/padopauli-2.0.2-*.whl
+python -c "import torch, padopauli; print(torch.cuda.is_available(), padopauli.__version__)"
+# → True 2.0.2
+```
+
+### 6.5 데이터 풀기와 해시 확인
+
+```bash
+unzip pado_pps_data.zip -d . && sha256sum -c SHA256SUMS   # prices.json, prices10.json 모두 OK
 ```
 
 기대 해시:
 - `prices.json` a15c8d90…693a
 - `prices10.json` 2ecb7414…e8ab
 
-다시 받을 수도 있지만(`python -I fetch.py tickers.json raw 3y`, `python -I parse.py tickers.json raw prices.json`; 10년치는 `fetch.py … raw10 10y` + `parse10.py`), 기준일이 바뀌어 수치가 달라진다.
+데이터를 다시 받을 수도 있다(`python -I fetch.py tickers.json raw 3y`, `python -I parse.py tickers.json raw prices.json`; 10년치는 `fetch.py … raw10 10y` + `parse10.py`). 단, 기준일이 바뀌어 기존 수치와 달라진다.
 
-### 실행 환경 변수
+### 6.6 CPU로 자체 점검
+
+```bash
+python small.py selftest   # 상태벡터 = 빛원뿔 = PPS(w=n), 기울기 점검
+python bt.py selftest      # 국소탐색 = N=50 전수 탐색 최적
+python pf_check.py U3      # 기존 결과 파일 점검
+```
+
+셋 다 PASS여야 한다. 여기서 실패하면 설치 문제다.
+
+### 6.7 GPU로 자체 점검 — 가장 중요한 단계
+
+GPU 설정은 개발 PC에 GPU가 없어 **한 번도 검증하지 못했다**.
 
 | 변수 | 기본값 | GPU 서버 값 | 역할 |
 |---|---|---|---|
 | `PADO_PRESET` | `cpu` | `gpu` 또는 `hybrid` | padopauli 컴파일 프리셋 |
 | `PF_DEVICE` | `cpu` | `cuda` | 정확 상태벡터(torch) 장치 |
 
-GPU 설정은 개발 머신에 GPU가 없어 **검증하지 못했다**. 먼저 자체 점검부터 돌린다.
-
 ```bash
-python small.py selftest      # 상태벡터 = 빛원뿔 = PPS(w=n), 기울기 점검
-python bt.py selftest         # 국소탐색 = N=50 전수 탐색 최적
-python pf_check.py U3         # 변형식 연구 산출물 점검
 PADO_PRESET=gpu PF_DEVICE=cuda python small.py selftest
 ```
 
-### 다음 실행
+- 이 점검은 GPU 상태벡터와 PADO 값을 CPU 빛원뿔 정확값과 1e-9 이내로 비교한다. PASS면 GPU 결과를 믿고 쓴다.
+- 실패하면 `PADO_PRESET=hybrid`로 다시 시도한다.
+- 그래도 안 되면 PADO는 `cpu`로 두고 `PF_DEVICE=cuda`만 쓴다. 지금 가장 오래 걸리는 것이 정확 학습 체인이라, 이것만으로도 효과가 크다.
+
+### 6.8 본 실행
+
+연결이 끊겨도 계속 돌도록 `tmux` 안에서 실행한다. 두 작업은 메모리를 많이 쓸 수 있으니 동시에 돌리지 않는다.
 
 ```bash
-# 1) 소규모 지도: d=3,4,5 × 인스턴스 0~2 × w=4,5 × p=1..5 (이어 하기 가능)
-python -u small.py run 3,4,5 0,1,2 5 4,5 small.jsonl
+tmux new -s pps
+export PADO_PRESET=gpu PF_DEVICE=cuda   # 6.7에서 통과한 설정
 
-# 2) 큰 N: (N, d) 하나씩. p=1..5, w=4로 학습하고 w=5로 수렴 점검
-for n in 50 100 150; do for d in 3 4 5; do python -u large.py $n $d 5 4 large.jsonl; done; done
+# 1) 소규모 지도 (N=20): d=3,4,5 × 인스턴스 0~2 × w=4,5 × p=1..5
+#    끊기면 같은 명령을 다시 실행한다. 끝난 조합은 건너뛰고, 정확 학습 체인은 cache/에서 읽는다.
+python -u small.py run 3,4,5 0,1,2 5 4,5 small.jsonl | tee -a small.log
+
+# 2) 큰 N: (N, d) 하나씩, p=1..5, w=4로 학습하고 w=5로 수렴 점검
+for n in 50 100 150; do for d in 3 4 5; do
+  python -u large.py $n $d 5 4 large.jsonl | tee -a large.log
+done; done
 ```
 
-**참고 수치 (개발 머신 CPU)**
-- 소규모: 인스턴스 하나의 정확 학습 체인(p=1~5)이 약 7분이고, 이 시간이 대부분이다. 결과는 `cache/`에 저장된다.
+**참고 수치 (개발 PC CPU)**
+- 소규모: 인스턴스 하나의 정확 학습 체인(p=1~5)이 약 7분이고, 이 시간이 대부분이다.
 - 큰 N: N=150, d=3, p=2, w=6 PPS가 컴파일 317초에 최대 메모리 6.8 GB였다. p와 w가 커지면 메모리가 빠르게 는다.
 
-**규칙**: 한 설정이 컴파일 40분 또는 메모리 8 GB를 넘으면 "불가"로 기록한다. 서버 사양에 맞춰 이 한도를 조정해도 된다.
+**규칙**
+- 한 설정이 컴파일 40분 또는 메모리 8 GB를 넘으면 "불가"로 기록한다. 서버 사양에 맞춰 이 한도를 조정해도 된다.
+- 메모리는 다른 창에서 `watch -n5 nvidia-smi`와 `free -g`로 지켜본다.
 
-### 결과 정리
+### 6.9 결과 정리와 올리기
 
-- `small.jsonl`의 capture를 (d, w, p)별 중앙값으로 묶는다.
-- `large.jsonl`의 `w_gap_over_extra_gain` ≤ 0.10이면 w 수렴으로 본다. p≤2에서는 `E_exact_of_pps_angles`와 대조한다.
+```bash
+git add small.jsonl small.log large.jsonl large.log cache/
+git commit -m "Add GPU-server PPS training results"
+git push
+```
+
+- `small.jsonl`의 capture를 (d, w, p)별 중앙값으로 묶는다. 정확 기준은 두 체인 중 더 좋은 쪽으로 잡는다.
+- `large.jsonl`에서는 `w_gap_over_extra_gain` ≤ 0.10이면 w 수렴으로 본다. p≤2에서는 `E_exact_of_pps_angles`와 대조한다.
+- 이 정리로 "PPS로 학습해도 되는 조건(d, w, p)" 지도를 만든다. 성공 기준은 capture ≥ 0.90이다.
 
 ---
 
