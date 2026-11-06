@@ -5,3 +5,4 @@ raw/
 raw10/
 __pycache__/
 SHA256SUMS
+.venv-rocm/

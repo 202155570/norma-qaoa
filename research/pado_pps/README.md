@@ -1,6 +1,6 @@
 # PADO PPS 연구 — ETF 선택 QAOA
 
-ETF 선택 문제(MaiQ 위성 ETF 목적함수)를 QAOA로 다룰 때, NORMA의 PADO Pauli-propagation surrogate(`padopauli`)를 쓸 수 있는 조건을 찾고, 그 위에서 각도를 학습하는 연구다. 2026-10-22 ~ 2026-11-03에 Windows CPU 머신에서 수행했고, GPU 서버에서 이어서 진행하기 위해 정리했다.
+ETF 선택 문제(MaiQ 위성 ETF 목적함수)를 QAOA로 다룰 때, NORMA의 PADO Pauli-propagation surrogate(`padopauli`)를 쓸 수 있는 조건을 찾고, 그 위에서 각도를 학습하는 연구다. 2026-10-22 ~ 2026-11-03에 Windows CPU 머신에서 수행했고, §5의 각도 학습 지도는 2026-11-04~05에 GPU 서버(AMD MI300X)에서 마쳤다.
 
 수치마다 출처를 표시했다.
 - **[측정]** 이 디렉터리의 파일로 재현되는 값
@@ -29,9 +29,10 @@ ETF 선택 문제(MaiQ 위성 ETF 목적함수)를 QAOA로 다룰 때, NORMA의 
 5. **10년 워크포워드 백테스트에서 어떤 선택 식도 동일가중·SPY를 이기지 못했다. [측정]** (`bt.md`)
    - 샤프: MaiQ 0.33, PADO 변형식 0.12, 클러스터 0.17, 점수 상위 6 0.44, 동일가중 0.48, SPY 0.67.
    - 쌍별 차이의 95% CI는 모두 0을 포함한다.
-6. **PPS로 학습한 각도가 정확 학습과 같은 성능을 내는 조건을 찾는 중이다. [측정, 진행 중]** (§5)
-   - N=20, 차수 3, 인스턴스 1개: w=5면 p=5까지 정확 학습의 추가 이득을 99.9% 이상 재현한다.
-   - w=4는 p=4에서 0.889로 기준 0.90 아래다.
+6. **PPS로 학습한 각도는 w=5면 정확 학습과 같은 성능을 낸다. 큰 N에서 쓸 수 있는 깊이는 GPU 메모리가 정한다. [측정]** (§5)
+   - N=20, d=3~5, 인스턴스 10개: w=5는 p=2~5 모든 칸에서 capture ≥ 0.90(최저 0.901). w=4는 p≤2에서만 안전하다.
+   - N=50~150: GPU 한 장(192 GB)에서 w=5 학습은 N=50 d=3 p≤5부터 N=150 d=5 p=1까지 들어간다. w=6 점검이 된 칸은 모두 수렴했다.
+   - padopauli 2.0.2는 GPU 메모리 한계에서 오류 없이 틀린 값을 낼 수 있다(§5.4).
 
 ---
 
@@ -134,18 +135,20 @@ p=3·4 전이 각도의 ⟨E⟩ 이득은 직접 최적화한 p=2의 112~121%지
 
 ---
 
-## 5. 진행 중: PPS로 각도 학습 (`ppsl.py`, `small.py`, `large.py`)
+## 5. PPS로 각도 학습 (`ppsl.py`, `small.py`, `large.py`, `map.py`) [측정]
+
+2026-11-04~05에 GPU 서버(AMD Instinct MI300X, 192 GB)에서 마쳤다. 표의 수치는 `python map.py`를 실행하면 `small.jsonl`, `large.jsonl`에서 다시 나온다(`map.json`).
 
 **목표**: PPS로 학습한 QAOA 각도가 정확 학습과 같은 성능을 내는 조건(깊이 p, 결합 차수 d, 절단 가중치 w)의 지도를 만든다.
 
 **성공 기준** (운영자, 2026-11-03)
 - capture = (E1 − E_exact(PPS 각도)) / (E1 − E_exact(정확 학습 각도)) ≥ 0.90.
 - E1은 정확 학습 p=1 에너지다.
-- 정확 학습 체인이 국소 최적에 걸릴 수 있으므로, 분석 때는 두 체인 중 더 좋은 쪽을 정확 기준으로 삼는다.
+- 정확 학습 체인이 국소 최적에 걸릴 수 있으므로, 같은 (d, 인스턴스, p)에서 돌린 모든 체인 중 정확값이 가장 좋은 것을 정확 기준으로 삼는다.
 
 **검증 방법**
 - N=20: 전체 상태벡터로 정확 대조.
-- N=50~150: 빛원뿔 정확값과 대조할 수 있는 곳(최대 빛원뿔 ≤ 20큐비트)에서는 대조한다. 나머지는 w를 하나 올렸을 때 값이 수렴하는지로 확인한다.
+- N=50~150: 빛원뿔 정확값과 대조할 수 있는 곳(최대 빛원뿔 ≤ 20큐비트)에서는 대조한다. 나머지는 w를 하나 올렸을 때 값이 수렴하는지로 확인한다. 수렴 기준은 `w_gap_over_extra_gain` = |E(w+1) − E(w)| / (E1 − E(w+1)) ≤ 0.10이다.
 
 빛원뿔 최대 크기(큐비트 수):
 
@@ -155,65 +158,78 @@ p=3·4 전이 각도의 ⟨E⟩ 이득은 직접 최적화한 p=2의 112~121%지
 | 4 | 8 | 19 / 24 | 32 / 51 |
 | 5 | 10 | 26 / 37 | 46 / 75 |
 
-**지금까지 결과** (`small.jsonl`; N=20, d=3, 인스턴스 0)
+### 5.1 결론
 
-| p | w=4 capture | w=5 capture | w=5 컴파일 / 학습 |
-|---|---|---|---|
-| 2 | 1.000 | 1.000 | 1 s / 3 s |
-| 3 | 1.053* | 1.000 | 6 s / 13 s |
-| 4 | **0.889** | 1.000 | 24 s / 53 s |
-| 5 | 0.921 | 0.999 | 50 s / 120 s |
+1. **w=5면 PPS로 학습해도 된다.**
+   - N=20 지도에서 d=3~5, p=2~5의 모든 칸이 인스턴스 10개 모두 기준을 넘었다. 가장 낮은 값은 d=5, p=5의 0.901이다.
+   - 큰 N에서 w=6 점검이 가능했던 칸은 모두 수렴했고(최대 0.013), 빛원뿔과 대조한 칸은 모두 capture 1.000이다.
+2. **w=4는 p≤2에서만 안전하다.** p≥3에서는 d가 클수록 나빠진다(d=5, p=5에서 10개 중 3개만 통과, 최저 0.477). w=4 PPS가 에너지를 실제보다 낮게 내고, 학습이 그 절단 오차를 따라간다. 큰 N(CPU, w=4 학습)에서도 p=3~4부터 w 수렴이 깨졌다.
+3. **큰 N의 한계는 시간이 아니라 GPU 메모리다.** GPU에서 컴파일은 학습·점검 모두 30초 이하였지만, w=5 학습은 GPU 한 장(192 GB)에서 N=50 d=3이 p=5까지, N=150 d=5는 p=1까지만 들어간다(§5.3). w=6 점검은 대부분 p=2까지만 들어간다.
+4. **p≥3 큰 N 결과의 근거는 대부분 N=20 지도다.** p≥3에서 w=6 점검이 된 칸은 N=50 d=3 하나뿐이다.
 
-\* 정확 학습 체인이 국소 최적에 걸려 1을 넘었다.
+### 5.2 소규모 지도 (N=20, 인스턴스 0~9)
 
-**중단 경위**: 이 탐색은 w=6 측정 중 개발 머신(RAM 15.7 GB)의 메모리 부족으로 중단됐다. w=5가 이미 정확값에 붙어 있어서, 이후 계획에서는 w=6을 뺀다.
+capture 중앙값 / 최솟값 (통과 인스턴스 수 / 10). p=2는 모든 칸이 0.995 이상이라 뺐다.
+
+| d | w | p=3 | p=4 | p=5 |
+|---|---|---|---|---|
+| 3 | 4 | 0.999 / 0.995 (10) | 0.994 / **0.889** (9) | 0.990 / 0.921 (10) |
+| 3 | 5 | 1.000 / 0.950 (10) | 1.000 / 1.000 (10) | 1.000 / 0.999 (10) |
+| 4 | 4 | 0.991 / 0.912 (10) | 0.967 / **0.875** (9) | 0.953 / **0.397** (8) |
+| 4 | 5 | 1.000 / 0.991 (10) | 0.998 / 0.994 (10) | 0.995 / 0.971 (10) |
+| 5 | 4 | 0.980 / **0.795** (8) | 0.918 / **0.765** (7) | 0.857 / **0.477** (3) |
+| 5 | 5 | 0.998 / 0.960 (10) | 0.982 / 0.955 (10) | 0.978 / 0.901 (10) |
+
+- w=5의 최대 컴파일 / 학습 시간은 d=5, p=5에서 76 s / 256 s다.
+- 가장 나쁜 인스턴스는 대부분 8번이다(d=4·5에서 w=5 칸 대부분).
+- 인스턴스 0~2는 CPU 서버 실행(`logs/small_d*_i*.log`), 3~9는 GPU 실행(`logs/gpu_small_d*.log`, 행에 `"preset": "gpu"`)이다.
+
+### 5.3 큰 N (w=5로 학습, w=6으로 점검)
+
+| N | d | w=5 학습 가능 | w=6 수렴 확인 (gap) | 빛원뿔 capture | 막힌 이유 |
+|---|---|---|---|---|---|
+| 50 | 3 | p≤5 | p=2 3.7e-4, p=3 1.3e-2 | p=2 1.000 | p=4 점검 신뢰 불가(아래 버그), p=5 점검 OOM |
+| 50 | 4 | p≤4 | p=2 1.8e-3 | p=2 1.000 | p=3 점검 191 GB, p=5 학습 188 GB |
+| 50 | 5 | p≤3 | p=2 1.1e-2 | — | p=3 점검 OOM, p=4 학습 175 GB |
+| 100 | 3 | p≤4 | p=2 5.7e-5 | p=2 1.000 | p=3 점검 191 GB, p=5 학습 177 GB |
+| 100 | 4 | p≤3 | p=2 2.4e-4 | — | p=3 점검 OOM, p=4 학습 174 GB |
+| 100 | 5 | p≤2 | — | — | p=2 점검 OOM, p=3 학습 191 GB |
+| 150 | 3 | p≤3 | p=2 9.4e-5 | p=2 1.000 | p=3 점검 OOM, p=4 학습 171 GB |
+| 150 | 4 | p≤2 | — | — | p=2 점검 191 GB, p=3 학습 191 GB |
+| 150 | 5 | p=1 | — | — | p=2 학습 180 GB |
+
+- 학습 단계 한도는 GPU 170 GB, RAM 48 GB, 컴파일 40분이다(`PPS_GPU_MEM_GB`, `PPS_MEM_GB`, `PPS_COMPILE_S`). w=6 점검은 GPU 한도 대신 OOM과 아래 신뢰 한도로 판단한다.
+- CPU에서 w=4로 학습하고 w=5로 점검한 행(`large.log`)도 `large.jsonl`에 남겼다. N=50 d=3은 p=3 0.081, p=4 0.247(수렴 실패), d=4는 p=3 0.446(수렴 실패)이다.
+
+### 5.4 padopauli 2.0.2 GPU 메모리 한계 버그 (NORMA에 알릴 것)
+
+- GPU 메모리가 한계(약 191 GB)에 닿는 컴파일은 **오류 없이 틀린 값을 낼 수 있다.**
+  - N=50 d=3 p=4, 고정 각도, w=6: chunk_size 1e10·1e9에서 −9.38, 1e8에서 −78.88, 2e7에서 OOM.
+  - 같은 각도의 w=5 값은 −83.67(피크 28 GB)이고 chunk_size와 무관하다.
+- 한계에 닿아도 맞는 경우가 있어서 값만 보고는 구별할 수 없다. 그래서 `large.py`는 단계별 GPU 피크를 따로 재고, 피크가 160 GB(`PPS_GPU_TRUST_GB`)를 넘은 값은 쓰지 않는다. 점검값은 `E_pps_check_untrusted`로 옮기고 `check_infeasible`에 이유를 적는다.
+- 학습 피크가 100~160 GB였던 4개 행(50/3/5, 50/4/4, 100/3/4, 100/4/3)은 chunk_size를 바꿔 다시 계산했고 기록된 값과 같았다. 100/4/3은 작은 chunk에서 OOM이 나서 기본 설정으로만 확인했다.
 
 ---
 
-## 6. GPU 서버에서 이어 하기
+## 6. 서버에서 다시 돌리기
 
-아래 순서대로 진행한다. 모든 명령은 리눅스 서버 기준이다.
+2026-11-04~05에 실제로 쓴 절차다. 서버는 AMD Instinct MI300X VF(192 GB, ROCm 7.0), Xeon 20코어, RAM 235 GB, Python 3.12.3이었다. torch의 ROCm 빌드도 장치 이름은 `cuda`를 쓴다.
 
 ### 6.1 서버 상태 확인
 
 ```bash
-nvidia-smi              # GPU와 CUDA 드라이버 버전 확인
-python3.12 --version    # 3.12 권장 (개발 환경 3.12.10)
+rocm-smi                # AMD GPU (nvidia-smi는 없다)
+python3.12 --version
 ```
 
-### 6.2 저장소 받기 (비공개라 인증 필요)
+NVIDIA 서버라면 `nvidia-smi`로 확인하고 아래 torch 인덱스를 CUDA 것으로 바꾼다.
+
+### 6.2 저장소와 데이터
 
 ```bash
-gh auth login           # 또는 SSH 키나 개인 토큰
-git clone -b pado-pps-study https://github.com/202155570/norma-qaoa.git
+git clone -b pado-pps-study https://github.com/202155570/norma-qaoa.git   # 비공개, 인증 필요
 cd norma-qaoa/research/pado_pps
-```
-
-### 6.3 저장소 밖 파일 두 개를 서버로 복사
-
-가격 테이블과 padopauli는 저장소에 없다. 개발 PC(Windows PowerShell)에서 복사한다.
-
-```powershell
-scp C:\Users\norma\Desktop\finance\out\pado_pps_data.zip user@서버:~/norma-qaoa/research/pado_pps/
-scp <padopauli-2.0.2 wheel 경로> user@서버:~/
-```
-
-padopauli wheel은 사내 배포 위치의 파일을 쓴다(NORMA Binary License 1.0).
-
-### 6.4 파이썬 환경 설치
-
-```bash
-python3.12 -m venv .venv && . .venv/bin/activate
-pip install torch==2.12.1 --index-url https://download.pytorch.org/whl/cu1XX   # 서버 CUDA에 맞는 인덱스
-pip install numpy==2.5.3 scipy==1.18.1 psutil==7.2.2
-pip install ~/padopauli-2.0.2-*.whl
-python -c "import torch, padopauli; print(torch.cuda.is_available(), padopauli.__version__)"
-# → True 2.0.2
-```
-
-### 6.5 데이터 풀기와 해시 확인
-
-```bash
+# pado_pps_data.zip(가격 테이블)은 저장소 밖에서 따로 복사한다
 unzip pado_pps_data.zip -d . && sha256sum -c SHA256SUMS   # prices.json, prices10.json 모두 OK
 ```
 
@@ -223,70 +239,51 @@ unzip pado_pps_data.zip -d . && sha256sum -c SHA256SUMS   # prices.json, prices1
 
 데이터를 다시 받을 수도 있다(`python -I fetch.py tickers.json raw 3y`, `python -I parse.py tickers.json raw prices.json`; 10년치는 `fetch.py … raw10 10y` + `parse10.py`). 단, 기준일이 바뀌어 기존 수치와 달라진다.
 
-### 6.6 CPU로 자체 점검
+### 6.3 파이썬 환경
+
+padopauli 2.0.2는 PyPI에서 받는다(라이선스는 그대로 NORMA Binary License 1.0).
 
 ```bash
-python small.py selftest   # 상태벡터 = 빛원뿔 = PPS(w=n), 기울기 점검
-python bt.py selftest      # 국소탐색 = N=50 전수 탐색 최적
-python pf_check.py U3      # 기존 결과 파일 점검
+python3.12 -m venv .venv-rocm && . .venv-rocm/bin/activate
+pip install torch==2.12.1 --index-url https://download.pytorch.org/whl/rocm7.1   # ROCm 7.0 드라이버에서 동작
+pip install numpy==2.5.3 scipy==1.18.1 psutil==7.2.2 padopauli==2.0.2
+python -c "import torch, padopauli; print(torch.cuda.is_available(), padopauli.__version__)"   # True 2.0.2
 ```
 
-셋 다 PASS여야 한다. 여기서 실패하면 설치 문제다.
+### 6.4 자체 점검
 
-### 6.7 GPU로 자체 점검 — 가장 중요한 단계
+```bash
+python small.py selftest                               # CPU: 상태벡터 = 빛원뿔 = PPS(w=n), 기울기
+PADO_PRESET=gpu PF_DEVICE=cuda python small.py selftest  # GPU: 같은 비교, 1e-9 이내
+python bt.py selftest && python pf_check.py U3
+```
 
-GPU 설정은 개발 PC에 GPU가 없어 **한 번도 검증하지 못했다**.
-
-| 변수 | 기본값 | GPU 서버 값 | 역할 |
+| 변수 | 기본값 | 서버 값 | 역할 |
 |---|---|---|---|
-| `PADO_PRESET` | `cpu` | `gpu` 또는 `hybrid` | padopauli 컴파일 프리셋 |
+| `PADO_PRESET` | `cpu` | `gpu` | padopauli 컴파일 프리셋 |
 | `PF_DEVICE` | `cpu` | `cuda` | 정확 상태벡터(torch) 장치 |
+| `PPS_MEM_GB` | 64 | 48 | `large.py` RAM 한도 |
+| `PPS_GPU_MEM_GB` | 170 | 170 | `large.py` 학습 단계 GPU 한도 |
+| `PPS_COMPILE_S` | 2400 | 2400 | `large.py` 컴파일 시간 한도 |
+| `PPS_GPU_TRUST_GB` | 160 | 160 | 이 피크를 넘은 단계의 값은 버림(§5.4) |
+
+### 6.5 본 실행
 
 ```bash
-PADO_PRESET=gpu PF_DEVICE=cuda python small.py selftest
+tmux new -d -s pps 'bash run_gpu_server.sh'
 ```
 
-- 이 점검은 GPU 상태벡터와 PADO 값을 CPU 빛원뿔 정확값과 1e-9 이내로 비교한다. PASS면 GPU 결과를 믿고 쓴다.
-- 실패하면 `PADO_PRESET=hybrid`로 다시 시도한다.
-- 그래도 안 되면 PADO는 `cpu`로 두고 `PF_DEVICE=cuda`만 쓴다. 지금 가장 오래 걸리는 것이 정확 학습 체인이라, 이것만으로도 효과가 크다.
+- 1단계: 소규모 지도. d마다 프로세스 하나씩 GPU를 같이 쓴다.
+- 2단계: 큰 N. (N, d)를 하나씩 순서대로, w=5 학습, w=6 점검.
+- 두 단계 모두 끊긴 뒤 같은 명령으로 다시 시작하면 끝난 부분을 건너뛴다. `large.py`는 p마다 행을 쓰고 그 각도에서 이어 간다.
+- 진행은 `logs/gpu_small_d*.log`, `large_gpu.log`, `rocm-smi`로 본다.
+- `run_cpu_server.sh`는 GPU를 쓰기 전에 CPU로 돌리던 판(w=4 학습)이다.
 
-### 6.8 본 실행
-
-연결이 끊겨도 계속 돌도록 `tmux` 안에서 실행한다. 두 작업은 메모리를 많이 쓸 수 있으니 동시에 돌리지 않는다.
+### 6.6 정리
 
 ```bash
-tmux new -s pps
-export PADO_PRESET=gpu PF_DEVICE=cuda   # 6.7에서 통과한 설정
-
-# 1) 소규모 지도 (N=20): d=3,4,5 × 인스턴스 0~2 × w=4,5 × p=1..5
-#    끊기면 같은 명령을 다시 실행한다. 끝난 조합은 건너뛰고, 정확 학습 체인은 cache/에서 읽는다.
-python -u small.py run 3,4,5 0,1,2 5 4,5 small.jsonl | tee -a small.log
-
-# 2) 큰 N: (N, d) 하나씩, p=1..5, w=4로 학습하고 w=5로 수렴 점검
-for n in 50 100 150; do for d in 3 4 5; do
-  python -u large.py $n $d 5 4 large.jsonl | tee -a large.log
-done; done
+python map.py    # 표 출력, map.json 생성
 ```
-
-**참고 수치 (개발 PC CPU)**
-- 소규모: 인스턴스 하나의 정확 학습 체인(p=1~5)이 약 7분이고, 이 시간이 대부분이다.
-- 큰 N: N=150, d=3, p=2, w=6 PPS가 컴파일 317초에 최대 메모리 6.8 GB였다. p와 w가 커지면 메모리가 빠르게 는다.
-
-**규칙**
-- 한 설정이 컴파일 40분 또는 메모리 8 GB를 넘으면 "불가"로 기록한다. 서버 사양에 맞춰 이 한도를 조정해도 된다.
-- 메모리는 다른 창에서 `watch -n5 nvidia-smi`와 `free -g`로 지켜본다.
-
-### 6.9 결과 정리와 올리기
-
-```bash
-git add small.jsonl small.log large.jsonl large.log cache/
-git commit -m "Add GPU-server PPS training results"
-git push
-```
-
-- `small.jsonl`의 capture를 (d, w, p)별 중앙값으로 묶는다. 정확 기준은 두 체인 중 더 좋은 쪽으로 잡는다.
-- `large.jsonl`에서는 `w_gap_over_extra_gain` ≤ 0.10이면 w 수렴으로 본다. p≤2에서는 `E_exact_of_pps_angles`와 대조한다.
-- 이 정리로 "PPS로 학습해도 되는 조건(d, w, p)" 지도를 만든다. 성공 기준은 capture ≥ 0.90이다.
 
 ---
 
@@ -302,4 +299,7 @@ git push
 | `verdict.md`, `kill.json` | 변형식 연구 판정 |
 | `exp_a.py`, `exp_a.md`, `exp_a_*.json` | 실험 A |
 | `bt.py`, `bt.md`, `bt_*.json`, `bt_daily.npz` | 10년 백테스트 |
-| `ppsl.py`, `small.py`, `large.py`, `small*.jsonl`, `cache/` | PPS 각도 학습(진행 중) |
+| `ppsl.py`, `small.py`, `small.jsonl`, `small*.log`, `cache/` | PPS 각도 학습, 소규모 지도(N=20)와 정확 학습 체인 캐시 |
+| `large.py`, `large.jsonl`, `large.log`, `large_gpu.log` | 큰 N 학습과 w 수렴 점검 |
+| `map.py`, `map.json` | 지도 요약 |
+| `run_gpu_server.sh`, `run_cpu_server.sh`, `logs/` | 서버 실행 스크립트와 로그 |

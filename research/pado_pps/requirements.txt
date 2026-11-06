@@ -5,5 +5,6 @@ numpy==2.5.3
 scipy==1.18.1
 torch==2.12.1
 psutil==7.2.2
-# padopauli==2.0.2 is NORMA's proprietary package (NORMA Binary License 1.0) and is not on
-# PyPI: install it from the internal wheel, e.g.  pip install padopauli-2.0.2-*.whl
+# On the AMD MI300X server (ROCm 7.0): pip install torch==2.12.1 --index-url https://download.pytorch.org/whl/rocm7.1
+# padopauli is NORMA's proprietary package (NORMA Binary License 1.0), installed from PyPI.
+padopauli==2.0.2

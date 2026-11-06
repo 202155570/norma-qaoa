@@ -83,7 +83,8 @@ if __name__ == "__main__":
                            "E_pps_own": comp[p][0], "E1": Eex[1],
                            "capture": (Eex[1] - Ep) / (Eex[1] - Eex[p]) if p > 1 and Eex[1] - Eex[p] > 1e-9 else None,
                            "extra_gain_exact": Eex[1] - Eex[p], "pps_train_s": comp[p][1], "compile_s": comp[p][2],
-                           "angles_pps": x, "angles_exact": exact[p]}
+                           "angles_pps": x, "angles_exact": exact[p],
+                           "preset": ppsl.PADO_PRESET, "device": str(ppsl.DEVICE)}
                     open(out, "a").write(json.dumps(row) + "\n")
                     cap = row["capture"]
                     print(f"d={d} inst={s} w={w} p={p}: exact {Eex[p]:+.4f}  pps->exact {Ep:+.4f}  pps self {comp[p][0]:+.4f}"

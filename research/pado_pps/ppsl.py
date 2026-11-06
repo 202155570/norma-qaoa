@@ -160,15 +160,20 @@ class PPS:
         return float(e.detach()), xt.grad.numpy().copy()
 
 
+def step(m, x_prev):
+    """One chain step: p=1 from the grid (x_prev None), else INTERP of the depth-(p-1) angles."""
+    starts = grid_p1(m.energy) if x_prev is None else [interp(np.asarray(x_prev, float))]
+    return min((minimize(m.fg, s, jac=True, method="L-BFGS-B", options={"maxiter": 200}) for s in starts),
+               key=lambda r: r.fun)
+
+
 def chain(make_model, pmax, log=None):
     """INTERP chain; make_model(p) -> object with energy/fg. Returns {p: angles}."""
     out = {}; x = None
     for p in range(1, pmax + 1):
         t0 = time.time()
         m = make_model(p)
-        starts = grid_p1(m.energy) if p == 1 else [interp(x)]
-        r = min((minimize(m.fg, s, jac=True, method="L-BFGS-B", options={"maxiter": 200}) for s in starts),
-                key=lambda r: r.fun)
+        r = step(m, x)
         x = r.x; out[p] = x.tolist()
         if log:
             log(p, r.fun, time.time() - t0, getattr(m, "compile_s", None))

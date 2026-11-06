@@ -1,0 +1,11 @@
+d=4 inst=1 w=4 p=1: exact -13.1464  pps->exact -13.1464  pps self -13.1464  capture -  (compile 0s, train 1s)
+d=4 inst=1 w=4 p=2: exact -14.2793  pps->exact -14.2792  pps self -14.2786  capture 1.000  (compile 0s, train 1s)
+d=4 inst=1 w=4 p=3: exact -14.7837  pps->exact -14.7764  pps self -14.8214  capture 0.996  (compile 1s, train 3s)
+d=4 inst=1 w=4 p=4: exact -15.1316  pps->exact -15.1059  pps self -15.2822  capture 0.987  (compile 3s, train 8s)
+d=4 inst=1 w=4 p=5: exact -15.3442  pps->exact -15.2440  pps self -15.4363  capture 0.954  (compile 5s, train 23s)
+d=4 inst=1 w=5 p=1: exact -13.1464  pps->exact -13.1464  pps self -13.1464  capture -  (compile 0s, train 1s)
+d=4 inst=1 w=5 p=2: exact -14.2793  pps->exact -14.2793  pps self -14.2782  capture 1.000  (compile 2s, train 3s)
+d=4 inst=1 w=5 p=3: exact -14.7837  pps->exact -14.7829  pps self -14.8009  capture 0.999  (compile 14s, train 23s)
+d=4 inst=1 w=5 p=4: exact -15.1316  pps->exact -15.1295  pps self -15.1456  capture 0.999  (compile 44s, train 78s)
+d=4 inst=1 w=5 p=5: exact -15.3442  pps->exact -15.3279  pps self -15.3865  capture 0.993  (compile 67s, train 150s)
+  instance done 568s
