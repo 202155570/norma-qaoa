@@ -1,0 +1,127 @@
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status DONE
+hard_s5_p1: E -24.286 vs noiseless -26.009 (retained 0.934) | P_gs 0.0004 (noiseless 0.0004, uniform 9.5e-07) | top0.1% 0.101 (noiseless 0.124) | best-of-100 hits GS 0.08
+hard_s5_p2: E -27.186 vs noiseless -30.362 (retained 0.895) | P_gs 0.0011 (noiseless 0.0023, uniform 9.5e-07) | top0.1% 0.222 (noiseless 0.423) | best-of-100 hits GS 0.1
+hard_s5_p3: E -25.203 vs noiseless -30.645 (retained 0.822) | P_gs 0.0008 (noiseless 0.0036, uniform 9.5e-07) | top0.1% 0.181 (noiseless 0.480) | best-of-100 hits GS 0.0
+hard_s5_p4: E -20.184 vs noiseless -26.876 (retained 0.751) | P_gs 0.0005 (noiseless 0.0023, uniform 9.5e-07) | top0.1% 0.115 (noiseless 0.342) | best-of-100 hits GS 0.02
+hard_s10_p1: E -20.096 vs noiseless -21.278 (retained 0.944) | P_gs 0.0004 (noiseless 0.0006, uniform 9.5e-07) | top0.1% 0.096 (noiseless 0.123) | best-of-100 hits GS 0.04
+hard_s10_p2: E -25.656 vs noiseless -28.493 (retained 0.900) | P_gs 0.0001 (noiseless 0.0005, uniform 9.5e-07) | top0.1% 0.181 (noiseless 0.311) | best-of-100 hits GS 0.02
+hard_s10_p3: E -23.796 vs noiseless -28.450 (retained 0.836) | P_gs 0.0002 (noiseless 0.0008, uniform 9.5e-07) | top0.1% 0.162 (noiseless 0.373) | best-of-100 hits GS 0.04
+hard_s10_p4: E -25.799 vs noiseless -30.938 (retained 0.834) | P_gs 0.0006 (noiseless 0.0020, uniform 9.5e-07) | top0.1% 0.306 (noiseless 0.712) | best-of-100 hits GS 0.06
+hard_s12_p1: E -18.763 vs noiseless -19.935 (retained 0.941) | P_gs 0.0004 (noiseless 0.0003, uniform 9.5e-07) | top0.1% 0.092 (noiseless 0.117) | best-of-100 hits GS 0.04
+hard_s12_p2: E -20.442 vs noiseless -22.737 (retained 0.899) | P_gs 0.0001 (noiseless 0.0008, uniform 9.5e-07) | top0.1% 0.134 (noiseless 0.214) | best-of-100 hits GS 0.0
+hard_s12_p3: E -19.794 vs noiseless -23.443 (retained 0.844) | P_gs 0.0007 (noiseless 0.0021, uniform 9.5e-07) | top0.1% 0.158 (noiseless 0.386) | best-of-100 hits GS 0.12
+hard_s12_p4: E -19.787 vs noiseless -24.004 (retained 0.824) | P_gs 0.0013 (noiseless 0.0039, uniform 9.5e-07) | top0.1% 0.233 (noiseless 0.532) | best-of-100 hits GS 0.1
+hard_s5_p3_exact: E -26.319 vs noiseless -31.316 (retained 0.840) | P_gs 0.0004 (noiseless 0.0021, uniform 9.5e-07) | top0.1% 0.183 (noiseless 0.488) | best-of-100 hits GS 0.02
+hard_s5_p4_exact: E -25.570 vs noiseless -31.494 (retained 0.812) | P_gs 0.0004 (noiseless 0.0024, uniform 9.5e-07) | top0.1% 0.167 (noiseless 0.511) | best-of-100 hits GS 0.06
+hard_s10_p3_exact: E -23.704 vs noiseless -28.467 (retained 0.833) | P_gs 0.0001 (noiseless 0.0008, uniform 9.5e-07) | top0.1% 0.159 (noiseless 0.345) | best-of-100 hits GS 0.0
+hard_s10_p4_exact: E -23.432 vs noiseless -28.713 (retained 0.816) | P_gs 0.0001 (noiseless 0.0005, uniform 9.5e-07) | top0.1% 0.111 (noiseless 0.261) | best-of-100 hits GS 0.0

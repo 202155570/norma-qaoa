@@ -1,0 +1,43 @@
+seed 0: lambda 0.735 greedy miss False descent hit 0.260 GS selects 6
+seed 1: lambda 0.099 greedy miss True descent hit 0.385 GS selects 10
+seed 2: lambda 1.171 greedy miss False descent hit 0.540 GS selects 3
+seed 3: lambda 0.686 greedy miss True descent hit 0.200 GS selects 8
+seed 4: lambda 1.370 greedy miss False descent hit 0.575 GS selects 1
+seed 5: lambda 0.632 greedy miss True descent hit 0.105 GS selects 4
+seed 6: lambda 0.579 greedy miss False descent hit 0.170 GS selects 5
+seed 7: lambda 0.768 greedy miss True descent hit 0.325 GS selects 7
+seed 8: skipped (no lambda >= 0 gives 6)
+seed 9: lambda 1.384 greedy miss False descent hit 1.000 GS selects 1
+seed 10: lambda 0.663 greedy miss True descent hit 0.110 GS selects 5
+seed 11: lambda 0.171 greedy miss False descent hit 0.200 GS selects 6
+seed 12: lambda 0.770 greedy miss True descent hit 0.145 GS selects 6
+seed 13: lambda 0.582 greedy miss True descent hit 0.205 GS selects 6
+seed 14: lambda 0.615 greedy miss False descent hit 0.200 GS selects 4
+seed 15: lambda 0.739 greedy miss False descent hit 0.330 GS selects 4
+seed 16: lambda 0.695 greedy miss True descent hit 0.180 GS selects 3
+seed 17: lambda 1.246 greedy miss False descent hit 0.405 GS selects 2
+seed 18: lambda 0.615 greedy miss False descent hit 0.295 GS selects 5
+seed 19: lambda 0.290 greedy miss False descent hit 0.445 GS selects 6
+seed 20: lambda 0.108 greedy miss False descent hit 0.190 GS selects 8
+seed 21: lambda 1.077 greedy miss False descent hit 0.540 GS selects 4
+seed 22: lambda 0.916 greedy miss False descent hit 1.000 GS selects 4
+seed 23: lambda 0.824 greedy miss False descent hit 0.545 GS selects 4
+seed 24: lambda 0.516 greedy miss True descent hit 0.175 GS selects 6
+seed 25: lambda 1.573 greedy miss False descent hit 0.740 GS selects 1
+seed 26: lambda 0.635 greedy miss True descent hit 0.160 GS selects 4
+seed 27: lambda 0.488 greedy miss True descent hit 0.160 GS selects 7
+seed 28: lambda 1.395 greedy miss False descent hit 0.855 GS selects 1
+seed 29: lambda 0.564 greedy miss True descent hit 0.205 GS selects 5
+picked [5, 10, 12] skipped [8]
+hard_s5_p1: E pps->exact -26.0086 exact-trained -26.0086 GS -33.7780  capture None  P_gs 0.0004 (exact angles 0.0004, uniform 9.5e-07)  top0.1% 0.124
+hard_s5_p2: E pps->exact -30.3617 exact-trained -30.3617 GS -33.7780  capture 0.9999987628430956  P_gs 0.0023 (exact angles 0.0023, uniform 9.5e-07)  top0.1% 0.423
+hard_s5_p3: E pps->exact -30.6451 exact-trained -31.3157 GS -33.7780  capture 0.8736466637020587  P_gs 0.0036 (exact angles 0.0021, uniform 9.5e-07)  top0.1% 0.480
+hard_s5_p4: E pps->exact -26.8765 exact-trained -31.4943 GS -33.7780  capture 0.1581968358018283  P_gs 0.0023 (exact angles 0.0024, uniform 9.5e-07)  top0.1% 0.342
+hard_s10_p1: E pps->exact -21.2781 exact-trained -21.2781 GS -33.7110  capture None  P_gs 0.0006 (exact angles 0.0006, uniform 9.5e-07)  top0.1% 0.123
+hard_s10_p2: E pps->exact -28.4931 exact-trained -28.4931 GS -33.7110  capture 0.9999971929800833  P_gs 0.0005 (exact angles 0.0005, uniform 9.5e-07)  top0.1% 0.311
+hard_s10_p3: E pps->exact -28.4496 exact-trained -28.4669 GS -33.7110  capture 0.9975930611944508  P_gs 0.0008 (exact angles 0.0008, uniform 9.5e-07)  top0.1% 0.373
+hard_s10_p4: E pps->exact -30.9381 exact-trained -28.7126 GS -33.7110  capture 1.0  P_gs 0.0020 (exact angles 0.0005, uniform 9.5e-07)  top0.1% 0.712
+hard_s12_p1: E pps->exact -19.9347 exact-trained -19.9347 GS -26.8699  capture None  P_gs 0.0003 (exact angles 0.0003, uniform 9.5e-07)  top0.1% 0.117
+hard_s12_p2: E pps->exact -22.7365 exact-trained -22.7366 GS -26.8699  capture 0.999991254539988  P_gs 0.0008 (exact angles 0.0008, uniform 9.5e-07)  top0.1% 0.214
+hard_s12_p3: E pps->exact -23.4431 exact-trained -23.4434 GS -26.8699  capture 0.9999196702718454  P_gs 0.0021 (exact angles 0.0021, uniform 9.5e-07)  top0.1% 0.386
+hard_s12_p4: E pps->exact -24.0036 exact-trained -24.0101 GS -26.8699  capture 0.9984186554373471  P_gs 0.0039 (exact angles 0.0038, uniform 9.5e-07)  top0.1% 0.532

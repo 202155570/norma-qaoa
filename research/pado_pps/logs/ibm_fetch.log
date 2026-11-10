@@ -1,0 +1,12 @@
+status QUEUED
+status QUEUED
+status QUEUED
+status QUEUED
+status RUNNING
+status DONE
+N20_d3_i0_p1: E -9.758±0.029 vs exact -10.352 (retained 0.943)  best G -3.415 (pct 0.00e+00), top1% share 0.358 | uniform 0.260  rand-marg 0.122  score-marg 0.333
+N20_d3_i0_p2: E -10.856±0.025 vs exact -11.888 (retained 0.913)  best G -3.415 (pct 0.00e+00), top1% share 0.453 | uniform 0.261  rand-marg 0.117  score-marg 0.395
+N20_d3_i0_p3: E -10.700±0.029 vs exact -12.339 (retained 0.867)  best G -3.415 (pct 0.00e+00), top1% share 0.541 | uniform 0.265  rand-marg 0.072  score-marg 0.452
+N50_d3_p1: E -62.797±0.099 vs exact -72.840 (retained 0.862)  best G -4.527 (pct 0.00e+00), top1% share 0.355 | uniform 0.915  rand-marg 0.218  score-marg 0.506
+N50_d3_p2: E -59.030±0.112 vs exact -79.548 (retained 0.742)  best G -4.527 (pct 0.00e+00), top1% share 0.388 | uniform 0.919  rand-marg 0.289  score-marg 0.514
+N100_d3_p1: E -178.729±0.244 vs exact -243.978 (retained 0.733)  best G -5.075 (pct 0.00e+00), top1% share 0.769 | uniform 1.000  rand-marg 0.746  score-marg 0.946
