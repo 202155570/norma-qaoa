@@ -1,0 +1,6 @@
+N50_k1         n= 50 p=1 pps8  E -49.3537  GS -49.3537  hit True  gap -2.88e-16  sel 6/6  field/edge 38/2  maxdeg 3  17s
+N50_k4         n= 50 p=1 pps8  E -119.5800  GS -119.5800  hit True  gap 2.38e-16  sel 5/5  field/edge 36/4  maxdeg 3  25s
+N100_k1        n=100 p=1 pps8  E -111.4526  GS -111.4526  hit True  gap -2.55e-16  sel 6/6  field/edge 88/2  maxdeg 3  84s
+N100_k4        n=100 p=1 pps8  E -282.8859  GS -282.9015  hit False  gap 5.51e-05  sel 6/6  field/edge 81/9  maxdeg 3  103s
+N150_k1        n=150 p=1 pps8  E -198.1391  GS -198.1783  hit False  gap 1.98e-04  sel 5/6  field/edge 137/3  maxdeg 3  187s
+N150_k4        n=150 p=1 pps8  E -434.2339  GS -473.6658  hit False  gap 8.32e-02  sel 24/6  field/edge 123/17  maxdeg 3  256s

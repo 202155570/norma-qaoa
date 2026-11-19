@@ -1,0 +1,6 @@
+N= 50 gamma= 4  MILP -0.886912 (bound -0.886912, 1 nodes, 0.0s) certified=True  vol 0.084 (proxy 0.102)  score 0.915 (proxy 0.901)  overlap 3/6  ['XLE', 'XLV', 'XLP', 'VTV', 'EWT', 'DBC']
+N= 50 gamma=12  MILP -0.830804 (bound -0.830804, 1 nodes, 0.1s) certified=True  vol 0.084 (proxy 0.102)  score 0.915 (proxy 0.901)  overlap 3/6  ['XLE', 'XLV', 'XLP', 'VTV', 'EWT', 'DBC']
+N=100 gamma= 4  MILP -0.910364 (bound -0.910364, 1 nodes, 0.4s) certified=True  vol 0.085 (proxy 0.122)  score 0.939 (proxy 0.931)  overlap 2/6  ['XLE', 'XLV', 'XLP', 'VTV', 'EWT', 'DBC']
+N=100 gamma=12  MILP -0.852305 (bound -0.852305, 1 nodes, 1.1s) certified=True  vol 0.085 (proxy 0.122)  score 0.939 (proxy 0.931)  overlap 2/6  ['XLE', 'XLV', 'XLP', 'VTV', 'EWT', 'DBC']
+N=150 gamma= 4  MILP -0.915694 (bound -0.915694, 7 nodes, 2.5s) certified=True  vol 0.102 (proxy 0.117)  score 0.957 (proxy 0.938)  overlap 2/6  ['XLE', 'XLV', 'EWT', 'DBC', 'SCHD', 'IBB']
+N=150 gamma=12  MILP -0.854703 (bound -0.854703, 9 nodes, 3.9s) certified=True  vol 0.086 (proxy 0.117)  score 0.943 (proxy 0.938)  overlap 2/6  ['XLE', 'XLV', 'XLP', 'EWT', 'DBC', 'IWD']

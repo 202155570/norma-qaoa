@@ -1,0 +1,3 @@
+maiq {'sharpe_local_search': 0.3260857291677609, 'sharpe_milp': 0.3260857291677609, 'months_different': 0}
+pado {'sharpe_local_search': 0.12380825716901632, 'sharpe_milp': 0.14746383793967874, 'months_different': 3}
+cluster {'sharpe_local_search': 0.17249185591810778, 'sharpe_milp': 0.17249185591810778, 'months_different': 0}

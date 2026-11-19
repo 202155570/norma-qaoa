@@ -1,0 +1,2 @@
+N150_g12: GS selects 5, lambda 0.1341 in (0.1329, 0.1353), f(m) solved for m=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]  GS == k=6 MILP optimum: False  [200s]
+mvN150_g12     n=150 p=1 p1None  E -26.5938  GS -26.5938  hit True  gap 0.00e+00  sel 5/5  field/edge 138/2  maxdeg 149  380s

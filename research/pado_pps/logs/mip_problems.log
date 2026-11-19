@@ -1,0 +1,6 @@
+N= 50 original MILP -4.527290 (bound -4.527290, 1 nodes, 0.3s) certified=True  ref -4.527290 same=True  ['XLV', 'XLP', 'EWT', 'USO', 'XBI', 'KRE']
+N= 50 variant  MILP -11.339300 (bound -11.339300, 1 nodes, 0.0s) certified=True  ref -11.339300 same=True  ['XLB', 'XLP', 'USMV', 'USO', 'XBI', 'KRE']
+N=100 original MILP -5.074650 (bound -5.074650, 7 nodes, 0.8s) certified=True  ref -5.074650 same=True  ['XLP', 'EWT', 'USO', 'XBI', 'KRE', 'HACK']
+N=100 variant  MILP -11.812807 (bound -11.812807, 1 nodes, 0.0s) certified=True  ref -11.812807 same=True  ['XLP', 'USO', 'XBI', 'KRE', 'HACK', 'UUP']
+N=150 original MILP -5.205664 (bound -5.205664, 20 nodes, 2.5s) certified=True  ref -5.205664 same=True  ['XLP', 'EWT', 'USO', 'KRE', 'IBB', 'HACK']
+N=150 variant  MILP -12.896692 (bound -12.896692, 1 nodes, 0.0s) certified=True  ref -12.896692 same=True  ['XLV', 'DBC', 'XOP', 'OIH', 'HACK', 'UUP']

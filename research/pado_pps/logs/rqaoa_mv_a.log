@@ -1,0 +1,6 @@
+N50_g4: lambda 0.1355 in (0.1326, 0.1384), f(m) solved for m=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]  GS == k=6 MILP optimum: True  [1s]
+mvN50_g4       n= 50 p=1 p1None  E -2.2144  GS -2.2144  hit True  gap 0.00e+00  sel 6/6  field/edge 40/0  maxdeg 49  9s
+N50_g12: lambda 0.1228 in (0.1161, 0.1294), f(m) solved for m=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]  GS == k=6 MILP optimum: True  [40s]
+mvN50_g12      n= 50 p=1 p1None  E -3.5614  GS -3.5901  hit False  gap 8.02e-03  sel 5/6  field/edge 39/1  maxdeg 49  6s
+N100_g4: lambda 0.1454 in (0.1439, 0.1470), f(m) solved for m=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51]  GS == k=6 MILP optimum: True  [199s]
+mvN100_g4      n=100 p=1 p1None  E -6.4033  GS -6.4033  hit True  gap 0.00e+00  sel 6/6  field/edge 90/0  maxdeg 99  33s

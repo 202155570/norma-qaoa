@@ -1,0 +1,188 @@
+{
+ "N50_original": {
+  "status": 0,
+  "certified": true,
+  "G": -4.527290401877839,
+  "milp_obj": -4.527290401877852,
+  "dual_bound": -4.527290401877852,
+  "gap": 0.0,
+  "nodes": 1,
+  "pairs": 983,
+  "dense_rlt": false,
+  "seconds": 0.2716047763824463,
+  "pick": [
+   "XLV",
+   "XLP",
+   "EWT",
+   "USO",
+   "XBI",
+   "KRE"
+  ],
+  "reference_G": -4.527290401877839,
+  "reference_pick": [
+   "XLV",
+   "XLP",
+   "EWT",
+   "USO",
+   "XBI",
+   "KRE"
+  ],
+  "reference_method": "exhaustive",
+  "reference_is_optimal": true
+ },
+ "N50_variant": {
+  "status": 0,
+  "certified": true,
+  "G": -11.339299699112974,
+  "milp_obj": -11.339299699112972,
+  "dual_bound": -11.339299699112972,
+  "gap": 0.0,
+  "nodes": 1,
+  "pairs": 74,
+  "dense_rlt": false,
+  "seconds": 0.005188703536987305,
+  "pick": [
+   "XLB",
+   "XLP",
+   "USMV",
+   "USO",
+   "XBI",
+   "KRE"
+  ],
+  "reference_G": -11.339299699112974,
+  "reference_pick": [
+   "XLB",
+   "XLP",
+   "USMV",
+   "USO",
+   "XBI",
+   "KRE"
+  ],
+  "reference_method": "exhaustive",
+  "reference_is_optimal": true
+ },
+ "N100_original": {
+  "status": 0,
+  "certified": true,
+  "G": -5.074649920483548,
+  "milp_obj": -5.074649920483548,
+  "dual_bound": -5.074649920483548,
+  "gap": 0.0,
+  "nodes": 7,
+  "pairs": 4105,
+  "dense_rlt": false,
+  "seconds": 0.7927074432373047,
+  "pick": [
+   "XLP",
+   "EWT",
+   "USO",
+   "XBI",
+   "KRE",
+   "HACK"
+  ],
+  "reference_G": -5.074649920483548,
+  "reference_pick": [
+   "XLP",
+   "EWT",
+   "USO",
+   "XBI",
+   "KRE",
+   "HACK"
+  ],
+  "reference_method": "local search (200 restarts) + 1e6 uniform samples, seed 2026",
+  "reference_is_optimal": true
+ },
+ "N100_variant": {
+  "status": 0,
+  "certified": true,
+  "G": -11.812806542825944,
+  "milp_obj": -11.812806542825943,
+  "dual_bound": -11.812806542825943,
+  "gap": 0.0,
+  "nodes": 1,
+  "pairs": 150,
+  "dense_rlt": false,
+  "seconds": 0.013469696044921875,
+  "pick": [
+   "XLP",
+   "USO",
+   "XBI",
+   "KRE",
+   "HACK",
+   "UUP"
+  ],
+  "reference_G": -11.812806542825944,
+  "reference_pick": [
+   "XLP",
+   "USO",
+   "XBI",
+   "KRE",
+   "HACK",
+   "UUP"
+  ],
+  "reference_method": "local search (200 restarts) + 1e6 uniform samples, seed 2026",
+  "reference_is_optimal": true
+ },
+ "N150_original": {
+  "status": 0,
+  "certified": true,
+  "G": -5.205664229260937,
+  "milp_obj": -5.205664229260937,
+  "dual_bound": -5.205664229260937,
+  "gap": 0.0,
+  "nodes": 20,
+  "pairs": 9513,
+  "dense_rlt": false,
+  "seconds": 2.5237770080566406,
+  "pick": [
+   "XLP",
+   "EWT",
+   "USO",
+   "KRE",
+   "IBB",
+   "HACK"
+  ],
+  "reference_G": -5.205664229260937,
+  "reference_pick": [
+   "XLP",
+   "EWT",
+   "USO",
+   "KRE",
+   "IBB",
+   "HACK"
+  ],
+  "reference_method": "local search (200 restarts) + 1e6 uniform samples, seed 2026",
+  "reference_is_optimal": true
+ },
+ "N150_variant": {
+  "status": 0,
+  "certified": true,
+  "G": -12.896692375469016,
+  "milp_obj": -12.896692375469016,
+  "dual_bound": -12.896692375469016,
+  "gap": 0.0,
+  "nodes": 1,
+  "pairs": 225,
+  "dense_rlt": false,
+  "seconds": 0.009709835052490234,
+  "pick": [
+   "XLV",
+   "DBC",
+   "XOP",
+   "OIH",
+   "HACK",
+   "UUP"
+  ],
+  "reference_G": -12.896692375469016,
+  "reference_pick": [
+   "XLV",
+   "DBC",
+   "XOP",
+   "OIH",
+   "HACK",
+   "UUP"
+  ],
+  "reference_method": "local search (200 restarts) + 1e6 uniform samples, seed 2026",
+  "reference_is_optimal": true
+ }
+}

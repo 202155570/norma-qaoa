@@ -1,0 +1,6 @@
+s5 ma_exact   |RZZ - k*pi| median 0.000 max 0.016  P_gs 0.5154 -> rounded 0.5155
+s5 ma_pps_w5  |RZZ - k*pi| median 0.000 max 0.018  P_gs 0.5210 -> rounded 0.5211
+s10 ma_exact   |RZZ - k*pi| median 0.000 max 0.001  P_gs 1.0000 -> rounded 1.0000
+s10 ma_pps_w5  |RZZ - k*pi| median 0.000 max 0.004  P_gs 1.0000 -> rounded 1.0000
+s12 ma_exact   |RZZ - k*pi| median 0.001 max 0.036  P_gs 0.9988 -> rounded 0.9996
+s12 ma_pps_w5  |RZZ - k*pi| median 0.001 max 0.033  P_gs 0.9989 -> rounded 0.9993

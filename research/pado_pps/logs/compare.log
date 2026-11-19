@@ -1,0 +1,41 @@
+n20_s0           n= 20 k=6  greedy HIT 0.0s  descent HIT(0.26) 0.0s  sa HIT(1.00) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s1           n= 20 k=10  greedy 4.1e-03 0.0s  descent HIT(0.37) 0.0s  sa HIT(0.75) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s2           n= 20 k=3  greedy HIT 0.0s  descent HIT(0.56) 0.0s  sa HIT(1.00) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s3           n= 20 k=8  greedy 2.1e-02 0.0s  descent HIT(0.17) 0.0s  sa HIT(0.60) 0.2s  swap HIT 0.0s  seqfix 1.7e-02 0.0s
+n20_s4           n= 20 k=1  greedy HIT 0.0s  descent HIT(0.57) 0.0s  sa HIT(1.00) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s5           n= 20 k=4  greedy 6.4e-03 0.0s  descent HIT(0.14) 0.0s  sa HIT(0.70) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s6           n= 20 k=5  greedy HIT 0.0s  descent HIT(0.17) 0.0s  sa HIT(0.25) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s7           n= 20 k=7  greedy 5.5e-02 0.0s  descent HIT(0.31) 0.0s  sa HIT(0.70) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s9           n= 20 k=1  greedy HIT 0.0s  descent HIT(1.00) 0.0s  sa HIT(1.00) 0.2s  swap HIT 0.0s  seqfix 4.2e-03 0.0s
+n20_s10          n= 20 k=5  greedy 3.9e-03 0.0s  descent HIT(0.14) 0.0s  sa HIT(0.70) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s11          n= 20 k=6  greedy HIT 0.0s  descent HIT(0.23) 0.0s  sa HIT(0.70) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s12          n= 20 k=6  greedy 1.2e-02 0.0s  descent HIT(0.26) 0.0s  sa HIT(0.55) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s13          n= 20 k=6  greedy 8.8e-03 0.0s  descent HIT(0.19) 0.0s  sa HIT(0.95) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s14          n= 20 k=4  greedy HIT 0.0s  descent HIT(0.23) 0.0s  sa HIT(0.70) 0.2s  swap HIT 0.0s  seqfix 1.6e-03 0.0s
+n20_s15          n= 20 k=4  greedy HIT 0.0s  descent HIT(0.33) 0.0s  sa HIT(0.75) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s16          n= 20 k=3  greedy 1.0e-02 0.0s  descent HIT(0.15) 0.0s  sa HIT(0.35) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s17          n= 20 k=2  greedy HIT 0.0s  descent HIT(0.43) 0.0s  sa HIT(0.90) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s18          n= 20 k=5  greedy HIT 0.0s  descent HIT(0.32) 0.0s  sa HIT(0.35) 0.2s  swap HIT 0.0s  seqfix 2.6e-02 0.0s
+n20_s19          n= 20 k=6  greedy HIT 0.0s  descent HIT(0.45) 0.0s  sa HIT(0.90) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s20          n= 20 k=8  greedy HIT 0.0s  descent HIT(0.20) 0.0s  sa HIT(0.60) 0.2s  swap HIT 0.0s  seqfix 2.7e-02 0.0s
+n20_s21          n= 20 k=4  greedy HIT 0.0s  descent HIT(0.51) 0.0s  sa HIT(0.70) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s22          n= 20 k=4  greedy HIT 0.0s  descent HIT(1.00) 0.0s  sa HIT(1.00) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s23          n= 20 k=4  greedy HIT 0.0s  descent HIT(0.55) 0.0s  sa HIT(0.95) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s24          n= 20 k=6  greedy 3.5e-02 0.0s  descent HIT(0.20) 0.0s  sa HIT(0.95) 0.2s  swap HIT 0.0s  seqfix 7.9e-03 0.0s
+n20_s25          n= 20 k=1  greedy HIT 0.0s  descent HIT(0.74) 0.0s  sa HIT(0.90) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s26          n= 20 k=4  greedy 1.5e-02 0.0s  descent HIT(0.17) 0.0s  sa HIT(0.70) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s27          n= 20 k=7  greedy 4.6e-02 0.0s  descent HIT(0.23) 0.0s  sa HIT(0.65) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+n20_s28          n= 20 k=1  greedy HIT 0.0s  descent HIT(0.81) 0.0s  sa HIT(1.00) 0.2s  swap HIT 0.0s  seqfix 1.1e-02 0.0s
+n20_s29          n= 20 k=5  greedy 2.0e-02 0.0s  descent HIT(0.19) 0.0s  sa HIT(0.95) 0.2s  swap HIT 0.0s  seqfix HIT 0.0s
+proxy_N50_k1     n= 50 k=6  greedy 6.2e-03 0.0s  descent HIT(0.21) 0.0s  sa HIT(0.45) 0.5s  swap HIT 0.0s  seqfix HIT 0.1s
+proxy_N50_k4     n= 50 k=5  greedy 3.7e-03 0.0s  descent HIT(0.12) 0.0s  sa HIT(0.20) 0.5s  swap HIT 0.0s  seqfix 4.3e-03 0.0s
+proxy_N100_k1    n=100 k=6  greedy 7.3e-04 0.0s  descent HIT(0.22) 0.0s  sa HIT(0.40) 0.9s  swap HIT 0.0s  seqfix HIT 0.1s
+proxy_N100_k4    n=100 k=6  greedy 5.4e-04 0.0s  descent HIT(0.07) 0.0s  sa HIT(0.20) 1.0s  swap HIT 0.0s  seqfix 1.9e-04 0.1s
+proxy_N150_k1    n=150 k=6  greedy 4.1e-04 0.0s  descent HIT(0.13) 0.0s  sa HIT(0.35) 1.3s  swap HIT 0.0s  seqfix 4.1e-04 0.2s
+proxy_N150_k4    n=150 k=6  greedy 1.7e-04 0.0s  descent HIT(0.19) 0.0s  sa HIT(0.25) 1.6s  swap HIT 0.0s  seqfix HIT 0.2s
+mv_N50_g4        n= 50 k=6  greedy HIT 0.0s  descent HIT(0.57) 0.0s  sa HIT(0.85) 0.4s  swap HIT 0.0s  seqfix HIT 0.1s
+mv_N50_g12       n= 50 k=6  greedy HIT 0.0s  descent HIT(0.67) 0.0s  sa HIT(1.00) 0.5s  swap HIT 0.0s  seqfix HIT 0.1s
+mv_N100_g4       n=100 k=6  greedy HIT 0.0s  descent HIT(0.81) 0.0s  sa HIT(1.00) 0.9s  swap HIT 0.0s  seqfix HIT 0.3s
+mv_N100_g12      n=100 k=6  greedy 7.5e-04 0.0s  descent HIT(0.22) 0.0s  sa HIT(1.00) 1.0s  swap HIT 0.0s  seqfix 7.5e-04 0.2s
+mv_N150_g4       n=150 k=6  greedy HIT 0.0s  descent HIT(0.39) 0.0s  sa HIT(0.70) 1.4s  swap HIT 0.0s  seqfix 8.3e-05 0.6s
+mv_N150_g12      n=150 k=5  greedy HIT 0.0s  descent HIT(0.26) 0.0s  sa HIT(0.30) 1.6s  swap HIT 0.0s  seqfix HIT 0.6s

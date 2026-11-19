@@ -1,0 +1,2 @@
+random dense n=12: max|M_P1 - M_SV| 3.33e-16  max|grad diff| 7.11e-15
+mean-variance 14 ETFs: max|M_P1 - M_SV| 6.66e-16  max|grad diff| 3.89e-16

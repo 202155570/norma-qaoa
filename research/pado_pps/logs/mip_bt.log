@@ -1,0 +1,134 @@
+2017-11-30  maiq -4.6139 ls +0.0e+00 OK 4.2s  pado -9.4495 ls +0.0e+00 OK 0.0s  cluster -9.4495 ls +0.0e+00 OK 0.0s  [4s]
+2017-12-29  maiq -4.7095 ls +0.0e+00 OK 4.3s  pado -9.7718 ls +0.0e+00 OK 0.0s  cluster -9.7718 ls +0.0e+00 OK 0.0s  [9s]
+2018-01-31  maiq -4.3063 ls +0.0e+00 OK 12.6s  pado -9.6056 ls +0.0e+00 OK 0.0s  cluster -9.6056 ls +0.0e+00 OK 0.0s  [22s]
+2018-02-28  maiq -3.3974 ls +0.0e+00 OK 42.6s  pado -15.7739 ls +0.0e+00 OK 0.0s  cluster -15.7739 ls +0.0e+00 OK 0.0s  [65s]
+2018-03-29  maiq -3.4854 ls +0.0e+00 OK 23.4s  pado -18.9580 ls +0.0e+00 OK 0.0s  cluster -18.9580 ls +0.0e+00 OK 0.0s  [88s]
+2018-04-30  maiq -3.5647 ls +0.0e+00 OK 13.0s  pado -20.1761 ls +0.0e+00 OK 0.0s  cluster -20.1761 ls +0.0e+00 OK 0.0s  [101s]
+2018-05-31  maiq -3.3350 ls +0.0e+00 OK 14.1s  pado -19.6983 ls +0.0e+00 OK 0.0s  cluster -19.6983 ls +0.0e+00 OK 0.0s  [115s]
+2018-06-29  maiq -3.8285 ls +0.0e+00 OK 5.6s  pado -20.2992 ls +0.0e+00 OK 0.0s  cluster -20.2992 ls +0.0e+00 OK 0.0s  [121s]
+2018-07-31  maiq -3.9489 ls +0.0e+00 OK 4.2s  pado -19.3065 ls +0.0e+00 OK 0.0s  cluster -19.3065 ls +0.0e+00 OK 0.0s  [125s]
+2018-08-31  maiq -4.0395 ls +0.0e+00 OK 4.6s  pado -14.3775 ls +0.0e+00 OK 0.0s  cluster -14.3775 ls +0.0e+00 OK 0.0s  [130s]
+2018-09-28  maiq -4.0811 ls +0.0e+00 OK 7.3s  pado -11.0893 ls +0.0e+00 OK 0.0s  cluster -11.0893 ls +0.0e+00 OK 0.0s  [137s]
+2018-10-31  maiq -5.3476 ls +0.0e+00 OK 1.1s  pado -16.0066 ls +0.0e+00 OK 0.0s  cluster -16.0066 ls +0.0e+00 OK 0.0s  [139s]
+2018-11-30  maiq -5.3882 ls +0.0e+00 OK 1.3s  pado -18.0455 ls +0.0e+00 OK 0.0s  cluster -18.0455 ls +0.0e+00 OK 0.0s  [140s]
+2018-12-31  maiq -5.6010 ls +0.0e+00 OK 0.4s  pado -22.6796 ls +0.0e+00 OK 0.0s  cluster -22.6796 ls +0.0e+00 OK 0.0s  [140s]
+2019-01-31  maiq -5.0497 ls +0.0e+00 OK 4.2s  pado -24.2584 ls +0.0e+00 OK 0.0s  cluster -24.2584 ls +0.0e+00 OK 0.0s  [145s]
+2019-02-28  maiq -5.0298 ls +0.0e+00 OK 2.2s  pado -24.5041 ls +0.0e+00 OK 0.0s  cluster -24.5041 ls +0.0e+00 OK 0.0s  [147s]
+2019-03-29  maiq -4.6385 ls +0.0e+00 OK 3.9s  pado -24.6495 ls +0.0e+00 OK 0.0s  cluster -24.6495 ls +0.0e+00 OK 0.0s  [151s]
+2019-04-30  maiq -4.0450 ls +0.0e+00 OK 6.6s  pado -21.3179 ls +0.0e+00 OK 0.0s  cluster -21.3179 ls +0.0e+00 OK 0.0s  [158s]
+2019-05-31  maiq -4.9753 ls +0.0e+00 OK 3.8s  pado -23.7810 ls +0.0e+00 OK 0.0s  cluster -23.7810 ls +0.0e+00 OK 0.0s  [161s]
+2019-06-28  maiq -4.4050 ls +0.0e+00 OK 17.9s  pado -17.7809 ls +0.0e+00 OK 0.0s  cluster -17.7809 ls +0.0e+00 OK 0.0s  [179s]
+2019-07-31  maiq -4.6755 ls +0.0e+00 OK 12.7s  pado -14.7879 ls +0.0e+00 OK 0.0s  cluster -14.7879 ls +0.0e+00 OK 0.0s  [192s]
+2019-08-30  maiq -4.8860 ls +0.0e+00 OK 5.3s  pado -22.0026 ls +0.0e+00 OK 0.0s  cluster -22.0026 ls +0.0e+00 OK 0.0s  [198s]
+2019-09-30  maiq -5.0176 ls +0.0e+00 OK 2.8s  pado -20.6183 ls +0.0e+00 OK 0.0s  cluster -20.6183 ls +0.0e+00 OK 0.0s  [201s]
+2019-10-31  maiq -4.7436 ls +0.0e+00 OK 6.5s  pado -20.6344 ls +0.0e+00 OK 0.0s  cluster -20.6087 ls +0.0e+00 OK 0.0s  [207s]
+2019-11-29  maiq -4.5192 ls +0.0e+00 OK 5.2s  pado -18.8291 ls +0.0e+00 OK 0.0s  cluster -18.8291 ls +0.0e+00 OK 0.0s  [212s]
+2019-12-31  maiq -4.7850 ls +0.0e+00 OK 3.4s  pado -18.7390 ls +0.0e+00 OK 0.0s  cluster -18.7390 ls +0.0e+00 OK 0.0s  [216s]
+2020-01-31  maiq -4.4062 ls +0.0e+00 OK 17.1s  pado -20.1066 ls +0.0e+00 OK 0.0s  cluster -20.1066 ls +0.0e+00 OK 0.0s  [233s]
+2020-02-28  maiq -4.6088 ls +0.0e+00 OK 14.2s  pado -19.9048 ls +0.0e+00 OK 0.0s  cluster -19.9048 ls +0.0e+00 OK 0.0s  [247s]
+2020-03-31  maiq -5.0691 ls +0.0e+00 OK 3.2s  pado -42.3744 ls +0.0e+00 OK 0.0s  cluster -42.0427 ls +0.0e+00 OK 0.0s  [251s]
+2020-04-30  maiq -4.6654 ls +0.0e+00 OK 10.3s  pado -41.5953 ls +0.0e+00 OK 0.0s  cluster -41.2077 ls +0.0e+00 OK 0.0s  [261s]
+2020-05-29  maiq -4.0954 ls +0.0e+00 OK 22.0s  pado -40.7608 ls +0.0e+00 OK 0.0s  cluster -40.5952 ls +0.0e+00 OK 0.0s  [283s]
+2020-06-30  maiq -3.7781 ls +0.0e+00 OK 29.9s  pado -40.3393 ls +6.1e-02 MISS 0.0s  cluster -40.2447 ls +0.0e+00 OK 0.0s  [313s]
+2020-07-31  maiq -3.6630 ls +0.0e+00 OK 32.7s  pado -39.3489 ls +0.0e+00 OK 0.0s  cluster -39.3489 ls +0.0e+00 OK 0.0s  [346s]
+2020-08-31  maiq -3.2384 ls +0.0e+00 OK 29.2s  pado -38.3885 ls +0.0e+00 OK 0.0s  cluster -38.3885 ls +0.0e+00 OK 0.0s  [375s]
+2020-09-30  maiq -3.1558 ls +0.0e+00 OK 47.4s  pado -22.6140 ls +0.0e+00 OK 0.0s  cluster -22.4341 ls +0.0e+00 OK 0.0s  [422s]
+2020-10-30  maiq -3.3847 ls +0.0e+00 OK 62.8s  pado -20.5178 ls +0.0e+00 OK 0.0s  cluster -20.5178 ls +0.0e+00 OK 0.0s  [485s]
+2020-11-30  maiq -3.5544 ls +0.0e+00 OK 24.7s  pado -18.1501 ls +0.0e+00 OK 0.0s  cluster -18.1501 ls +0.0e+00 OK 0.0s  [510s]
+2020-12-31  maiq -3.9267 ls +0.0e+00 OK 28.3s  pado -13.4028 ls +0.0e+00 OK 0.0s  cluster -13.4028 ls +0.0e+00 OK 0.0s  [538s]
+2021-01-29  maiq -4.2957 ls +0.0e+00 OK 10.4s  pado -13.3335 ls +0.0e+00 OK 0.0s  cluster -13.3335 ls +0.0e+00 OK 0.0s  [549s]
+2021-02-26  maiq -4.2375 ls +0.0e+00 OK 15.1s  pado -14.6376 ls +0.0e+00 OK 0.0s  cluster -14.6376 ls +0.0e+00 OK 0.0s  [564s]
+2021-03-31  maiq -4.2512 ls +0.0e+00 OK 16.4s  pado -13.1712 ls +0.0e+00 OK 0.0s  cluster -13.1712 ls +0.0e+00 OK 0.0s  [581s]
+2021-04-30  maiq -4.5407 ls +0.0e+00 OK 14.3s  pado -12.4832 ls +0.0e+00 OK 0.0s  cluster -12.4832 ls +0.0e+00 OK 0.0s  [595s]
+2021-05-28  maiq -4.2778 ls +0.0e+00 OK 28.1s  pado -12.5707 ls +0.0e+00 OK 0.0s  cluster -12.5707 ls +0.0e+00 OK 0.0s  [623s]
+2021-06-30  maiq -4.7442 ls +0.0e+00 OK 9.7s  pado -13.7421 ls +0.0e+00 OK 0.0s  cluster -13.7421 ls +0.0e+00 OK 0.0s  [633s]
+2021-07-30  maiq -4.3641 ls +0.0e+00 OK 18.1s  pado -13.1069 ls +0.0e+00 OK 0.0s  cluster -13.1069 ls +0.0e+00 OK 0.0s  [651s]
+2021-08-31  maiq -4.4499 ls +0.0e+00 OK 18.4s  pado -12.0083 ls +0.0e+00 OK 0.0s  cluster -12.0083 ls +0.0e+00 OK 0.0s  [670s]
+2021-09-30  maiq -4.4815 ls +0.0e+00 OK 16.3s  pado -12.7688 ls +0.0e+00 OK 0.0s  cluster -12.7688 ls +0.0e+00 OK 0.0s  [686s]
+2021-10-29  maiq -4.3744 ls +0.0e+00 OK 15.1s  pado -12.4457 ls +0.0e+00 OK 0.0s  cluster -12.4457 ls +0.0e+00 OK 0.0s  [701s]
+2021-11-30  maiq -4.4686 ls +0.0e+00 OK 9.4s  pado -12.7270 ls +0.0e+00 OK 0.0s  cluster -12.7270 ls +0.0e+00 OK 0.0s  [710s]
+2021-12-31  maiq -3.8618 ls +0.0e+00 OK 18.3s  pado -13.1943 ls +0.0e+00 OK 0.0s  cluster -13.1943 ls +0.0e+00 OK 0.0s  [729s]
+2022-01-31  maiq -4.5709 ls +0.0e+00 OK 6.3s  pado -13.7678 ls +0.0e+00 OK 0.0s  cluster -13.7678 ls +0.0e+00 OK 0.0s  [735s]
+2022-02-28  maiq -4.8687 ls +0.0e+00 OK 3.6s  pado -15.2128 ls +0.0e+00 OK 0.0s  cluster -15.2128 ls +0.0e+00 OK 0.0s  [739s]
+2022-03-31  maiq -4.8905 ls +0.0e+00 OK 7.0s  pado -17.8423 ls +0.0e+00 OK 0.0s  cluster -17.8423 ls +0.0e+00 OK 0.0s  [746s]
+2022-04-29  maiq -5.2635 ls +0.0e+00 OK 2.3s  pado -19.0088 ls +0.0e+00 OK 0.0s  cluster -19.0088 ls +0.0e+00 OK 0.0s  [749s]
+2022-05-31  maiq -5.0998 ls +0.0e+00 OK 2.1s  pado -21.5445 ls +0.0e+00 OK 0.0s  cluster -21.5445 ls +0.0e+00 OK 0.0s  [751s]
+2022-06-30  maiq -5.3715 ls +0.0e+00 OK 2.3s  pado -24.1407 ls +0.0e+00 OK 0.0s  cluster -24.1407 ls +0.0e+00 OK 0.0s  [753s]
+2022-07-29  maiq -5.2246 ls +0.0e+00 OK 1.6s  pado -24.0103 ls +0.0e+00 OK 0.0s  cluster -24.0103 ls +0.0e+00 OK 0.0s  [755s]
+2022-08-31  maiq -5.2964 ls +0.0e+00 OK 2.1s  pado -25.3413 ls +0.0e+00 OK 0.0s  cluster -25.3413 ls +0.0e+00 OK 0.0s  [757s]
+2022-09-30  maiq -5.4745 ls +0.0e+00 OK 1.3s  pado -28.5009 ls +0.0e+00 OK 0.0s  cluster -28.5009 ls +0.0e+00 OK 0.0s  [758s]
+2022-10-31  maiq -5.1046 ls +0.0e+00 OK 2.1s  pado -29.6761 ls +0.0e+00 OK 0.0s  cluster -29.6761 ls +0.0e+00 OK 0.0s  [761s]
+2022-11-30  maiq -4.5160 ls +0.0e+00 OK 4.8s  pado -29.3106 ls +0.0e+00 OK 0.0s  cluster -29.2664 ls +0.0e+00 OK 0.0s  [766s]
+2022-12-30  maiq -4.0018 ls +0.0e+00 OK 8.7s  pado -27.2172 ls +0.0e+00 OK 0.0s  cluster -27.2172 ls +0.0e+00 OK 0.0s  [774s]
+2023-01-31  maiq -3.8180 ls +0.0e+00 OK 27.0s  pado -28.3145 ls +0.0e+00 OK 0.0s  cluster -28.3145 ls +0.0e+00 OK 0.0s  [801s]
+2023-02-28  maiq -4.7826 ls +0.0e+00 OK 4.5s  pado -28.2795 ls +1.9e-01 MISS 0.0s  cluster -28.2795 ls +0.0e+00 OK 0.0s  [806s]
+2023-03-31  maiq -3.8981 ls +0.0e+00 OK 14.7s  pado -23.1617 ls +0.0e+00 OK 0.0s  cluster -23.1617 ls +0.0e+00 OK 0.0s  [821s]
+2023-04-28  maiq -4.1065 ls +0.0e+00 OK 13.4s  pado -20.6421 ls +0.0e+00 OK 0.0s  cluster -20.6421 ls +0.0e+00 OK 0.0s  [834s]
+2023-05-31  maiq -4.6282 ls +0.0e+00 OK 4.8s  pado -17.2276 ls +0.0e+00 OK 0.0s  cluster -17.2276 ls +0.0e+00 OK 0.0s  [839s]
+2023-06-30  maiq -3.6723 ls +0.0e+00 OK 12.7s  pado -13.8465 ls +0.0e+00 OK 0.0s  cluster -13.8465 ls +0.0e+00 OK 0.0s  [852s]
+2023-07-31  maiq -4.4162 ls +0.0e+00 OK 8.1s  pado -13.2699 ls +0.0e+00 OK 0.0s  cluster -13.2699 ls +0.0e+00 OK 0.0s  [860s]
+2023-08-31  maiq -4.5811 ls +0.0e+00 OK 8.0s  pado -13.4089 ls +0.0e+00 OK 0.0s  cluster -13.4089 ls +0.0e+00 OK 0.0s  [868s]
+2023-09-29  maiq -4.8082 ls +0.0e+00 OK 4.9s  pado -13.3074 ls +0.0e+00 OK 0.0s  cluster -13.3074 ls +0.0e+00 OK 0.0s  [873s]
+2023-10-31  maiq -5.1727 ls +0.0e+00 OK 2.3s  pado -15.7179 ls +0.0e+00 OK 0.0s  cluster -15.7179 ls +0.0e+00 OK 0.0s  [875s]
+2023-11-30  maiq -4.2743 ls +0.0e+00 OK 8.2s  pado -16.4085 ls +0.0e+00 OK 0.0s  cluster -16.4085 ls +0.0e+00 OK 0.0s  [884s]
+2023-12-29  maiq -3.1389 ls +0.0e+00 OK 54.5s  pado -16.2091 ls +0.0e+00 OK 0.0s  cluster -16.2091 ls +0.0e+00 OK 0.0s  [938s]
+2024-01-31  maiq -3.6737 ls +0.0e+00 OK 14.9s  pado -16.9159 ls +0.0e+00 OK 0.0s  cluster -16.9159 ls +0.0e+00 OK 0.0s  [953s]
+2024-02-29  maiq -3.7878 ls +0.0e+00 OK 8.2s  pado -16.2814 ls +0.0e+00 OK 0.0s  cluster -16.2814 ls +0.0e+00 OK 0.0s  [962s]
+2024-03-28  maiq -3.9281 ls +0.0e+00 OK 15.6s  pado -15.8204 ls +0.0e+00 OK 0.0s  cluster -15.8204 ls +0.0e+00 OK 0.0s  [977s]
+2024-04-30  maiq -4.5274 ls +0.0e+00 OK 6.3s  pado -16.7029 ls +0.0e+00 OK 0.0s  cluster -16.7029 ls +0.0e+00 OK 0.0s  [984s]
+2024-05-31  maiq -4.7937 ls +0.0e+00 OK 5.2s  pado -15.5812 ls +0.0e+00 OK 0.0s  cluster -15.5812 ls +0.0e+00 OK 0.0s  [989s]
+2024-06-28  maiq -4.7532 ls +0.0e+00 OK 5.5s  pado -14.1777 ls +0.0e+00 OK 0.0s  cluster -14.1777 ls +0.0e+00 OK 0.0s  [994s]
+2024-07-31  maiq -4.1514 ls +0.0e+00 OK 39.0s  pado -12.1615 ls +0.0e+00 OK 0.0s  cluster -12.1615 ls +0.0e+00 OK 0.0s  [1034s]
+2024-08-30  maiq -4.1900 ls +0.0e+00 OK 15.7s  pado -13.5225 ls +0.0e+00 OK 0.0s  cluster -13.5225 ls +0.0e+00 OK 0.0s  [1049s]
+2024-09-30  maiq -4.0152 ls +0.0e+00 OK 35.2s  pado -13.2107 ls +0.0e+00 OK 0.0s  cluster -13.2107 ls +0.0e+00 OK 0.0s  [1085s]
+2024-10-31  maiq -4.0003 ls +0.0e+00 OK 39.2s  pado -11.6941 ls +0.0e+00 OK 0.0s  cluster -11.6941 ls +0.0e+00 OK 0.0s  [1124s]
+2024-11-29  maiq -4.0931 ls +0.0e+00 OK 13.3s  pado -11.0339 ls +0.0e+00 OK 0.0s  cluster -11.0339 ls +0.0e+00 OK 0.0s  [1137s]
+2024-12-31  maiq -4.8535 ls +0.0e+00 OK 3.9s  pado -13.5207 ls +0.0e+00 OK 0.0s  cluster -13.5207 ls +0.0e+00 OK 0.0s  [1141s]
+2025-01-31  maiq -4.7981 ls +0.0e+00 OK 3.7s  pado -13.2823 ls +0.0e+00 OK 0.0s  cluster -13.2823 ls +0.0e+00 OK 0.0s  [1145s]
+2025-02-28  maiq -5.1733 ls +0.0e+00 OK 3.2s  pado -12.0108 ls +0.0e+00 OK 0.0s  cluster -12.0108 ls +0.0e+00 OK 0.0s  [1148s]
+2025-03-31  maiq -5.0769 ls +0.0e+00 OK 3.9s  pado -13.2843 ls +0.0e+00 OK 0.0s  cluster -13.2843 ls +0.0e+00 OK 0.0s  [1152s]
+2025-04-30  maiq -4.4125 ls +0.0e+00 OK 15.7s  pado -23.0733 ls +0.0e+00 OK 0.0s  cluster -23.0733 ls +0.0e+00 OK 0.0s  [1168s]
+2025-05-30  maiq -3.7141 ls +0.0e+00 OK 23.8s  pado -24.4525 ls +0.0e+00 OK 0.0s  cluster -24.4525 ls +0.0e+00 OK 0.0s  [1192s]
+2025-06-30  maiq -3.6346 ls +0.0e+00 OK 42.0s  pado -23.7717 ls +0.0e+00 OK 0.0s  cluster -23.7717 ls +0.0e+00 OK 0.0s  [1234s]
+2025-07-31  maiq -3.7116 ls +0.0e+00 OK 41.3s  pado -23.5431 ls +0.0e+00 OK 0.0s  cluster -23.5431 ls +0.0e+00 OK 0.0s  [1275s]
+2025-08-29  maiq -3.6092 ls +0.0e+00 OK 56.4s  pado -23.6967 ls +0.0e+00 OK 0.0s  cluster -23.6967 ls +0.0e+00 OK 0.0s  [1332s]
+2025-09-30  maiq -3.7301 ls +0.0e+00 OK 57.7s  pado -23.8117 ls +0.0e+00 OK 0.0s  cluster -23.8117 ls +0.0e+00 OK 0.0s  [1390s]
+2025-10-31  maiq -4.4967 ls +0.0e+00 OK 24.9s  pado -11.5917 ls +0.0e+00 OK 0.0s  cluster -11.5917 ls +0.0e+00 OK 0.0s  [1415s]
+2025-11-28  maiq -4.1211 ls +0.0e+00 OK 45.5s  pado -11.4359 ls +0.0e+00 OK 0.0s  cluster -11.4359 ls +0.0e+00 OK 0.0s  [1460s]
+2025-12-31  maiq -4.0256 ls +0.0e+00 OK 55.8s  pado -11.4663 ls +0.0e+00 OK 0.0s  cluster -11.4663 ls +0.0e+00 OK 0.0s  [1516s]
+2026-01-30  maiq -4.4124 ls +0.0e+00 OK 13.4s  pado -11.5019 ls +0.0e+00 OK 0.0s  cluster -11.5019 ls +0.0e+00 OK 0.0s  [1530s]
+2026-02-27  maiq -4.1534 ls +0.0e+00 OK 20.9s  pado -10.6407 ls +0.0e+00 OK 0.0s  cluster -10.6407 ls +0.0e+00 OK 0.0s  [1550s]
+2026-03-31  maiq -4.2970 ls +0.0e+00 OK 22.1s  pado -14.7068 ls +0.0e+00 OK 0.0s  cluster -14.7068 ls +0.0e+00 OK 0.0s  [1573s]
+2026-04-30  maiq -4.3079 ls +0.0e+00 OK 24.2s  pado -15.3765 ls +0.0e+00 OK 0.0s  cluster -15.3765 ls +0.0e+00 OK 0.0s  [1597s]
+2026-05-29  maiq -4.4468 ls +0.0e+00 OK 16.8s  pado -15.5368 ls +0.0e+00 OK 0.0s  cluster -15.5368 ls +0.0e+00 OK 0.0s  [1614s]
+2026-06-30  maiq -4.2867 ls +0.0e+00 OK 11.7s  pado -15.0588 ls +0.0e+00 OK 0.0s  cluster -15.0588 ls +0.0e+00 OK 0.0s  [1626s]
+2026-07-31  maiq -4.7543 ls +0.0e+00 OK 9.0s  pado -16.1484 ls +0.0e+00 OK 0.0s  cluster -16.1484 ls +0.0e+00 OK 0.0s  [1635s]
+2026-08-31  maiq -4.8009 ls +0.0e+00 OK 8.8s  pado -17.6459 ls +0.0e+00 OK 0.0s  cluster -17.6459 ls +0.0e+00 OK 0.0s  [1643s]
+2026-09-30  maiq -4.7874 ls +0.0e+00 OK 5.6s  pado -15.0595 ls +8.6e-02 MISS 0.0s  cluster -14.7598 ls +0.0e+00 OK 0.0s  [1649s]
+2026-10-30  maiq -5.1289 ls +0.0e+00 OK 3.0s  pado -13.5690 ls +0.0e+00 OK 0.0s  cluster -13.1171 ls +0.0e+00 OK 0.0s  [1652s]
+{
+ "maiq": {
+  "months": 108,
+  "certified": 108,
+  "local_search_optimal": 108,
+  "max_ls_excess": 0.0,
+  "seconds_median": 10.341684103012085,
+  "seconds_max": 62.7610924243927
+ },
+ "pado": {
+  "months": 108,
+  "certified": 108,
+  "local_search_optimal": 105,
+  "max_ls_excess": 0.19047289150363866,
+  "seconds_median": 0.00634920597076416,
+  "seconds_max": 0.01504206657409668
+ },
+ "cluster": {
+  "months": 108,
+  "certified": 108,
+  "local_search_optimal": 108,
+  "max_ls_excess": 0.0,
+  "seconds_median": 0.006865262985229492,
+  "seconds_max": 0.015765905380249023
+ }
+}
