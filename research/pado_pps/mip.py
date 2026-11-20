@@ -6,6 +6,7 @@ Linearisation: binary x_i, continuous y_ij standing for x_i x_j on every pair wi
   Q_ij < 0: y_ij <= x_i, y_ij <= x_j
   dense Q (all pairs present): RLT equalities sum_{j != i} y_ij = (k - 1) x_i (multiply sum x = k
   by x_i); valid for any 0/1 point and much tighter in the LP relaxation.
+  sparse Q with rlt_sparse=True (hard.py): the same sum over i's neighbours only, as <= (k - 1) x_i.
   cluster constraint (bt.py "cluster"): at most one per cluster.
 The MILP is solved to mip_rel_gap = 0. Its x is rounded and G recomputed with numpy; that value
 must equal the MILP objective, and the reported dual bound must not exceed it.
@@ -38,7 +39,7 @@ def energy(T, lin, Q):
     return float(lin[T].sum() + Q[np.ix_(T, T)][np.triu_indices(len(T), 1)].sum())
 
 
-def solve(lin, Q, k, clusters=None, time_limit=3600.0):
+def solve(lin, Q, k, clusters=None, time_limit=3600.0, rlt_sparse=False):
     n = len(lin)
     iu, ju = np.triu_indices(n, 1)
     keep = Q[iu, ju] != 0.0
@@ -63,12 +64,12 @@ def solve(lin, Q, k, clusters=None, time_limit=3600.0):
         else:
             add([(y, 1.0), (i, -1.0)], -np.inf, 0.0)
             add([(y, 1.0), (j, -1.0)], -np.inf, 0.0)
-    if dense:
+    if dense or (rlt_sparse and k is not None):
         inc = [[] for _ in range(n)]
         for e, (i, j) in enumerate(zip(I, J)):
             inc[i].append(n + e); inc[j].append(n + e)
-        for i in range(n):
-            add([(y, 1.0) for y in inc[i]] + [(i, -(k - 1.0))], 0.0, 0.0)
+        for i in range(n):                              # sparse: sum over i's neighbours only, so <=
+            add([(y, 1.0) for y in inc[i]] + [(i, -(k - 1.0))], -np.inf if not dense else 0.0, 0.0)
     if clusters is not None:
         for cl in np.unique(clusters):
             add([(int(u), 1.0) for u in np.flatnonzero(clusters == cl)], -np.inf, 1.0)

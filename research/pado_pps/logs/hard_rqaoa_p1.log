@@ -1,0 +1,13 @@
+12 to run, engine p1
+N100_k15_corr_c_1.0_s16    p1     hit False sel 15/15 gap +5.40e-02 overlap 11/15 ising_lower False field/edge 75/15 115s (lambda 6s)
+N100_k15_rand_1.0_s4       p1     hit False sel 15/15 gap +1.22e-01 overlap 3/15 ising_lower False field/edge 74/16 118s (lambda 6s)
+N100_k15_cov_1.0_s16       p1     hit False sel 15/15 gap +1.79e-01 overlap 6/15 ising_lower False field/edge 74/16 119s (lambda 6s)
+N100_k15_rand_1.0_s16      p1     hit False sel 15/15 gap +4.05e-02 overlap 11/15 ising_lower False field/edge 75/15 132s (lambda 6s)
+N100_k15_corr_c_0.3_s16    p1     hit False sel 15/15 gap +6.20e-02 overlap 11/15 ising_lower False field/edge 75/15 135s (lambda 6s)
+N150_k15_rand_0.3_s16      p1     hit False sel 15/15 gap +6.64e-02 overlap 12/15 ising_lower False field/edge 125/15 825s (lambda 9s)
+N150_k6_corr_c_1.0_s4      p1     hit False sel 6/6 gap +5.30e-03 overlap 4/6 ising_lower False field/edge 137/3 945s (lambda 3s)
+N150_k15_cov_1.0_s16       p1     hit False sel 15/15 gap +1.81e-01 overlap 6/15 ising_lower False field/edge 125/15 1041s (lambda 8s)
+N150_k15_corr_c_0.3_s4     p1     hit False sel 15/15 gap +2.26e-02 overlap 12/15 ising_lower False field/edge 125/15 1054s (lambda 8s)
+N150_k15_cov_1.0_s4        p1     hit False sel 15/15 gap +4.85e-02 overlap 10/15 ising_lower False field/edge 125/15 1072s (lambda 8s)
+N150_k15_rand_1.0_s4       p1     hit False sel 15/15 gap +5.54e-02 overlap 6/15 ising_lower False field/edge 125/15 1088s (lambda 9s)
+N150_k6_corr_c_1.0_s16     p1     hit False sel 46/6 gap -3.91e+00 overlap 1/6 ising_lower False field/edge 114/26 1148s (lambda 3s)
