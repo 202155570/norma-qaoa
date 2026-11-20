@@ -1,1 +1,3 @@
 N100_k4        n=100 p=2 pps8  E -282.9015  GS -282.9015  hit True  gap -2.01e-16  sel 6/6  field/edge 81/9  maxdeg 3  725s
+N150_k1        n=150 p=2 ppsr8  E -198.1783  GS -198.1783  hit True  gap 2.87e-16  sel 6/6  field/edge 128/12  maxdeg 3  1203s
+N150_k4        n=150 p=2 ppsr8  E -473.6658  GS -473.6658  hit True  gap -1.20e-16  sel 6/6  field/edge 132/8  maxdeg 3  1531s
