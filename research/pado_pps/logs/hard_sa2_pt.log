@@ -1,0 +1,12 @@
+N150_k6_corr_c_1.0_s16     pt         hit False share 0.00 feasible 1.00 gap +3.85e-02 13s
+N100_k15_rand_1.0_s4       pt         hit False share 0.00 feasible 1.00 gap +3.92e-02 10s
+N100_k15_rand_1.0_s16      pt         hit False share 0.00 feasible 1.00 gap +9.57e-02 10s
+N150_k15_rand_1.0_s4       pt         hit False share 0.00 feasible 1.00 gap +7.81e-02 15s
+N150_k15_cov_1.0_s16       pt         hit True  share 1.00 feasible 1.00 gap +0.00e+00 15s
+N100_k15_corr_c_1.0_s16    pt         hit False share 0.00 feasible 1.00 gap +5.30e-02 10s
+N150_k15_corr_c_0.3_s4     pt         hit False share 0.00 feasible 1.00 gap +5.32e-02 15s
+N150_k15_rand_0.3_s16      pt         hit False share 0.00 feasible 1.00 gap +1.06e-02 15s
+N100_k15_corr_c_0.3_s16    pt         hit False share 0.00 feasible 1.00 gap +6.56e-02 10s
+N100_k15_cov_1.0_s16       pt         hit True  share 1.00 feasible 1.00 gap +0.00e+00 10s
+N150_k6_corr_c_1.0_s4      pt         hit False share 0.00 feasible 1.00 gap +2.12e-02 13s
+N150_k15_cov_1.0_s4        pt         hit False share 0.00 feasible 1.00 gap +2.72e-02 14s

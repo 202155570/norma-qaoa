@@ -9,3 +9,4 @@ SHA256SUMS
 .venv-ibm/
 rawold/
 prices_old.json
+.venv-dwave/

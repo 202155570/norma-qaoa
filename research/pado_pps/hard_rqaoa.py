@@ -23,7 +23,13 @@ Methods (same recursion of rqaoa.rqaoa, last NC = 10 variables enumerated):
   p1      RQAOA p = 1, closed-form correlations (exact for any coupling density)
   seqfix  the coefficients instead of correlations (compare.Coef): the classical counterpart
   ppsr    RQAOA p = 1 with padopauli (PPSReuse, weight cut w; GPU with PADO_PRESET=gpu)
-argv: run <out.jsonl> <engine> <workers> <linear|quad> [w] [keys,...]
+  <engine>+k     the count-aware recursion of rqaoa_k.py (A): only moves that keep exactly k reachable
+  <engine>+kb<b> the same with a beam of b paths (A + B), best path by G
+  xy      XY-mixer QAOA from the Dicke state, depth 1, exact (xyqaoa.py), field-only RQAOA keeping the count;
+          penalty none (the mixer keeps the count)
+  xycoef  the same recursion with M_u = -(h_u - mean h): classical counterpart of xy
+penalty none (argv): no penalty term (only with +k: the recursion itself keeps the count).
+argv: run <out.jsonl> <engine> <workers> <linear|quad|none> [w] [keys,...]
 """
 
 import json
@@ -60,7 +66,8 @@ def swap_f(lin, Q, m, rng, starts=300):
 
 
 def run_one(args):
-    ref, eng_kind, w, pen = args
+    ref, eng_full, w, pen = args
+    eng_kind, _, mode = eng_full.partition("+")
     import torch
     torch.set_num_threads(int(os.environ.get("HR_THREADS", "1")))
     import rqaoa as R
@@ -71,18 +78,18 @@ def run_one(args):
     t0 = time.time()
     rng = np.random.default_rng([N, k, 99])
     f = {0: 0.0, k: G_opt}
-    for m in range(1, min(N - 1, 2 * k + 10) + 1):
+    for m in (range(1, min(N - 1, 2 * k + 10) + 1) if pen != "none" else ()):
         if m != k:
             f[m] = swap_f(lin, Q, m, rng)
     if pen == "quad":
         for m in range(2 * k + 15, N, 5):
             f[m] = swap_f(lin, Q, m, rng, 30)
         f[N] = float(lin.sum() + Q.sum() / 2.0)
-    lo = max((f[k] - f[m]) / (m - k) for m in f if m > k)
-    hi = min((f[m] - f[k]) / (k - m) for m in f if m < k)
+    lo = max([(f[k] - f[m]) / (m - k) for m in f if m > k], default=None)
+    hi = min([(f[m] - f[k]) / (k - m) for m in f if m < k], default=None)
     lam_s = time.time() - t0
     row = {"key": ref["key"], "N": N, "k": k, "family": ref["family"], "density": ref["density"],
-           "strength": ref["strength"], "engine": eng_kind, "w": w, "penalty": pen, "G_opt": G_opt,
+           "strength": ref["strength"], "engine": eng_full, "w": w, "penalty": pen, "G_opt": G_opt,
            "milp_seconds": ref["milp_seconds"], "lambda_interval": [lo, hi], "lambda_seconds": lam_s}
     iu = np.triu_indices(N, 1)
     if pen == "linear":
@@ -90,18 +97,38 @@ def run_one(args):
             row.update(status="no_lambda")
             return row
         lam = 0.5 * (lo + hi); lin_p, Q_p = lin + lam, Q
+    elif pen == "none":
+        assert mode or eng_kind in ("xy", "xycoef"), "penalty none needs the count-aware recursion"
+        lam = 0.0; lin_p, Q_p = lin, Q
     else:
         P = 2.0 * max(max((f[k] - f[m]) / (m - k) ** 2 for m in f if m != k), 1e-6)
         lam = P; lin_p = lin + P * (1 - 2 * k); Q_p = Q + 2.0 * P; np.fill_diagonal(Q_p, 0.0)
     h = -lin_p / 2.0 - Q_p.sum(1) / 4.0
     J = [(int(i), int(j), float(Q_p[i, j] / 4.0)) for i, j in zip(*iu) if Q_p[i, j] != 0.0]
-    if eng_kind == "seqfix":
+    if eng_kind in ("xy", "xycoef"):
+        make = None
+    elif eng_kind == "seqfix":
         from compare import Coef
         make = lambda n_, h_, E_, q: Coef(n_, h_, E_, q)
     else:
         make = R.engine_factory(eng_kind, w)
     t1 = time.time()
-    z, steps = R.rqaoa(h, J, 1, make)
+    if eng_kind in ("xy", "xycoef"):
+        import xyqaoa as X
+        assert pen == "none"
+        Jm = Q_p / 4.0
+        z, info = X.rqaoa_xy(h, Jm, k, mode="xy" if eng_kind == "xy" else "coef")
+        steps = []
+        row.update(info={"seconds": info["seconds"], "qaoa_steps": info["qaoa_steps"]}, xy_steps=info["steps"])
+    elif mode:
+        import rqaoa_k as RK
+        beam = int(mode[2:]) if mode.startswith("kb") else 1
+        assert mode in ("k", f"kb{beam}")
+        z, info = RK.rqaoa_k(h, J, k, 1, make, beam, score=lambda z_: hard.energy(sorted(np.flatnonzero(z_ < 0).tolist()), lin, Q))
+        steps = []
+        row.update(beam=beam, info=info)
+    else:
+        z, steps = R.rqaoa(h, J, 1, make)
     T = sorted(int(i) for i in np.flatnonzero(z < 0))
     G = hard.energy(T, lin, Q) if T else 0.0
     z_opt = np.ones(N); z_opt[T_opt] = -1.0
@@ -116,8 +143,8 @@ def run_one(args):
 
 def main(out, eng_kind, workers, pen, w, only):
     path = os.path.join(HERE, out)
-    done = {(json.loads(l)["key"], json.loads(l)["engine"]) for l in open(path)} if os.path.exists(path) else set()
-    todo = [(r, eng_kind, w, pen) for r in problems() if (r["key"], eng_kind) not in done and (not only or r["key"] in only)]
+    done = {(json.loads(l)["key"], json.loads(l)["engine"], json.loads(l)["penalty"]) for l in open(path)} if os.path.exists(path) else set()
+    todo = [(r, eng_kind, w, pen) for r in problems() if (r["key"], eng_kind, pen) not in done and (not only or r["key"] in only)]
     print(f"{len(todo)} to run, engine {eng_kind}", flush=True)
     with Pool(workers, maxtasksperchild=1) as pool, open(path, "a") as fo:
         for r in pool.imap_unordered(run_one, todo):
@@ -125,15 +152,15 @@ def main(out, eng_kind, workers, pen, w, only):
             if r["status"] != "ok":
                 print(f"{r['key']:26s} {r['status']} {r['lambda_interval']}", flush=True)
                 continue
-            print(f"{r['key']:26s} {eng_kind:6s} hit {r['hit']!s:5} sel {r['selected']}/{r['k']} gap {r['rel_gap']:+.2e} "
+            print(f"{r['key']:26s} {eng_kind:10s} {pen:5s} hit {r['hit']!s:5} sel {r['selected']}/{r['k']} gap {r['rel_gap']:+.2e} "
                   f"overlap {r['overlap']}/{r['k']} ising_lower {r['ising_lower_than_opt']} field/edge {r['n_field']}/{r['n_edge']} "
-                  f"{r['seconds']:.0f}s (lambda {r['lambda_seconds']:.0f}s)", flush=True)
+                  f"{r['seconds']:.0f}s (lambda {r['lambda_seconds']:.0f}s) {r.get('info', '')}", flush=True)
 
 
 if __name__ == "__main__":
     assert sys.argv[1] == "run"
     out, eng_kind, workers = sys.argv[2], sys.argv[3], int(sys.argv[4])
-    pen = sys.argv[5]; assert pen in ("linear", "quad")
+    pen = sys.argv[5]; assert pen in ("linear", "quad", "none")
     w = int(sys.argv[6]) if len(sys.argv) > 6 and sys.argv[6] != "-" else None
     only = sys.argv[7].split(",") if len(sys.argv) > 7 else None
     main(out, eng_kind, workers, pen, w, only)

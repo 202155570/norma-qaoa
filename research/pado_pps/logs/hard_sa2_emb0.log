@@ -1,0 +1,12 @@
+N150_k6_corr_c_1.0_s16     emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.27 43s
+N100_k15_rand_1.0_s4       emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.49 22s
+N100_k15_rand_1.0_s16      emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.48 23s
+N150_k15_rand_1.0_s4       emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.44 45s
+N150_k15_cov_1.0_s16       emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.41 45s
+N100_k15_corr_c_1.0_s16    emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.49 22s
+N150_k15_corr_c_0.3_s4     emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.45 44s
+N150_k15_rand_0.3_s16      emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.45 44s
+N100_k15_corr_c_0.3_s16    emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.49 22s
+N100_k15_cov_1.0_s16       emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.45 22s
+N150_k6_corr_c_1.0_s4      emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.27 43s
+N150_k15_cov_1.0_s4        emb_clean  hit False share 0.00 feasible 0.00 gap +nan breaks 0.44 45s

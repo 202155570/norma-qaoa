@@ -1,0 +1,119 @@
+12 to run, engine xy
+N100_k15_corr_c_0.3_s16    xy         none  hit False sel 15/15 gap +3.25e-01 overlap 6/15 ising_lower False field/edge 0/0 305s (lambda 0s) {'seconds': 305.2574872970581, 'qaoa_steps': 90}
+:0:rocdevice.cpp            :3587: 4006349128058 us:  Callback: Queue 0x72ad76e00000 aborting with error : HSA_STATUS_ERROR_EXCEPTION: An HSAIL operation resulted in a hardware exception. code: 0x1016
+terminate called after throwing an instance of 'c10::AcceleratorError'
+  what():  CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.
+Exception raised from SetDevice at /pytorch/c10/hip/HIPFunctions.cpp:334 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x72b7187691ed in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5209d (0x72b716cdb09d in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #2: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, unsigned int, bool) + 0xa93 (0x72b716cdab13 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #3: c10::cuda::SetDevice(signed char, bool) + 0x51 (0x72b716cdbe81 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #4: <unknown function> + 0x1289234 (0x72b6e1689234 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #5: <unknown function> + 0x16a401e (0x72b6e1aa401e in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #6: <unknown function> + 0x1dfa8a1 (0x72b702bfa8a1 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::copy_(at::Tensor&, at::Tensor const&, bool) + 0x57 (0x72b702bfcc77 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: at::_ops::copy_::call(at::Tensor&, at::Tensor const&, bool) + 0x18a (0x72b703a4db5a in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::native::_to_copy(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0x16ea (0x72b702f73e1a in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x31271ec (0x72b703f271ec in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #11: at::_ops::_to_copy::redispatch(c10::DispatchKeySet, at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0xe2 (0x72b70349bd82 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #12: <unknown function> + 0x2e855cb (0x72b703c855cb in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #13: at::_ops::_to_copy::redispatch(c10::DispatchKeySet, at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0xe2 (0x72b70349bd82 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #14: <unknown function> + 0x5236d8a (0x72b706036d8a in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #15: <unknown function> + 0x523724f (0x72b70603724f in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #16: at::_ops::_to_copy::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0x230 (0x72b703562c60 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #17: at::native::to(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, bool, std::optional<c10::MemoryFormat>) + 0xc4 (0x72b702f50974 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #18: <unknown function> + 0x3273e02 (0x72b704073e02 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #19: at::_ops::to_dtype_layout::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, bool, std::optional<c10::MemoryFormat>) + 0x256 (0x72b70372f056 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #20: <unknown function> + 0x45d3bb (0x72b71725d3bb in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #21: <unknown function> + 0x4c4ecb (0x72b7172c4ecb in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #22: .venv-rocm/bin/python() [0x551418]
+frame #23: PyObject_Vectorcall + 0x35 (0x5499b5 in .venv-rocm/bin/python)
+frame #24: _PyEval_EvalFrameDefault + 0xadf (0x5d710f in .venv-rocm/bin/python)
+frame #25: _PyObject_Call_Prepend + 0xc2 (0x54a802 in .venv-rocm/bin/python)
+frame #26: .venv-rocm/bin/python() [0x59e0ff]
+frame #27: .venv-rocm/bin/python() [0x599bd3]
+frame #28: _PyObject_MakeTpCall + 0x75 (0x548fb5 in .venv-rocm/bin/python)
+frame #29: _PyEval_EvalFrameDefault + 0xadf (0x5d710f in .venv-rocm/bin/python)
+frame #30: _PyObject_Call_Prepend + 0x18a (0x54a8ca in .venv-rocm/bin/python)
+frame #31: .venv-rocm/bin/python() [0x59e0ff]
+frame #32: .venv-rocm/bin/python() [0x599bd3]
+frame #33: _PyObject_MakeTpCall + 0x13e (0x54907e in .venv-rocm/bin/python)
+frame #34: _PyEval_EvalFrameDefault + 0xadf (0x5d710f in .venv-rocm/bin/python)
+frame #35: PyEval_EvalCode + 0x15b (0x5d55eb in .venv-rocm/bin/python)
+frame #36: .venv-rocm/bin/python() [0x608852]
+frame #37: .venv-rocm/bin/python() [0x6b50d3]
+frame #38: _PyRun_SimpleFileObject + 0x1aa (0x6b4e3a in .venv-rocm/bin/python)
+frame #39: _PyRun_AnyFileObject + 0x4f (0x6b4c6f in .venv-rocm/bin/python)
+frame #40: Py_RunMain + 0x3b5 (0x6bccd5 in .venv-rocm/bin/python)
+frame #41: Py_BytesMain + 0x2d (0x6bc7bd in .venv-rocm/bin/python)
+frame #42: <unknown function> + 0x2a1ca (0x72b72682a1ca in /lib/x86_64-linux-gnu/libc.so.6)
+frame #43: __libc_start_main + 0x8b (0x72b72682a28b in /lib/x86_64-linux-gnu/libc.so.6)
+frame #44: _start + 0x25 (0x657a05 in .venv-rocm/bin/python)
+
+N100_k15_cov_1.0_s16       xy         none  hit False sel 15/15 gap +8.57e-01 overlap 1/15 ising_lower False field/edge 0/0 481s (lambda 0s) {'seconds': 480.52657866477966, 'qaoa_steps': 90}
+N100_k15_rand_1.0_s16      xy         none  hit False sel 15/15 gap +2.99e-01 overlap 2/15 ising_lower False field/edge 0/0 484s (lambda 0s) {'seconds': 484.0459508895874, 'qaoa_steps': 90}
+N100_k15_corr_c_1.0_s16    xy         none  hit False sel 15/15 gap +1.75e-01 overlap 8/15 ising_lower False field/edge 0/0 491s (lambda 0s) {'seconds': 491.13442850112915, 'qaoa_steps': 90}
+N100_k15_rand_1.0_s4       xy         none  hit False sel 15/15 gap +7.94e-02 overlap 4/15 ising_lower False field/edge 0/0 500s (lambda 0s) {'seconds': 499.9080696105957, 'qaoa_steps': 90}
+N150_k15_corr_c_0.3_s4     xy         none  hit False sel 15/15 gap +3.25e-02 overlap 11/15 ising_lower False field/edge 0/0 916s (lambda 0s) {'seconds': 916.0954427719116, 'qaoa_steps': 140}
+N150_k6_corr_c_1.0_s4      xy         none  hit False sel 6/6 gap +6.23e-02 overlap 2/6 ising_lower False field/edge 0/0 1049s (lambda 0s) {'seconds': 1049.185290813446, 'qaoa_steps': 140}
+:0:rocdevice.cpp            :3587: 4006970259238 us:  Callback: Queue 0x72ad84200000 aborting with error : HSA_STATUS_ERROR_EXCEPTION: An HSAIL operation resulted in a hardware exception. code: 0x1016
+terminate called after throwing an instance of 'c10::AcceleratorError'
+  what():  CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.
+Exception raised from SetDevice at /pytorch/c10/hip/HIPFunctions.cpp:334 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x72b7187691ed in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5209d (0x72b716cdb09d in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #2: c10::cuda::c10_cuda_check_implementation(int, char const*, char const*, unsigned int, bool) + 0xa93 (0x72b716cdab13 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #3: c10::cuda::SetDevice(signed char, bool) + 0x51 (0x72b716cdbe81 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #4: <unknown function> + 0x1289234 (0x72b6e1689234 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #5: <unknown function> + 0x16a401e (0x72b6e1aa401e in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #6: <unknown function> + 0x1dfa8a1 (0x72b702bfa8a1 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::native::copy_(at::Tensor&, at::Tensor const&, bool) + 0x57 (0x72b702bfcc77 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: at::_ops::copy_::call(at::Tensor&, at::Tensor const&, bool) + 0x18a (0x72b703a4db5a in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: at::native::_to_copy(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0x16ea (0x72b702f73e1a in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x31271ec (0x72b703f271ec in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #11: at::_ops::_to_copy::redispatch(c10::DispatchKeySet, at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0xe2 (0x72b70349bd82 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #12: <unknown function> + 0x2e855cb (0x72b703c855cb in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #13: at::_ops::_to_copy::redispatch(c10::DispatchKeySet, at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0xe2 (0x72b70349bd82 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #14: <unknown function> + 0x5236d8a (0x72b706036d8a in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #15: <unknown function> + 0x523724f (0x72b70603724f in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #16: at::_ops::_to_copy::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0x230 (0x72b703562c60 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #17: at::native::to(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, bool, std::optional<c10::MemoryFormat>) + 0xc4 (0x72b702f50974 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #18: <unknown function> + 0x3273e02 (0x72b704073e02 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #19: at::_ops::to_dtype_layout::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, bool, std::optional<c10::MemoryFormat>) + 0x256 (0x72b70372f056 in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #20: <unknown function> + 0x45d3bb (0x72b71725d3bb in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #21: <unknown function> + 0x4c4ecb (0x72b7172c4ecb in /home/Tail/orca/workspaces/norma-qaoa/glassfish/research/pado_pps/.venv-rocm/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #22: .venv-rocm/bin/python() [0x551418]
+frame #23: PyObject_Vectorcall + 0x35 (0x5499b5 in .venv-rocm/bin/python)
+frame #24: _PyEval_EvalFrameDefault + 0xadf (0x5d710f in .venv-rocm/bin/python)
+frame #25: _PyObject_Call_Prepend + 0xc2 (0x54a802 in .venv-rocm/bin/python)
+frame #26: .venv-rocm/bin/python() [0x59e0ff]
+frame #27: .venv-rocm/bin/python() [0x599bd3]
+frame #28: _PyObject_MakeTpCall + 0x75 (0x548fb5 in .venv-rocm/bin/python)
+frame #29: _PyEval_EvalFrameDefault + 0xadf (0x5d710f in .venv-rocm/bin/python)
+frame #30: _PyObject_Call_Prepend + 0x18a (0x54a8ca in .venv-rocm/bin/python)
+frame #31: .venv-rocm/bin/python() [0x59e0ff]
+frame #32: .venv-rocm/bin/python() [0x599bd3]
+frame #33: _PyObject_MakeTpCall + 0x13e (0x54907e in .venv-rocm/bin/python)
+frame #34: _PyEval_EvalFrameDefault + 0xadf (0x5d710f in .venv-rocm/bin/python)
+frame #35: PyEval_EvalCode + 0x15b (0x5d55eb in .venv-rocm/bin/python)
+frame #36: .venv-rocm/bin/python() [0x608852]
+frame #37: .venv-rocm/bin/python() [0x6b50d3]
+frame #38: _PyRun_SimpleFileObject + 0x1aa (0x6b4e3a in .venv-rocm/bin/python)
+frame #39: _PyRun_AnyFileObject + 0x4f (0x6b4c6f in .venv-rocm/bin/python)
+frame #40: Py_RunMain + 0x3b5 (0x6bccd5 in .venv-rocm/bin/python)
+frame #41: Py_BytesMain + 0x2d (0x6bc7bd in .venv-rocm/bin/python)
+frame #42: <unknown function> + 0x2a1ca (0x72b72682a1ca in /lib/x86_64-linux-gnu/libc.so.6)
+frame #43: __libc_start_main + 0x8b (0x72b72682a28b in /lib/x86_64-linux-gnu/libc.so.6)
+frame #44: _start + 0x25 (0x657a05 in .venv-rocm/bin/python)
+
+N150_k15_rand_1.0_s4       xy         none  hit False sel 15/15 gap +5.67e-02 overlap 10/15 ising_lower False field/edge 0/0 1089s (lambda 0s) {'seconds': 1088.671603679657, 'qaoa_steps': 140}
+N150_k6_corr_c_1.0_s16     xy         none  hit False sel 6/6 gap +2.68e-01 overlap 1/6 ising_lower False field/edge 0/0 1117s (lambda 0s) {'seconds': 1117.3688893318176, 'qaoa_steps': 140}
+N150_k15_cov_1.0_s4        xy         none  hit False sel 15/15 gap +5.97e-02 overlap 8/15 ising_lower False field/edge 0/0 1133s (lambda 0s) {'seconds': 1133.2750244140625, 'qaoa_steps': 140}

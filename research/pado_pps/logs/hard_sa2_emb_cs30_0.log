@@ -1,0 +1,12 @@
+N150_k6_corr_c_1.0_s16     emb_cs30_clean hit False share 0.00 feasible 0.90 gap +1.38e-01 breaks 0.00 47s
+N100_k15_rand_1.0_s4       emb_cs30_clean hit False share 0.00 feasible 0.60 gap +1.90e-01 breaks 0.08 23s
+N100_k15_rand_1.0_s16      emb_cs30_clean hit False share 0.00 feasible 0.64 gap +3.26e-01 breaks 0.04 23s
+N150_k15_rand_1.0_s4       emb_cs30_clean hit False share 0.00 feasible 0.50 gap +1.48e-01 breaks 0.09 47s
+N150_k15_cov_1.0_s16       emb_cs30_clean hit False share 0.00 feasible 0.86 gap +6.11e-02 breaks 0.00 49s
+N100_k15_corr_c_1.0_s16    emb_cs30_clean hit False share 0.00 feasible 1.00 gap +1.22e-01 breaks 0.00 25s
+N150_k15_corr_c_0.3_s4     emb_cs30_clean hit False share 0.00 feasible 0.72 gap +1.39e-01 breaks 0.04 48s
+N150_k15_rand_0.3_s16      emb_cs30_clean hit False share 0.00 feasible 0.90 gap +1.44e-01 breaks 0.00 49s
+N100_k15_corr_c_0.3_s16    emb_cs30_clean hit False share 0.00 feasible 1.00 gap +1.06e-01 breaks 0.00 25s
+N100_k15_cov_1.0_s16       emb_cs30_clean hit False share 0.00 feasible 0.80 gap +2.52e-02 breaks 0.01 24s
+N150_k6_corr_c_1.0_s4      emb_cs30_clean hit False share 0.00 feasible 0.70 gap +9.35e-02 breaks 0.02 48s
+N150_k15_cov_1.0_s4        emb_cs30_clean hit False share 0.00 feasible 0.36 gap +1.11e-01 breaks 0.12 45s

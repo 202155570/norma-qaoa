@@ -1,0 +1,12 @@
+N150_k6_corr_c_1.0_s16     emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.27 44s
+N100_k15_rand_1.0_s4       emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.47 21s
+N100_k15_rand_1.0_s16      emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.47 22s
+N150_k15_rand_1.0_s4       emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.43 43s
+N150_k15_cov_1.0_s16       emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.42 45s
+N100_k15_corr_c_1.0_s16    emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.48 22s
+N150_k15_corr_c_0.3_s4     emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.45 45s
+N150_k15_rand_0.3_s16      emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.43 44s
+N100_k15_corr_c_0.3_s16    emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.48 22s
+N100_k15_cov_1.0_s16       emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.43 21s
+N150_k6_corr_c_1.0_s4      emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.28 45s
+N150_k15_cov_1.0_s4        emb_noise  hit False share 0.00 feasible 0.00 gap +nan breaks 0.44 45s
