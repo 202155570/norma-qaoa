@@ -1,0 +1,24 @@
+N150_k6_corr_c_1.0_s16     A1 hits p1+k:1 p1+k:1 p1+kb5:1 p1:0 seqfix+k:0 seqfix+k:1 seqfix+kb5:0 seqfix+kb5:1 seqfix:1 xy:1 xycoef:0
+                           A2 hit share uniform 0.76 (start gap 0.86) score 0.72 (start gap 0.66) qaoa_p1 0.79 (start gap 0.87) xy 0.80 (start gap 0.87)
+N100_k15_rand_1.0_s4       A1 hits p1+k:0 p1+k:0 p1+kb5:0 p1:0 seqfix+k:0 seqfix+k:0 seqfix+kb5:0 seqfix+kb5:1 seqfix:0 xy:0 xycoef:0
+                           A2 hit share uniform 0.26 (start gap 0.57) score 0.24 (start gap 0.39) qaoa_p1 0.25 (start gap 0.57) xy 0.22 (start gap 0.54)
+N100_k15_rand_1.0_s16      A1 hits p1+k:0 p1+k:0 p1+kb5:0 p1:0 seqfix+k:0 seqfix+k:0 seqfix+kb5:0 seqfix+kb5:0 seqfix:0 xy:0 xycoef:0
+                           A2 hit share uniform 0.04 (start gap 0.82) score 0.03 (start gap 0.78) qaoa_p1 0.04 (start gap 0.82) xy 0.04 (start gap 0.80)
+N150_k15_rand_1.0_s4       A1 hits p1+k:0 p1+k:0 p1+kb5:1 p1:0 seqfix+k:1 seqfix+k:0 seqfix+kb5:0 seqfix+kb5:0 seqfix:0 xy:0 xycoef:0
+                           A2 hit share uniform 0.26 (start gap 0.64) score 0.38 (start gap 0.47) qaoa_p1 0.26 (start gap 0.64) xy 0.26 (start gap 0.59)
+N150_k15_cov_1.0_s16       A1 hits p1+k:0 p1+k:1 p1+kb5:1 p1:1 seqfix+k:1 seqfix+k:1 seqfix+kb5:1 seqfix+kb5:1 seqfix:0 xy:0 xycoef:0
+                           A2 hit share uniform 0.91 (start gap 1.52) score 0.74 (start gap 0.97) qaoa_p1 0.86 (start gap 1.22) xy 0.94 (start gap 1.54)
+N100_k15_corr_c_1.0_s16    A1 hits p1+k:1 p1+k:1 p1+kb5:1 p1:1 ppsr:1 seqfix+k:1 seqfix+k:1 seqfix+kb5:1 seqfix+kb5:1 seqfix:1 xy:1 xycoef:1
+                           A2 hit share uniform 1.00 (start gap 0.80) score 1.00 (start gap 0.52) qaoa_p1 1.00 (start gap 0.78) xy 1.00 (start gap 0.77)
+N150_k15_corr_c_0.3_s4     A1 hits p1+k:0 p1+k:0 p1+kb5:1 p1:0 seqfix+k:1 seqfix+k:1 seqfix+kb5:0 seqfix+kb5:1 seqfix:1 xy:0 xycoef:1
+                           A2 hit share uniform 0.41 (start gap 0.58) score 0.55 (start gap 0.32) qaoa_p1 0.40 (start gap 0.58) xy 0.52 (start gap 0.51)
+N150_k15_rand_0.3_s16      A1 hits p1+k:1 p1+k:1 p1+kb5:1 p1:1 seqfix+k:1 seqfix+k:1 seqfix+kb5:1 seqfix+kb5:1 seqfix:1 xy:1 xycoef:1
+                           A2 hit share uniform 0.50 (start gap 0.78) score 0.41 (start gap 0.70) qaoa_p1 0.52 (start gap 0.78) xy 0.47 (start gap 0.77)
+N100_k15_corr_c_0.3_s16    A1 hits p1+k:0 p1+k:1 p1+kb5:1 p1:1 seqfix+k:1 seqfix+k:1 seqfix+kb5:1 seqfix+kb5:1 seqfix:1 xy:0 xycoef:1
+                           A2 hit share uniform 0.11 (start gap 0.71) score 0.35 (start gap 0.43) qaoa_p1 0.11 (start gap 0.70) xy 0.14 (start gap 0.69)
+N100_k15_cov_1.0_s16       A1 hits p1+k:1 p1+k:1 p1+kb5:1 p1:1 seqfix+k:1 seqfix+k:1 seqfix+kb5:1 seqfix+kb5:1 seqfix:0 xy:1 xycoef:1
+                           A2 hit share uniform 1.00 (start gap 1.58) score 1.00 (start gap 1.01) qaoa_p1 1.00 (start gap 1.28) xy 1.00 (start gap 1.49)
+N150_k6_corr_c_1.0_s4      A1 hits p1+k:1 p1+k:0 p1+kb5:0 p1:0 seqfix+k:0 seqfix+k:0 seqfix+kb5:0 seqfix+kb5:0 seqfix:0 xy:0 xycoef:0
+                           A2 hit share uniform 0.20 (start gap 0.68) score 0.23 (start gap 0.41) qaoa_p1 0.20 (start gap 0.66) xy 0.21 (start gap 0.62)
+N150_k15_cov_1.0_s4        A1 hits p1+k:1 p1+k:1 p1+kb5:1 p1:1 seqfix+k:1 seqfix+k:1 seqfix+kb5:1 seqfix+kb5:1 seqfix:1 xy:1 xycoef:1
+                           A2 hit share uniform 0.90 (start gap 0.72) score 0.95 (start gap 0.36) qaoa_p1 0.92 (start gap 0.70) xy 0.93 (start gap 0.59)
