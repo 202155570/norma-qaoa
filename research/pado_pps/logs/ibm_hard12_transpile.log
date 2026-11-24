@@ -1,0 +1,7 @@
+{"key": "N100_k15_corr_c_0.3_s16", "edges": 1485, "circuit": "xy", "target": "grid10x12", "routing": "sabre", "seconds": 1.0774965286254883, "cz": 10782, "depth_2q": 2459, "depth": 6508, "retained_est": 0.001391991254188788}
+{"key": "N100_k15_corr_c_0.3_s16", "edges": 1485, "circuit": "xy", "target": "FakeFez", "routing": "sabre", "seconds": 1.8787662982940674, "cz": 15486, "depth_2q": 2820, "depth": 7123, "retained_est": 7.896861996825277e-05}
+{"key": "N100_k15_corr_c_0.3_s16", "edges": 4950, "circuit": "std", "target": "grid10x12", "routing": "sabre", "seconds": 2.2337160110473633, "cz": 19478, "depth_2q": 2616, "depth": 7456, "retained_est": 6.916643149733412e-06}
+{"key": "N100_k15_corr_c_0.3_s16", "edges": 4950, "circuit": "std", "target": "FakeFez", "routing": "sabre", "seconds": 28.302042722702026, "cz": 15165, "depth_2q": 912, "depth": 2777, "retained_est": 9.604919978674287e-05}
+{"key": "any N=100", "edges": 4950, "circuit": "std", "target": "grid10x12", "routing": "line swap network", "seconds": 0.276660680770874, "cz": 14850, "depth_2q": 300, "depth": 1057, "retained_est": 0.00011639744186654195}
+{"key": "N100_k15_corr_c_1.0_s16", "edges": 4950, "circuit": "xy", "target": "grid10x12", "routing": "sabre", "seconds": 2.3070976734161377, "cz": 19760, "depth_2q": 2442, "depth": 6965, "retained_est": 5.8235530080892275e-06}
+{"key": "N100_k15_corr_c_1.0_s16", "edges": 4950, "circuit": "xy", "target": "FakeFez", "routing": "sabre", "seconds": 27.310364961624146, "cz": 16103, "depth_2q": 1032, "depth": 3148, "retained_est": 5.419998100391545e-05}

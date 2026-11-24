@@ -1,0 +1,15 @@
+N=16 k=4 rand   s4    seed 0  D=1820  q=0.812  p1: P(opt) 8.35e-03 amp 15 hyb 0.76  p2: P(opt) 2.40e-02 amp 44 hyb 0.70  p3: P(opt) 4.23e-02 amp 77 hyb 0.81  9s
+N=16 k=4 rand   s4    seed 1  D=1820  q=0.689  p1: P(opt) 1.09e-02 amp 20 hyb 0.62  p2: P(opt) 4.52e-02 amp 82 hyb 0.68  p3: P(opt) 1.36e-01 amp 248 hyb 0.76  10s
+N=16 k=4 rand   s4    seed 2  D=1820  q=0.774  p1: P(opt) 1.23e-02 amp 22 hyb 0.71  p2: P(opt) 3.31e-02 amp 60 hyb 0.79  p3: P(opt) 8.85e-02 amp 161 hyb 0.89  10s
+N=16 k=4 rand   s4    seed 3  D=1820  q=0.735  p1: P(opt) 1.10e-02 amp 20 hyb 0.71  p2: P(opt) 2.59e-02 amp 47 hyb 0.78  p3: P(opt) 5.74e-02 amp 105 hyb 0.86  11s
+N=16 k=4 rand   s4    seed 4  D=1820  q=0.801  p1: P(opt) 1.00e-02 amp 18 hyb 0.86  p2: P(opt) 3.63e-02 amp 66 hyb 0.79  p3: P(opt) 8.03e-02 amp 146 hyb 0.88  7s
+N=20 k=5 rand   s4    seed 0  D=15504  q=0.515  p1: P(opt) 5.47e-03 amp 85 hyb 0.56  p2: P(opt) 1.71e-02 amp 265 hyb 0.44  p3: P(opt) 2.80e-02 amp 435 hyb 0.43  34s
+N=20 k=5 rand   s4    seed 1  D=15504  q=0.283  p1: P(opt) 2.37e-03 amp 37 hyb 0.28  p2: P(opt) 9.55e-03 amp 148 hyb 0.28  p3: P(opt) 1.92e-02 amp 298 hyb 0.29  32s
+N=20 k=5 rand   s4    seed 2  D=15504  q=0.798  p1: P(opt) 4.33e-03 amp 67 hyb 0.79  p2: P(opt) 2.72e-02 amp 422 hyb 0.91  p3: P(opt) 7.40e-02 amp 1148 hyb 0.92  34s
+N=20 k=5 rand   s4    seed 3  D=15504  q=0.962  p1: P(opt) 3.32e-03 amp 51 hyb 0.95  p2: P(opt) 2.14e-02 amp 331 hyb 0.97  p3: P(opt) 8.84e-02 amp 1370 hyb 0.99  35s
+N=20 k=5 rand   s4    seed 4  D=15504  q=0.772  p1: P(opt) 3.86e-03 amp 60 hyb 0.72  p2: P(opt) 1.32e-02 amp 204 hyb 0.73  p3: P(opt) 3.37e-02 amp 523 hyb 0.82  37s
+N=24 k=6 rand   s4    seed 0  D=134596  q=0.391  p1: P(opt) 4.87e-04 amp 66 hyb 0.28  p2: P(opt) 2.94e-03 amp 395 hyb 0.28  p3: P(opt) 7.91e-03 amp 1064 hyb 0.32  779s
+N=24 k=6 rand   s4    seed 1  D=134596  q=0.678  p1: P(opt) 8.56e-04 amp 115 hyb 0.66  p2: P(opt) 4.11e-03 amp 553 hyb 0.68  p3: P(opt) 1.08e-02 amp 1452 hyb 0.62  715s
+N=24 k=6 rand   s4    seed 2  D=134596  q=0.490  p1: P(opt) 7.05e-04 amp 95 hyb 0.54  p2: P(opt) 2.64e-03 amp 356 hyb 0.55  p3: P(opt) 6.84e-03 amp 921 hyb 0.54  1201s
+N=24 k=6 rand   s4    seed 3  D=134596  q=0.644  p1: P(opt) 1.29e-03 amp 174 hyb 0.65  p2: P(opt) 1.17e-02 amp 1574 hyb 0.70  p3: P(opt) 3.28e-02 amp 4408 hyb 0.77  829s
+N=24 k=6 rand   s4    seed 4  D=134596  q=1.000  p1: P(opt) 1.70e-03 amp 229 hyb 1.00  p2: P(opt) 1.45e-02 amp 1946 hyb 1.00  p3: P(opt) 3.88e-02 amp 5222 hyb 1.00  1176s

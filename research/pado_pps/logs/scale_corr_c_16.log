@@ -1,0 +1,15 @@
+N=16 k=4 corr_c s16   seed 0  D=1820  q=1.000  p1: P(opt) 7.74e-03 amp 14 hyb 1.00  p2: P(opt) 4.37e-02 amp 80 hyb 1.00  p3: P(opt) 9.72e-02 amp 177 hyb 1.00  9s
+N=16 k=4 corr_c s16   seed 1  D=1820  q=0.429  p1: P(opt) 5.73e-03 amp 10 hyb 0.49  p2: P(opt) 9.67e-03 amp 18 hyb 0.43  p3: P(opt) 1.13e-02 amp 21 hyb 0.42  9s
+N=16 k=4 corr_c s16   seed 2  D=1820  q=0.726  p1: P(opt) 1.28e-02 amp 23 hyb 0.81  p2: P(opt) 2.98e-02 amp 54 hyb 0.76  p3: P(opt) 8.43e-02 amp 153 hyb 0.82  7s
+N=16 k=4 corr_c s16   seed 3  D=1820  q=1.000  p1: P(opt) 1.68e-02 amp 31 hyb 1.00  p2: P(opt) 3.44e-02 amp 63 hyb 1.00  p3: P(opt) 7.84e-02 amp 143 hyb 1.00  16s
+N=16 k=4 corr_c s16   seed 4  D=1820  q=1.000  p1: P(opt) 3.23e-02 amp 59 hyb 1.00  p2: P(opt) 1.02e-01 amp 186 hyb 1.00  p3: P(opt) 1.77e-01 amp 323 hyb 1.00  9s
+N=20 k=5 corr_c s16   seed 0  D=15504  q=0.636  p1: P(opt) 1.21e-03 amp 19 hyb 0.59  p2: P(opt) 2.09e-03 amp 32 hyb 0.58  p3: P(opt) 1.09e-02 amp 169 hyb 0.68  41s
+N=20 k=5 corr_c s16   seed 1  D=15504  q=1.000  p1: P(opt) 5.09e-03 amp 79 hyb 1.00  p2: P(opt) 2.52e-02 amp 391 hyb 1.00  p3: P(opt) 4.42e-02 amp 685 hyb 1.00  36s
+N=20 k=5 corr_c s16   seed 2  D=15504  q=1.000  p1: P(opt) 3.24e-03 amp 50 hyb 1.00  p2: P(opt) 1.41e-02 amp 218 hyb 1.00  p3: P(opt) 2.99e-02 amp 464 hyb 1.00  37s
+N=20 k=5 corr_c s16   seed 3  D=15504  q=0.863  p1: P(opt) 2.94e-03 amp 46 hyb 0.91  p2: P(opt) 9.76e-03 amp 151 hyb 0.92  p3: P(opt) 1.72e-02 amp 267 hyb 0.92  38s
+N=20 k=5 corr_c s16   seed 4  D=15504  q=1.000  p1: P(opt) 2.19e-03 amp 34 hyb 1.00  p2: P(opt) 4.28e-03 amp 66 hyb 1.00  p3: P(opt) 1.29e-02 amp 200 hyb 1.00  45s
+N=24 k=6 corr_c s16   seed 0  D=134596  q=0.620  p1: P(opt) 2.62e-04 amp 35 hyb 0.65  p2: P(opt) 6.22e-04 amp 84 hyb 0.64  p3: P(opt) 8.41e-04 amp 113 hyb 0.68  836s
+N=24 k=6 corr_c s16   seed 1  D=134596  q=0.259  p1: P(opt) 1.95e-04 amp 26 hyb 0.29  p2: P(opt) 1.31e-03 amp 177 hyb 0.32  p3: P(opt) 1.73e-03 amp 233 hyb 0.27  969s
+N=24 k=6 corr_c s16   seed 2  D=134596  q=1.000  p1: P(opt) 2.77e-03 amp 373 hyb 1.00  p2: P(opt) 8.93e-03 amp 1203 hyb 1.00  p3: P(opt) 1.62e-02 amp 2185 hyb 1.00  1219s
+N=24 k=6 corr_c s16   seed 3  D=134596  q=1.000  p1: P(opt) 3.49e-03 amp 470 hyb 1.00  p2: P(opt) 1.10e-02 amp 1485 hyb 1.00  p3: P(opt) 1.61e-02 amp 2163 hyb 1.00  1352s
+N=24 k=6 corr_c s16   seed 4  D=134596  q=1.000  p1: P(opt) 5.47e-03 amp 736 hyb 1.00  p2: P(opt) 2.51e-02 amp 3379 hyb 1.00  p3: P(opt) 5.08e-02 amp 6832 hyb 1.00  905s
