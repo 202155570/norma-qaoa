@@ -4,8 +4,8 @@
 
 | 스크립트 | 만드는 파일 | 내용 |
 |---|---|---|
-| `achievements.js` | `qaoa_achievements_2026-11-19.pptx` (24장) | 성과 중심 발표 |
-| `research_report.js` | `qaoa_research_report_2026-11-19.pptx` (24장) | 사내 상세 보고 |
+| `achievements.js` | `qaoa_achievements_2026-11-19.pptx` (25장) | 성과 중심 발표 |
+| `research_report.js` | `qaoa_research_report_2026-11-19.pptx` (25장) | 사내 상세 보고 |
 | `baselines.js` | `qaoa_vs_baselines_2026-11-24.pptx` (13장) | 양자 방법과 대조군(무작위, 점수 상위 k개) 비교 |
 
 ## 다시 만들기
