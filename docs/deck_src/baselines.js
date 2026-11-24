@@ -74,12 +74,14 @@ function bullets(s, items, x, y, w, h, color = C.text2, size = 15) {
     { x, y, w, h, fontSize: size, color, margin: 0, valign: "top", isTextBox: true, objectName: "bullets" });
 }
 // table: rows of cells; a cell is a string or {t, c: "ok"|"hl"|"dim"}
-function table(s, header, rows, x, y, w, colW, size = 14, rowH = 0.42) {
+function table(s, header, rows, x, y, w, colW, size = 14, rowH = 0.42, opt = {}) {
   const tone = { ok: C.accent1, hl: C.accent2, dim: C.accent3 };
-  const hdr = header.map((h) => ({ text: h, options: { bold: true, fill: { color: C.accent5 }, color: C.text1 } }));
-  const body = rows.map((r) => r.map((c) => typeof c === "string"
-    ? { text: c, options: { color: C.text1 } }
-    : { text: c.t, options: { color: tone[c.c] } }));
+  const al = (j) => (opt.align ? opt.align[j] : "left");
+  const hdr = header.map((h, j) => ({ text: h, options: { bold: true, fill: { color: C.accent5 }, color: C.text1, align: al(j) } }));
+  const body = rows.map((r, i) => r.map((c, j) => {
+    const o = { align: al(j), ...(opt.fills && opt.fills[i] ? { fill: { color: opt.fills[i] } } : {}), ...(opt.bold && opt.bold[i] ? { bold: true } : {}) };
+    return typeof c === "string" ? { text: c, options: { color: C.text1, ...o } } : { text: c.t, options: { color: tone[c.c], ...o } };
+  }));
   s.addTable([hdr, ...body], { x, y, w, colW, fontSize: size, fontFace: THEME.bodyFontFace, border: { type: "solid", pt: 0.75, color: "C9CFD8" }, margin: [4, 8, 4, 8], valign: "middle", rowH, objectName: "table" });
 }
 function card(s, x, y, w, h, title, body, fill, tag) {
@@ -199,14 +201,14 @@ section("IBM 양자 하드웨어");
 }
 {
   const s = slide("CONTENT_ALT", "IBM 하드웨어 · 결합이 강한 문제 (N=20)", "좋은 해가 무작위보다 90~310배 자주 나왔다",
-    "결합 4배 N=20 인스턴스 3개, 각도는 padopauli w=5와 정확 학습, 보정 없는 원시 샷 10,000회. 무작위로 뽑으면 상위 0.1%에 드는 비율은 0.001. 출처: README.md §8",
+    "결합 4배 N=20 인스턴스 3개, 각도는 padopauli w=5와 정확 학습, 보정 없는 원시 샷 10,000회. 무작위로 뽑으면 상위 0.1%에 드는 비율은 0.1%. 출처: README.md §8",
     "종목 사이의 결합을 강하게 만든 문제입니다. 하드웨어 샘플의 9~31%가 에너지 상위 0.1%에 들었습니다. 무작위로 뽑으면 0.1%이므로 90~310배입니다. 10,000샷 중 정확한 최적해를 직접 맞힌 샷도 최대 13개로, 무작위 기대값 0.01개보다 훨씬 많았습니다.");
   const hw = [[0.10, 0.22, 0.18, 0.12], [0.10, 0.18, 0.16, 0.31], [0.09, 0.13, 0.16, 0.23]];
   s.addChart(pres.charts.BAR, [0, 1, 2].map((i) => ({ name: ["문제 s5", "문제 s10", "문제 s12"][i], labels: ["p=1", "p=2", "p=3", "p=4"], values: hw[i] })), {
     x: M, y: 1.9, w: 7.6, h: 4.85, barDir: "col", barGrouping: "clustered", barGapWidthPct: 55,
     chartColors: [THEME.colors.accent1, THEME.colors.accent4, "7F8A99"], ...chartBase(),
-    showTitle: true, title: "에너지 상위 0.1%에 든 샷 비율 (무작위 0.001)", dataLabelPosition: "outEnd", dataLabelFormatCode: "0.00",
-    valAxisMaxVal: 0.35, valAxisMinVal: 0, valAxisLabelFormatCode: "0.00", showLegend: true, objectName: "chart-hw-k4",
+    showTitle: true, title: "에너지 상위 0.1%에 든 샷 비율 (무작위 0.1%)", dataLabelPosition: "outEnd", dataLabelFormatCode: "0%",
+    valAxisMaxVal: 0.35, valAxisMinVal: 0, valAxisLabelFormatCode: "0%", showLegend: true, objectName: "chart-hw-k4",
   });
   const x = 8.55, w = W - M - x;
   stat(s, x, 2.0, w, 1.95, "90~310배", "상위 0.1%에 든 샷 비율, 무작위 대비", C.background1);
@@ -218,10 +220,10 @@ section("IBM 양자 하드웨어");
     "같은 작업(2026-11-09), 샷마다 6개로 보정. 이 실험의 무작위는 종목마다 50% 확률로 고른 뒤 보정한 것이라, 보정 단계가 사실상 탐욕 탐색을 한다. 출처: README.md §8.2",
     "같은 실험에서 큰 회로도 돌렸습니다. padopauli로 학습한 각도로 N=50과 N=100 회로를 실행했지만, 목적식 상위 1%에 든 샷의 비율은 점수 순 배정과 무작위가 더 높았습니다. N=100 회로는 2큐비트 게이트가 599개로 신호의 약 73%가 남았지만, 원시 샷이 최적해와 같았던 경우는 10,000샷 중 0이었습니다. 이 실험에서 좋은 해를 찾은 것은 양자 회로보다 6개로 고치는 보정 단계였습니다.");
   table(s, ["회로", "하드웨어 QAOA", "점수 순 배정", "무작위 + 보정"], [
-    ["N=20, p=1 / 2 / 3", { t: "0.36 / 0.45 / 0.54", c: "ok" }, "0.33 / 0.40 / 0.45", "0.26"],
-    ["N=50, p=1 / 2", { t: "0.36 / 0.39", c: "hl" }, "0.51 / 0.51", "0.92"],
-    ["N=100, p=1", { t: "0.77", c: "hl" }, "0.95", "1.00"],
-  ], M, 1.95, CW, [3.2, 3.0, 3.0, 2.93], 15, 0.55);
+    ["N=20, p=1 / 2 / 3", { t: "36% / 45% / 54%", c: "ok" }, "33% / 40% / 45%", "26%"],
+    ["N=50, p=1 / 2", { t: "36% / 39%", c: "hl" }, "51% / 51%", "92%"],
+    ["N=100, p=1", { t: "77%", c: "hl" }, "95%", "100%"],
+  ], M, 1.95, CW, [3.2, 3.0, 3.0, 2.93], 15, 0.55, { align: ["left", "center", "center", "center"] });
   bullets(s, [
     "값은 목적식 상위 1%에 든 샷의 비율이다. N=20에서만 하드웨어가 앞섰다.",
     "N=50·100에서 원시 샷이 최적해와 같았던 경우는 10,000샷 중 0이었다. 최선해는 보정 단계가 찾았다.",
@@ -242,7 +244,7 @@ section("RQAOA + padopauli");
     ["N=100, 결합 4배", { t: "최적 (p=2)", c: "ok" }, "12분", "최적 아님", "0 / 20회"],
     ["N=150, 결합 1배", { t: "최적 (p=2)", c: "ok" }, "20분", "최적 아님", "0 / 20회"],
     ["N=150, 결합 4배", { t: "최적 (p=2)", c: "ok" }, "26분", "최적 아님", "0 / 20회"],
-  ], M, 1.95, 8.3, [2.2, 1.9, 0.9, 1.5, 1.8], 14, 0.52);
+  ], M, 1.95, 8.3, [2.2, 1.9, 0.9, 1.5, 1.8], 14, 0.52, { align: ["left", "center", "right", "center", "center"] });
   const x = 9.25, w = W - M - x;
   stat(s, x, 2.0, w, 1.95, "6 / 6", "RQAOA + padopauli가 증명된 최적해에 도달한 문제 수", C.background1);
   stat(s, x, 4.2, w, 2.25, "0 / 6", "점수 순 선택, 무작위 1,000개 중 최고가 최적해를 고른 문제 수", C.background1, C.accent2);
@@ -287,23 +289,35 @@ section("이상적 양자 시뮬레이션");
 }
 {
   const s = slide("CONTENT", "큰 어려운 문제 · 문제별", "문제별로 봐도 양자 방법이 거의 모든 문제에서 앞섰다",
-    "갭(%) = (G − 최적값) / |최적값|. RQAOA p=1은 첫 문제에서 46개를 골라 실패했다. N100 k15 상관형 전체 ×16은 padopauli p=2(약 2시간)도 4.3%였다. 출처: hard.md 결과 4·5·8·11",
-    "열두 문제 각각의 갭입니다. RQAOA와 SQA는 12문제 모두에서 점수 순 선택보다 좋았고, RQAOA는 첫 문제를 빼면 무작위 10만 개 중 최고보다도 좋았습니다. 첫 문제(N=150, k=6, 결합 ×16)는 RQAOA가 약했던 문제로, 무작위 10만 개 중 최고(8.4%)가 RQAOA(45.9%)보다 좋았습니다.");
-  const rows = [
-    ["N150 k6 상관형 전체 ×16", "62.2", "15.3", "8.4", { t: "45.9", c: "hl" }, { t: "3.7", c: "ok" }],
-    ["N100 k15 무작위형 전체 ×4", "29.8", "33.8", "25.2", { t: "8.9", c: "ok" }, { t: "2.2", c: "ok" }],
-    ["N100 k15 무작위형 전체 ×16", "80.8", "52.5", "40.5", { t: "3.8", c: "ok" }, { t: "2.4", c: "ok" }],
-    ["N150 k15 무작위형 전체 ×4", "23.2", "41.1", "31.7", { t: "3.9", c: "ok" }, { t: "1.6", c: "ok" }],
-    ["N150 k15 공분산형 전체 ×16", "108.6", "47.6", "31.0", { t: "17.1", c: "ok" }, { t: "0.0", c: "ok" }],
-    ["N100 k15 상관형 전체 ×16", "16.6", "25.3", "15.5", { t: "4.3", c: "ok" }, { t: "3.7", c: "ok" }],
-    ["N150 k15 상관형 30% ×4", "5.7", "26.8", "18.2", { t: "1.3", c: "ok" }, { t: "2.7", c: "ok" }],
-    ["N150 k15 무작위형 30% ×16", "48.7", "54.9", "46.1", { t: "6.6", c: "ok" }, { t: "0.0", c: "ok" }],
-    ["N100 k15 상관형 30% ×16", "13.6", "27.1", "17.5", { t: "6.2", c: "ok" }, { t: "4.2", c: "ok" }],
-    ["N100 k15 공분산형 전체 ×16", "110.7", "43.7", "30.0", { t: "16.0", c: "ok" }, { t: "0.0", c: "ok" }],
-    ["N150 k6 상관형 전체 ×4", "34.0", "15.9", "7.1", { t: "0.4", c: "ok" }, { t: "2.9", c: "ok" }],
-    ["N150 k15 공분산형 전체 ×4", "19.2", "27.4", "18.8", { t: "4.3", c: "ok" }, { t: "1.2", c: "ok" }],
+    "갭(%) = (G − 최적값) / |최적값|. 상관형 N=150 k=6 ×16에서는 RQAOA p=1이 46개를 골라 실패해 벌점 없는 변형의 값(45.9)을 적었다. 상관형 N=100 k=15 전체 ×16은 padopauli p=2(약 2시간)도 4.3%였다. 출처: hard.md 결과 4·5·8·11",
+    "열두 문제 각각의 갭입니다. RQAOA와 SQA는 12문제 모두에서 점수 순 선택보다 좋았고, RQAOA는 한 문제를 빼면 무작위 10만 개 중 최고보다도 좋았습니다. 그 한 문제(상관형 N=150, k=6, ×16, 주황색)는 RQAOA가 약했던 문제로, 무작위 10만 개 중 최고(8.4%)가 RQAOA(45.9%)보다 좋았습니다.");
+  // gap (%) per problem; columns: family, N, k, density, strength | score, rand 1k, rand 100k, RQAOA best, SQA
+  const raw = [
+    ["상관형", 150, 6, "전체", 16, "62.2", "15.3", "8.4", "45.9", "3.7"],
+    ["무작위형", 100, 15, "전체", 4, "29.8", "33.8", "25.2", "8.9", "2.2"],
+    ["무작위형", 100, 15, "전체", 16, "80.8", "52.5", "40.5", "3.8", "2.4"],
+    ["무작위형", 150, 15, "전체", 4, "23.2", "41.1", "31.7", "3.9", "1.6"],
+    ["공분산형", 150, 15, "전체", 16, "108.6", "47.6", "31.0", "17.1", "0.0"],
+    ["상관형", 100, 15, "전체", 16, "16.6", "25.3", "15.5", "4.3", "3.7"],
+    ["상관형", 150, 15, "30%", 4, "5.7", "26.8", "18.2", "1.3", "2.7"],
+    ["무작위형", 150, 15, "30%", 16, "48.7", "54.9", "46.1", "6.6", "0.0"],
+    ["상관형", 100, 15, "30%", 16, "13.6", "27.1", "17.5", "6.2", "4.2"],
+    ["공분산형", 100, 15, "전체", 16, "110.7", "43.7", "30.0", "16.0", "0.0"],
+    ["상관형", 150, 6, "전체", 4, "34.0", "15.9", "7.1", "0.4", "2.9"],
+    ["공분산형", 150, 15, "전체", 4, "19.2", "27.4", "18.8", "4.3", "1.2"],
   ];
-  table(s, ["문제", "점수 순", "무작위 1천 최고", "무작위 10만 최고", "RQAOA 최선", "SQA"], rows, M, 1.75, CW, [4.0, 1.5, 1.75, 1.85, 1.6, 1.43], 12, 0.36);
+  const fam = ["공분산형", "상관형", "무작위형"];
+  raw.sort((a, b) => fam.indexOf(a[0]) - fam.indexOf(b[0]) || a[2] - b[2] || a[1] - b[1] || (a[3] === "30%" ? 0 : 1) - (b[3] === "30%" ? 0 : 1) || a[4] - b[4]);
+  const rows = raw.map((r) => [r[0], `N=${r[1]}`, `k=${r[2]}`, r[3], `×${r[4]}`, r[5], r[6], r[7],
+    { t: r[8], c: Number(r[8]) > Number(r[7]) ? "hl" : "ok" }, { t: r[9], c: "ok" }]);
+  rows.push(["중앙값", "", "", "", "", "31.9", "30.6", "22.0", { t: "5.2", c: "ok" }, { t: "2.3", c: "ok" }]);
+  const band = { 공분산형: C.background1, 상관형: C.background2, 무작위형: C.background1 };
+  const fills = raw.map((r) => band[r[0]]).concat([C.accent5]);
+  const bold = raw.map(() => false).concat([true]);
+  lead(s, "값은 최적값 대비 갭(%), 0이면 최적해. 무작위 열은 S개 중 최고. 쌍 항 종류 → k → N → 밀도 → 세기 순.");
+  table(s, ["쌍 항", "N", "k", "밀도", "세기", "점수 순", "무작위 1천", "무작위 10만", "RQAOA 최선", "SQA"], rows, M, 2.05, CW,
+    [1.3, 0.85, 0.75, 0.8, 0.75, 1.4, 1.6, 1.65, 1.6, 1.433], 12, 0.31,
+    { align: ["left", "right", "right", "center", "right", "right", "right", "right", "right", "right"], fills, bold });
 }
 
 // ---------------------------------------------------------------- 4. limits

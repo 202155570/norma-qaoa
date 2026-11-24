@@ -217,14 +217,14 @@ section("방법: 데이터에서 양자 회로까지");
 }
 {
   const s = slide("CONTENT", "IBM 하드웨어 · 결합이 강한 문제", "하드웨어에서도 깊은 회로일수록 좋은 해가 나왔다",
-    "결합 4배 N=20 인스턴스 3개, 보정 없는 원시 샷. 무작위로 뽑으면 0.001. 출처: README.md §8",
+    "결합 4배 N=20 인스턴스 3개, 보정 없는 원시 샷. 무작위로 뽑으면 상위 0.1%에 드는 비율은 0.1%. 출처: README.md §8",
     "결합을 키워 고전 탐욕법이 실패하는 문제입니다. 하드웨어 샘플의 9~31%가 에너지 상위 0.1%에 들었습니다. 무작위보다 90~310배 높고, 세 인스턴스 모두 p=1보다 깊은 회로가 나았습니다.");
   const hw = [[0.10, 0.22, 0.18, 0.12], [0.10, 0.18, 0.16, 0.31], [0.09, 0.13, 0.16, 0.23]];
   s.addChart(pres.charts.BAR, [0, 1, 2].map((i) => ({ name: ["s5", "s10", "s12"][i], labels: ["p=1", "p=2", "p=3", "p=4"], values: hw[i] })), {
     x: M, y: 1.9, w: 7.6, h: 4.75, barDir: "col", barGrouping: "clustered", barGapWidthPct: 55,
     chartColors: [THEME.colors.accent1, THEME.colors.accent4, "7F8A99"], ...chartBase(),
-    showTitle: true, title: "IBM 하드웨어: 에너지 상위 0.1%에 든 샷 비율", dataLabelPosition: "outEnd", dataLabelFormatCode: "0.00",
-    valAxisMaxVal: 0.35, valAxisLabelFormatCode: "0.00", showLegend: true, objectName: "chart-hw-k4",
+    showTitle: true, title: "IBM 하드웨어: 에너지 상위 0.1%에 든 샷 비율 (무작위 0.1%)", dataLabelPosition: "outEnd", dataLabelFormatCode: "0%",
+    valAxisMaxVal: 0.35, valAxisLabelFormatCode: "0%", showLegend: true, objectName: "chart-hw-k4",
   });
   const x = 8.55, w = W - M - x;
   stat(s, x, 2.0, w, 1.75, "90~310배", "무작위 샘플 대비 상위 0.1% 비율", C.background2);

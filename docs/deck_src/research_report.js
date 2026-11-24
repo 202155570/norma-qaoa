@@ -176,7 +176,7 @@ section("padopauli 학습, IBM 하드웨어, ma-QAOA");
   const s = slide("CONTENT", "IBM 하드웨어 · 결합 4배 문제", "깊이를 쌓는 효과는 하드웨어에도 남았지만 절반 정도다",
     "인스턴스 3개, 작업 1회. 출처: README.md §8",
     "양자 효과가 보인 유일한 경우지만 결합을 인위적으로 키운 문제이고, 이 크기에서는 고전 국소탐색이 훨씬 빠릅니다.");
-  lead(s, "N=20 인스턴스 3개, 보정 없는 원시 샷. 에너지 상위 0.1%에 든 비율 (무작위는 0.001).");
+  lead(s, "N=20 인스턴스 3개, 보정 없는 원시 샷. 에너지 상위 0.1%에 든 비율 (무작위는 0.1%).");
   // native clustered bar: mean over the 3 instances, hardware vs noiseless
   const hw = [[0.10, 0.22, 0.18, 0.12], [0.10, 0.18, 0.16, 0.31], [0.09, 0.13, 0.16, 0.23]];
   const nl = [[0.12, 0.42, 0.48, 0.34], [0.12, 0.31, 0.37, 0.71], [0.12, 0.21, 0.39, 0.53]];
@@ -189,17 +189,17 @@ section("padopauli 학습, IBM 하드웨어, ma-QAOA");
     chartColors: [THEME.colors.accent4, THEME.colors.accent1],
     showTitle: true, title: "인스턴스 3개 평균", titleFontSize: 14, titleColor: THEME.colors.dk1, titleFontFace: "+mn-lt",
     showValue: true, dataLabelPosition: "outEnd", dataLabelFontSize: 11, dataLabelColor: THEME.colors.dk2, dataLabelFontFace: "+mn-lt",
-    dataLabelFormatCode: "0.00",
+    dataLabelFormatCode: "0%",
     catAxisLabelColor: THEME.colors.accent3, valAxisLabelColor: THEME.colors.accent3, catAxisLabelFontSize: 12, valAxisLabelFontSize: 11,
-    catAxisLabelFontFace: "+mn-lt", valAxisLabelFontFace: "+mn-lt", valAxisMaxVal: 0.7, valAxisLabelFormatCode: "0.0",
+    catAxisLabelFontFace: "+mn-lt", valAxisLabelFontFace: "+mn-lt", valAxisMaxVal: 0.7, valAxisLabelFormatCode: "0%",
     valGridLine: { color: "E3E7ED", size: 0.75 }, catGridLine: { style: "none" },
     showLegend: true, legendPos: "b", legendFontSize: 12, legendColor: THEME.colors.dk2, legendFontFace: "+mn-lt",
     objectName: "chart-hw-k4",
   });
   table(s, ["인스턴스", "p=1", "p=2", "p=3", "p=4"], [
-    ["s5", "0.10/0.12", "0.22/0.42", "0.18/0.48", "0.12/0.34"],
-    ["s10", "0.10/0.12", "0.18/0.31", "0.16/0.37", "0.31/0.71"],
-    ["s12", "0.09/0.12", "0.13/0.21", "0.16/0.39", "0.23/0.53"],
+    ["s5", "10%/12%", "22%/42%", "18%/48%", "12%/34%"],
+    ["s10", "10%/12%", "18%/31%", "16%/37%", "31%/71%"],
+    ["s12", "9%/12%", "13%/21%", "16%/39%", "23%/53%"],
   ], 7.15, 2.3, 5.58, [0.9, 1.17, 1.17, 1.17, 1.17], 12);
   s.addText("칸: 하드웨어 / 노이즈 없는 계산", { x: 7.15, y: 4.12, w: 5.58, h: 0.3, fontSize: 11, color: C.accent3, margin: 0, isTextBox: true });
   bullets(s, [
